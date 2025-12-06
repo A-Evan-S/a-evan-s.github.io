@@ -1,5 +1,6 @@
 import os
 import shutil
+import markdown
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
@@ -18,7 +19,8 @@ def load_template():
 
 def render_page(md_path, template):
     with open(md_path, "r", encoding="utf-8") as f:
-        html_content = f.read()
+        md_text = f.read()
+    html_content = markdown.markdown(md_text)
     return template.replace("{{content}}", html_content)
 
 def build_pages(template):
