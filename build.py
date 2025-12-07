@@ -24,14 +24,20 @@ def render_page(md_path, template):
     return template.replace("{{content}}", html_content)
 
 def build_pages(template):
-    for filename in os.listdir(PAGES_DIR):
-        if filename.endswith(".md"):
-            md_path = os.path.join(PAGES_DIR, filename)
-            base = filename[:-3] + ".html"
-            out_path = os.path.join(DIST_DIR, base)
-            rendered = render_page(md_path, template)
-            with open(out_path, "w", encoding="utf-8") as f:
-                f.write(rendered)
+    for root, _, files in os.walk(PAGES_DIR):
+        rel = os.path.relpath(root, PAGES_DIR)
+        out_dir = os.path.join(DIST_DIR, rel)
+        os.makedirs(out_dir, exist_ok=True)
+
+        for filename in files:
+            if filename.endswith(".md"):
+                md_path = os.path.join(root, filename)
+                base = filename[:-3] + ".html"
+                out_path = os.path.join(out_dir, base)
+
+                rendered = render_page(md_path, template)
+                with open(out_path, "w", encoding="utf-8") as f:
+                    f.write(rendered)
 
 def copy_assets():
     if os.path.exists(ASSETS_DIR):
