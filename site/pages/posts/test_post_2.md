@@ -1,8 +1,8 @@
 ---
-title: Test Post 1
+title: Test Post 2
 date: 2024-12-07
 ---
 
-# This is a post
+# This is a post (also)
 
 With some text in it.

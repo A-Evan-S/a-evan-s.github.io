@@ -1,43 +1,96 @@
 import os
 import shutil
 import markdown
+import frontmatter
+import re
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
 TEMPLATES_DIR = os.path.join(SRC_DIR, "templates")
 ASSETS_DIR = os.path.join(SRC_DIR, "assets")
+POSTS_DIR = os.path.join(PAGES_DIR, "posts")
 DIST_DIR = "dist"
+
+def main():
+    clean_dist()
+    build_pages()
+    copy_assets()
+    copy_cname()
 
 def clean_dist():
     if os.path.exists(DIST_DIR):
         shutil.rmtree(DIST_DIR)
     os.makedirs(DIST_DIR)
+    posts_dir = os.path.join(DIST_DIR, 'posts')
+    os.makedirs(posts_dir)
 
-def load_template():
+def build_pages():
     with open(os.path.join(TEMPLATES_DIR, "main.html"), "r", encoding="utf-8") as f:
-        return f.read()
+        template = f.read()
 
-def render_page(md_path, template):
-    with open(md_path, "r", encoding="utf-8") as f:
-        md_text = f.read()
-    html_content = markdown.markdown(md_text)
-    return template.replace("{{content}}", html_content)
+    posts = load_posts()
+    for post in posts:
+        generate_post_page(template, post)
+    
+    generate_home_page(template, posts)
+    generate_about_page(template)
+    generate_post_index(template, posts)
 
-def build_pages(template):
-    for root, _, files in os.walk(PAGES_DIR):
-        rel = os.path.relpath(root, PAGES_DIR)
-        out_dir = os.path.join(DIST_DIR, rel)
-        os.makedirs(out_dir, exist_ok=True)
+def generate_post_index(template, posts):
+        out_path = os.path.join(DIST_DIR, 'posts.html')
+        html_content = '<ul>' + '\n'.join(make_post_entry(post) for post in posts) + '</ul>'
+        rendered = template.replace("{{content}}", html_content)
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(rendered)
 
-        for filename in files:
-            if filename.endswith(".md"):
-                md_path = os.path.join(root, filename)
-                base = filename[:-3] + ".html"
-                out_path = os.path.join(out_dir, base)
+def make_post_entry(post):
+    link = '/posts/' + post['slug'] + '.html'
+    return f'<li><a href="{link}">{post["title"]}</a></li>'
 
-                rendered = render_page(md_path, template)
-                with open(out_path, "w", encoding="utf-8") as f:
-                    f.write(rendered)
+def generate_home_page(template, posts):
+        md_path = os.path.join(PAGES_DIR, 'index.md')
+        out_path = os.path.join(DIST_DIR, 'index.html')
+        main_page = frontmatter.load(md_path)
+        html_content = markdown.markdown(main_page.content)
+        rendered = template.replace("{{content}}", html_content)
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(rendered)
+
+def generate_about_page(template):
+        md_path = os.path.join(PAGES_DIR, 'about.md')
+        out_path = os.path.join(DIST_DIR, 'about.html')
+        main_page = frontmatter.load(md_path)
+        html_content = markdown.markdown(main_page.content)
+        rendered = template.replace("{{content}}", html_content)
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(rendered)
+
+def load_posts():
+    posts = []
+    for filename in os.listdir(POSTS_DIR):
+        if filename.endswith(".md"):
+            md_path = os.path.join(POSTS_DIR, filename)
+            post = frontmatter.load(md_path)
+            post['slug'] = filename_from_title(post['title'])
+            posts.append(post)
+    return posts
+    
+def generate_post_page(template, post):
+    base = post['slug'] + ".html"
+    out_path = os.path.join(DIST_DIR, 'posts', base)
+    html_content = markdown.markdown(post.content)
+    rendered = template.replace("{{content}}", html_content)
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(rendered)
+
+def filename_from_title(title, max_length=50):
+    slug = title.lower()
+    slug = slug.replace(' ', '-').replace('_', '-')
+    slug = re.sub(r'[^a-z0-9-]', '', slug)
+    slug = re.sub(r'-+', '-', slug)
+    slug = slug.strip('-')
+    slug = slug[:max_length].rstrip('-')
+    return slug
 
 def copy_assets():
     if os.path.exists(ASSETS_DIR):
@@ -46,13 +99,6 @@ def copy_assets():
 def copy_cname():
     if os.path.exists("CNAME"):
         shutil.copy("CNAME", os.path.join(DIST_DIR, "CNAME"))
-
-def main():
-    clean_dist()
-    template = load_template()
-    build_pages(template)
-    copy_assets()
-    copy_cname()
 
 if __name__ == "__main__":
     main()
