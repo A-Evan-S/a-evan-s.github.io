@@ -3,9 +3,9 @@
 }
 
 nav {
-  width: 200px;  /* or whatever width you want */
+  width: 200px;
 }
 
 main {
-  flex: 1;  /* takes up remaining space */
+  flex: 1;
 }
