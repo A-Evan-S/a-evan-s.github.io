@@ -36,6 +36,11 @@ def build_pages():
     generate_home_page(template, posts)
     generate_about_page(template)
     generate_post_index(template, posts)
+    generate_404_page()
+
+def generate_404_page():
+     template_404 = os.path.join(TEMPLATES_DIR, '404.html')
+     shutil.copy(template_404, DIST_DIR)
 
 def generate_post_index(template, posts):
         out_path = os.path.join(DIST_DIR, 'posts.html')
