@@ -4,6 +4,7 @@ import markdown
 import frontmatter
 import re
 import latex2mathml.converter
+from bs4 import BeautifulSoup
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
@@ -46,8 +47,12 @@ def generate_post_index(template, posts):
         out_path = os.path.join(DIST_DIR, 'posts.html')
         html_content = '<ul>' + '\n'.join(make_post_entry(post) for post in posts) + '</ul>'
         rendered = template.replace("{{content}}", html_content)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(rendered)
+        write_html(out_path, rendered)
+
+def write_html(out_path, html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(soup.prettify())
 
 def make_post_entry(post):
     link = '/posts/' + post['slug'] + '.html'
@@ -59,8 +64,7 @@ def generate_home_page(template, posts):
         main_page = frontmatter.load(md_path)
         html_content = markdown.markdown(main_page.content, extensions=['fenced_code'])
         rendered = template.replace("{{content}}", html_content)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(rendered)
+        write_html(out_path, rendered)
 
 def generate_about_page(template):
         md_path = os.path.join(PAGES_DIR, 'about.md')
@@ -68,8 +72,7 @@ def generate_about_page(template):
         main_page = frontmatter.load(md_path)
         html_content = markdown.markdown(main_page.content, extensions=['fenced_code'])
         rendered = template.replace("{{content}}", html_content)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(rendered)
+        write_html(out_path, rendered)
 
 def load_posts():
     posts = []
@@ -94,8 +97,7 @@ def generate_post_page(template, post):
     out_path = os.path.join(DIST_DIR, 'posts', base)
     html_content = markdown.markdown(post.content, extensions=['fenced_code'])
     rendered = template.replace("{{content}}", html_content)
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(rendered)
+    write_html(out_path, rendered)
 
 def filename_from_title(title, max_length=50):
     slug = title.lower()
