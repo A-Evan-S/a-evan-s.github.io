@@ -8,13 +8,29 @@
   flex-wrap: wrap;
 }
 
+header {
+  margin: 20px 0;
+}
+
+#site-title {
+  font-size: 30px;
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+h1 {
+  margin: 0 0 20px 0;
+}
+
 nav {
-  flex-basis: 200px;
+  flex-basis: 175px;
 }
 
 main {
   flex: 1;
   min-width: 400px;
+  padding: 0 25px;
 }
 
 body {
@@ -49,4 +65,37 @@ pre code {
 math[display="block"] {
   font-size: 1.3em;
   margin: 20px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+nav li {
+  margin: 3px 0;
+  font-size: 1.1rem;
+}
+
+nav a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 3px;
+  transition: background-color 0.1s;
+}
+
+nav a:hover {
+  background-color: #f1f1f1;
+}
+
+nav .sublist {
+  padding-left: 15px;
+}
+
+nav .sublist a {
+  padding: 6px 10px;
+  font-size: 1rem;
 }
