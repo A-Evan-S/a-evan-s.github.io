@@ -1,10 +1,8 @@
 ---
 title: A very long post, both in title and in content to test what should be done in, quite frankly, ridiculous cases such as this
-date: 2024-12-08
+date: 2025-12-08
 summary: A very long post to test how the site handles overly long content
 ---
-
-# A very long post
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet ex a arcu malesuada volutpat ac vel metus. Vivamus auctor, tellus sed lobortis congue, ex lorem vestibulum velit, vel dignissim enim elit vel ligula. Curabitur egestas eget lectus in vehicula. Proin eget odio et dolor vestibulum semper. Fusce sit amet commodo est. Duis ullamcorper rhoncus libero. Cras at ultrices nibh. Proin convallis cursus lobortis. Maecenas sit amet pellentesque nunc. Quisque ultricies placerat mi ac dapibus. Ut consectetur libero tortor, a fermentum sem dictum id. Ut nec nunc augue. Ut mauris justo, posuere id malesuada sit amet, commodo nec enim. Duis sollicitudin vulputate ultrices. Nullam dolor urna, tincidunt nec odio nec, posuere consequat lacus. Proin ac ex nunc.
 

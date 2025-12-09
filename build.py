@@ -4,6 +4,7 @@ import markdown
 import frontmatter
 import re
 import latex2mathml.converter
+from datetime import datetime
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
@@ -98,7 +99,8 @@ def load_posts():
             post.content = re.sub(r'(?<!\\)\$([^\$]+)\$', convert_inline_math, post.content)
             post.content = post.content.replace(r'\$', '$')
             post['slug'] = filename_from_title(post['title'])
-            post["url"] = '/posts/' + post['slug'] + '.html'
+            post['url'] = '/posts/' + post['slug'] + '.html'
+            post['date'], '%Y-%m-%d'
             posts.append(post)
     return posts
 
@@ -111,7 +113,17 @@ def convert_inline_math(match):
 def generate_post_page(template, post):
     base = post['slug'] + ".html"
     out_path = os.path.join(DIST_DIR, 'posts', base)
+    date_obj = post['date']
+    iso_date = date_obj.isoformat()
+    display_date = date_obj.strftime('%B %d, %Y')
+    html_title = f'''
+    <div class="post-header">
+    <h1 class="post-title">{post["title"]}</h1>
+    <time class="post-date" datetime="{iso_date}">{display_date}</time>
+    </div>
+    '''
     html_content = markdown.markdown(post.content, extensions=['fenced_code', 'attr_list'])
+    html_content = html_title + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + post['title'])
     rendered = rendered.replace("{{description}}", post['summary'])

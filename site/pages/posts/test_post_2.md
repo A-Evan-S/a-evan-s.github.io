@@ -1,10 +1,8 @@
 ---
 title: Test Post 2
-date: 2024-12-07
+date: 2025-12-07
 summary: A second test post to test various formatting pieces
 ---
-
-# Test Post 2
 
 ## This is a post (also)
 
