@@ -19,6 +19,24 @@ header {
   color: #333;
 }
 
+main img {
+  display: block;
+  max-width: 100%;
+  margin: auto;
+}
+
+blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 15px;
+  margin-left: 35px;
+  color: #666;
+  font-style: italic;
+}
+
+blockquote blockquote {
+  margin-left: 0px;
+}
+
 h1 {
   margin: 0 0 20px 0;
 }
@@ -37,6 +55,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4;
   color: #333;
+  background-color: #f3f3f3;
 }
 
 pre {

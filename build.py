@@ -72,7 +72,7 @@ def generate_home_page(template, posts):
         md_path = os.path.join(PAGES_DIR, 'index.md')
         out_path = os.path.join(DIST_DIR, 'index.html')
         main_page = frontmatter.load(md_path)
-        html_content = markdown.markdown(main_page.content, extensions=['fenced_code'])
+        html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
         rendered = template.replace("{{content}}", html_content)
         rendered = rendered.replace("{{title}}", TITLE_ROOT)
         rendered = rendered.replace("{{description}}", 'Evan Schor\'s personal website')
@@ -82,7 +82,7 @@ def generate_about_page(template):
         md_path = os.path.join(PAGES_DIR, 'about.md')
         out_path = os.path.join(DIST_DIR, 'about.html')
         main_page = frontmatter.load(md_path)
-        html_content = markdown.markdown(main_page.content, extensions=['fenced_code'])
+        html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
         rendered = template.replace("{{content}}", html_content)
         rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
         rendered = rendered.replace("{{description}}", 'About Evan Schor')
@@ -111,7 +111,7 @@ def convert_inline_math(match):
 def generate_post_page(template, post):
     base = post['slug'] + ".html"
     out_path = os.path.join(DIST_DIR, 'posts', base)
-    html_content = markdown.markdown(post.content, extensions=['fenced_code'])
+    html_content = markdown.markdown(post.content, extensions=['fenced_code', 'attr_list'])
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + post['title'])
     rendered = rendered.replace("{{description}}", post['summary'])
