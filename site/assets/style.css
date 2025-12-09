@@ -8,6 +8,36 @@
   flex-wrap: wrap;
 }
 
+nav {
+  flex-basis: 175px;
+}
+
+@media (max-width: 900px) {
+  #nav-main-container {
+    flex-direction: column;
+  }
+  
+  nav {
+    flex-basis: auto;
+  }
+  
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px 0;
+  }
+    
+  nav .sublist {
+    display: none;
+  }
+}
+
+main {
+  flex: 1;
+  padding: 0 25px;
+}
+
 header {
   margin: 20px 0;
 }
@@ -43,16 +73,6 @@ blockquote blockquote {
 
 .post-date {
   color: #666;
-}
-
-nav {
-  flex-basis: 175px;
-}
-
-main {
-  flex: 1;
-  min-width: 400px;
-  padding: 0 25px;
 }
 
 body {
