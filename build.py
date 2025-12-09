@@ -12,6 +12,8 @@ ASSETS_DIR = os.path.join(SRC_DIR, "assets")
 POSTS_DIR = os.path.join(PAGES_DIR, "posts")
 DIST_DIR = "dist"
 
+TITLE_ROOT = 'evan.schor'
+
 def main():
     clean_dist()
     build_pages()
@@ -40,12 +42,15 @@ def build_pages():
 
 def generate_404_page():
      template_404 = os.path.join(TEMPLATES_DIR, '404.html')
+     template_404 = template_404.replace("{{title}}", TITLE_ROOT + ' | ' + '404')
      shutil.copy(template_404, DIST_DIR)
 
 def generate_post_index(template, posts):
         out_path = os.path.join(DIST_DIR, 'posts.html')
         html_content = '<ul>' + '\n'.join(make_post_entry(post) for post in posts) + '</ul>'
         rendered = template.replace("{{content}}", html_content)
+        rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'Posts')
+        rendered = rendered.replace("{{description}}", 'Posts listing')
         write_html(out_path, rendered)
 
 def write_html(out_path, html_content):
@@ -62,6 +67,8 @@ def generate_home_page(template, posts):
         main_page = frontmatter.load(md_path)
         html_content = markdown.markdown(main_page.content, extensions=['fenced_code'])
         rendered = template.replace("{{content}}", html_content)
+        rendered = rendered.replace("{{title}}", TITLE_ROOT)
+        rendered = rendered.replace("{{description}}", 'Evan Schor\'s personal website')
         write_html(out_path, rendered)
 
 def generate_about_page(template):
@@ -70,6 +77,8 @@ def generate_about_page(template):
         main_page = frontmatter.load(md_path)
         html_content = markdown.markdown(main_page.content, extensions=['fenced_code'])
         rendered = template.replace("{{content}}", html_content)
+        rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
+        rendered = rendered.replace("{{description}}", 'About Evan Schor')
         write_html(out_path, rendered)
 
 def load_posts():
@@ -96,6 +105,8 @@ def generate_post_page(template, post):
     out_path = os.path.join(DIST_DIR, 'posts', base)
     html_content = markdown.markdown(post.content, extensions=['fenced_code'])
     rendered = template.replace("{{content}}", html_content)
+    rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + post['title'])
+    rendered = rendered.replace("{{description}}", post['summary'])
     write_html(out_path, rendered)
 
 def filename_from_title(title, max_length=50):

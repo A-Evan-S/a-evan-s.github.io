@@ -1,6 +1,7 @@
 ---
 title: Test Post 2
 date: 2024-12-07
+summary: A second test post to test various formatting pieces
 ---
 
 # This is a post (also)
