@@ -33,6 +33,20 @@ nav {
   }
 }
 
+@media (max-width: 600px) {
+  .posts-list-entry .post-header {
+    flex-direction: column;
+  }
+  
+  .posts-list-entry .post-date {
+      flex-shrink: 0;
+      white-space: nowrap;
+      color: #666;
+      font-size: 0.9em;
+      margin: -15px 0 5px 0;
+  }
+}
+
 main {
   flex: 1;
   padding: 0 25px;
@@ -141,4 +155,48 @@ nav .sublist {
 nav .sublist a {
   padding: 6px 10px;
   font-size: 1rem;
+}
+
+.posts-list-entry {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 6px;
+}
+
+.posts-list-entry .post-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.posts-list-entry .post-title {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
+ .post-title a {
+    text-decoration: none;
+    color: inherit;
+ }
+
+
+.posts-list-entry .post-title:hover {
+    text-decoration: underline;
+}
+
+.posts-list-entry .post-date {
+    flex-shrink: 0;
+    white-space: nowrap;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.posts-list-entry .post-summary {
+    margin: 0;
+    color: #666;
 }

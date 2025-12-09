@@ -56,7 +56,7 @@ def generate_404_page():
 
 def generate_post_index(template, posts):
         out_path = os.path.join(DIST_DIR, 'posts.html')
-        html_content = '<ul>' + '\n'.join(make_post_entry(post) for post in posts) + '</ul>'
+        html_content = '<h1 class="post-title">Posts</h1>' + '\n'.join(make_post_entry(post) for post in posts)
         rendered = template.replace("{{content}}", html_content)
         rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'Posts')
         rendered = rendered.replace("{{description}}", 'Posts listing')
@@ -67,7 +67,20 @@ def write_html(out_path, html_content):
         f.write(html_content)
 
 def make_post_entry(post):
-    return f'<li><a href="{post["url"]}">{post["title"]}</a></li>'
+    date_obj = post['date']
+    iso_date = date_obj.isoformat()
+    display_date = date_obj.strftime('%B %d, %Y')
+    post_entry = f'''
+    <div class="posts-list-entry">
+        <div class="post-header">
+            <h3 class="post-title"><a href="{post["url"]}">{post["title"]}</a></h3>
+            <time class="post-date" datetime="{iso_date}">{display_date}</time>
+        </div>
+        <p class="post-summary">{post["summary"]}</p>
+    </div>
+    '''
+    return post_entry
+# href="{post["url"]}" 
 
 def generate_home_page(template, posts):
         md_path = os.path.join(PAGES_DIR, 'index.md')
