@@ -4,9 +4,7 @@ date: 2025-12-07
 summary: A second test post to test various formatting pieces
 ---
 
-## This is a post (also)
-
-With some text in it.
+This is a post (also) With some text in it.
 
 Which tests what `markdown` does with codeblocks:
 
@@ -26,6 +24,14 @@ We also need to test larger lines of text so here we go: Lorem ipsum dolor sit a
 Lastly, we'll need some links, both to [other pages on this site](/posts.html), and to [other websites](https://www.wikipedia.org/), as well as just raw links like https://www.wikipedia.org/ without any markdown.
 
 We should also test basic markdown things like *italics* **bolding**
+
+# Headers
+
+## Of Various
+
+### Different
+
+#### Sizes
 
 > Blockquotes
 >> And nested quotes?
