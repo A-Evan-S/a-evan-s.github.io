@@ -32,6 +32,8 @@ def build_pages():
         template = f.read()
 
     posts = load_posts()
+    template = add_recent_posts_to_template(template, posts)
+
     for post in posts:
         generate_post_page(template, post)
     
@@ -39,6 +41,12 @@ def build_pages():
     generate_about_page(template)
     generate_post_index(template, posts)
     generate_404_page()
+
+def add_recent_posts_to_template(template, posts):
+     post_elements = []
+     for post in posts:
+          post_elements.append(f'<li><a href="{post["url"]}">{post["title"]}</a></li>')
+     return template.replace('{{recent-posts}}', '\n'.join(post_elements))
 
 def generate_404_page():
      template_404 = os.path.join(TEMPLATES_DIR, '404.html')
@@ -58,8 +66,7 @@ def write_html(out_path, html_content):
         f.write(html_content)
 
 def make_post_entry(post):
-    link = '/posts/' + post['slug'] + '.html'
-    return f'<li><a href="{link}">{post["title"]}</a></li>'
+    return f'<li><a href="{post["url"]}">{post["title"]}</a></li>'
 
 def generate_home_page(template, posts):
         md_path = os.path.join(PAGES_DIR, 'index.md')
@@ -91,6 +98,7 @@ def load_posts():
             post.content = re.sub(r'(?<!\\)\$([^\$]+)\$', convert_inline_math, post.content)
             post.content = post.content.replace(r'\$', '$')
             post['slug'] = filename_from_title(post['title'])
+            post["url"] = '/posts/' + post['slug'] + '.html'
             posts.append(post)
     return posts
 
