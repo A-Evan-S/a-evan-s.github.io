@@ -1,4 +1,3 @@
 markdown
 python-frontmatter
 latex2mathml
-beautifulsoup4

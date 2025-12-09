@@ -4,7 +4,6 @@ import markdown
 import frontmatter
 import re
 import latex2mathml.converter
-from bs4 import BeautifulSoup
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
@@ -50,9 +49,8 @@ def generate_post_index(template, posts):
         write_html(out_path, rendered)
 
 def write_html(out_path, html_content):
-    soup = BeautifulSoup(html_content, 'html.parser')
     with open(out_path, "w", encoding="utf-8") as f:
-        f.write(soup.prettify())
+        f.write(html_content)
 
 def make_post_entry(post):
     link = '/posts/' + post['slug'] + '.html'
@@ -80,8 +78,9 @@ def load_posts():
         if filename.endswith(".md"):
             md_path = os.path.join(POSTS_DIR, filename)
             post = frontmatter.load(md_path)
-            post.content = re.sub(r'\$\$([^\$]*)\$\$', convert_block_math, post.content)
-            post.content = re.sub(r'\$([^\$]*)\$', convert_inline_math, post.content)
+            post.content = re.sub(r'(?<!\\)\$\$([^\$]+)\$\$', convert_block_math, post.content)
+            post.content = re.sub(r'(?<!\\)\$([^\$]+)\$', convert_inline_math, post.content)
+            post.content = post.content.replace(r'\$', '$')
             post['slug'] = filename_from_title(post['title'])
             posts.append(post)
     return posts

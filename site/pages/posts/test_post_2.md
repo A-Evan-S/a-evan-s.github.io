@@ -18,4 +18,4 @@ and with math $f(x) = 2 \cdot x$ inline and
 
 $$f(x) = 2 \cdot x$$
 
-blocks
+blocks. You also need to be able to share your \$0.02 about \$\$\$.
