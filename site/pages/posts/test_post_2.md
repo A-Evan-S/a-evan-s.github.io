@@ -4,7 +4,9 @@ date: 2024-12-07
 summary: A second test post to test various formatting pieces
 ---
 
-# This is a post (also)
+# Test Post 2
+
+## This is a post (also)
 
 With some text in it.
 

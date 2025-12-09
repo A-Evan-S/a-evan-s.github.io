@@ -4,6 +4,8 @@ date: 2024-12-07
 summary: A first test post to test site builder
 ---
 
-# This is a post
+# Test Post 1
+
+## This is a post
 
 With some text in it.
