@@ -89,7 +89,6 @@ def make_post_entry(post):
     </div>
     '''
     return post_entry
-# href="{post["url"]}" 
 
 def generate_home_page(template, posts):
     md_path = os.path.join(PAGES_DIR, 'index.md')
@@ -122,8 +121,8 @@ def load_posts():
             post.content = post.content.replace(r'\$', '$')
             post['slug'] = filename_from_title(post['title'])
             post['url'] = '/posts/' + post['slug'] + '.html'
-            post['date'], '%Y-%m-%d'
             posts.append(post)
+    posts.sort(key=lambda post: post['date'], reverse=True)
     return posts
 
 def convert_block_math(match):
