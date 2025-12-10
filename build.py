@@ -40,7 +40,7 @@ def build_pages(include_drafts=False):
             draft['title'] = '[DRAFT] ' + draft['title']
         posts.extend(drafts)
     posts.sort(key=lambda post: post['date'], reverse=True)
-    
+
     template = add_recent_posts_to_template(template, posts)
 
     for post in posts:
@@ -104,6 +104,7 @@ def generate_home_page(template, posts):
     out_path = os.path.join(DIST_DIR, 'index.html')
     main_page = frontmatter.load(md_path)
     html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
+    html_content = '<h1 class="post-title">Home</h1>' + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT)
     rendered = rendered.replace("{{description}}", 'Evan Schor\'s personal website')
@@ -114,6 +115,7 @@ def generate_about_page(template):
     out_path = os.path.join(DIST_DIR, 'about.html')
     main_page = frontmatter.load(md_path)
     html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
+    html_content = '<h1 class="post-title">About</h1>' + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
     rendered = rendered.replace("{{description}}", 'About Evan Schor')
