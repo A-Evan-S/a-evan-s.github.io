@@ -43,15 +43,15 @@ def build_pages():
     generate_404_page()
 
 def add_recent_posts_to_template(template, posts):
-     post_elements = []
-     for post in posts:
-          post_elements.append(f'<li><a href="{post["url"]}">{post["title"]}</a></li>')
-     return template.replace('{{recent-posts}}', '\n'.join(post_elements))
+    post_elements = []
+    for post in posts:
+        post_elements.append(f'<li><a href="{post["url"]}">{post["title"]}</a></li>')
+    return template.replace('{{recent-posts}}', '\n'.join(post_elements))
 
 def generate_404_page():
-     template_404 = os.path.join(TEMPLATES_DIR, '404.html')
-     template_404 = template_404.replace("{{title}}", TITLE_ROOT + ' | ' + '404')
-     shutil.copy(template_404, DIST_DIR)
+    template_404 = os.path.join(TEMPLATES_DIR, '404.html')
+    template_404 = template_404.replace("{{title}}", TITLE_ROOT + ' | ' + '404')
+    shutil.copy(template_404, DIST_DIR)
 
 def generate_post_index(template, posts):
         out_path = os.path.join(DIST_DIR, 'posts.html')
@@ -82,24 +82,24 @@ def make_post_entry(post):
 # href="{post["url"]}" 
 
 def generate_home_page(template, posts):
-        md_path = os.path.join(PAGES_DIR, 'index.md')
-        out_path = os.path.join(DIST_DIR, 'index.html')
-        main_page = frontmatter.load(md_path)
-        html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
-        rendered = template.replace("{{content}}", html_content)
-        rendered = rendered.replace("{{title}}", TITLE_ROOT)
-        rendered = rendered.replace("{{description}}", 'Evan Schor\'s personal website')
-        write_html(out_path, rendered)
+    md_path = os.path.join(PAGES_DIR, 'index.md')
+    out_path = os.path.join(DIST_DIR, 'index.html')
+    main_page = frontmatter.load(md_path)
+    html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
+    rendered = template.replace("{{content}}", html_content)
+    rendered = rendered.replace("{{title}}", TITLE_ROOT)
+    rendered = rendered.replace("{{description}}", 'Evan Schor\'s personal website')
+    write_html(out_path, rendered)
 
 def generate_about_page(template):
-        md_path = os.path.join(PAGES_DIR, 'about.md')
-        out_path = os.path.join(DIST_DIR, 'about.html')
-        main_page = frontmatter.load(md_path)
-        html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
-        rendered = template.replace("{{content}}", html_content)
-        rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
-        rendered = rendered.replace("{{description}}", 'About Evan Schor')
-        write_html(out_path, rendered)
+    md_path = os.path.join(PAGES_DIR, 'about.md')
+    out_path = os.path.join(DIST_DIR, 'about.html')
+    main_page = frontmatter.load(md_path)
+    html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
+    rendered = template.replace("{{content}}", html_content)
+    rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
+    rendered = rendered.replace("{{description}}", 'About Evan Schor')
+    write_html(out_path, rendered)
 
 def load_posts():
     posts = []
@@ -117,10 +117,10 @@ def load_posts():
     return posts
 
 def convert_block_math(match):
-     return latex2mathml.converter.convert(match.group(1), display='block')
+    return latex2mathml.converter.convert(match.group(1), display='block')
 
 def convert_inline_math(match):
-     return latex2mathml.converter.convert(match.group(1))
+    return latex2mathml.converter.convert(match.group(1))
     
 def generate_post_page(template, post):
     base = post['slug'] + ".html"
