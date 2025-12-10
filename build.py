@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 import markdown
 import frontmatter
@@ -11,12 +12,13 @@ TEMPLATES_DIR = os.path.join(SRC_DIR, "templates")
 ASSETS_DIR = os.path.join(SRC_DIR, "assets")
 POSTS_DIR = os.path.join(PAGES_DIR, "posts")
 DIST_DIR = "dist"
+DRAFTS_DIR = os.path.join(POSTS_DIR, "drafts")
 
 TITLE_ROOT = 'evan.schor'
 
-def main():
+def main(include_drafts=False):
     clean_dist()
-    build_pages()
+    build_pages(include_drafts)
     copy_assets()
     copy_cname()
 
@@ -27,11 +29,14 @@ def clean_dist():
     posts_dir = os.path.join(DIST_DIR, 'posts')
     os.makedirs(posts_dir)
 
-def build_pages():
+def build_pages(include_drafts=False):
     with open(os.path.join(TEMPLATES_DIR, "main.html"), "r", encoding="utf-8") as f:
         template = f.read()
 
-    posts = load_posts()
+    posts = load_posts(POSTS_DIR, is_draft=False)
+    if include_drafts:
+        drafts = load_posts(DRAFTS_DIR, is_draft=True)
+        posts.extend(drafts)
     template = add_recent_posts_to_template(template, posts)
 
     for post in posts:
@@ -110,17 +115,18 @@ def generate_about_page(template):
     rendered = rendered.replace("{{description}}", 'About Evan Schor')
     write_html(out_path, rendered)
 
-def load_posts():
+def load_posts(directory, is_draft):
     posts = []
-    for filename in os.listdir(POSTS_DIR):
+    for filename in os.listdir(directory):
         if filename.endswith(".md"):
-            md_path = os.path.join(POSTS_DIR, filename)
+            md_path = os.path.join(directory, filename)
             post = frontmatter.load(md_path)
             post.content = re.sub(r'(?<!\\)\$\$([^\$]+)\$\$', convert_block_math, post.content)
             post.content = re.sub(r'(?<!\\)\$([^\$]+)\$', convert_inline_math, post.content)
             post.content = post.content.replace(r'\$', '$')
             post['slug'] = filename_from_title(post['title'])
             post['url'] = '/posts/' + post['slug'] + '.html'
+            post['draft'] = is_draft
             posts.append(post)
     posts.sort(key=lambda post: post['date'], reverse=True)
     return posts
@@ -168,4 +174,5 @@ def copy_cname():
         shutil.copy("CNAME", os.path.join(DIST_DIR, "CNAME"))
 
 if __name__ == "__main__":
-    main()
+    include_drafts = '--drafts' in sys.argv
+    main(include_drafts=include_drafts)
