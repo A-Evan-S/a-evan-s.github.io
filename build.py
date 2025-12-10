@@ -45,8 +45,18 @@ def build_pages():
 def add_recent_posts_to_template(template, posts):
     post_elements = []
     for post in posts:
-        post_elements.append(f'<li><a href="{post["url"]}">{post["title"]}</a></li>')
+        short_title = shorten_title(post['title'])
+        post_elements.append(f'<li><a href="{post["url"]}">{short_title}</a></li>')
     return template.replace('{{recent-posts}}', '\n'.join(post_elements))
+
+def shorten_title(orig_title, max_length=40):
+    if len(orig_title) < max_length:
+        return orig_title
+    short_title = ''
+    words = orig_title.split()
+    while len(short_title) + len(words[0]) + 4 < max_length:
+        short_title += ' ' + words.pop(0)
+    return short_title.rstrip('!,.;-') + '...'
 
 def generate_404_page():
     template_404 = os.path.join(TEMPLATES_DIR, '404.html')
