@@ -4,7 +4,6 @@ import markdown
 import frontmatter
 import re
 import latex2mathml.converter
-from datetime import datetime
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
