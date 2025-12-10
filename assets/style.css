@@ -184,11 +184,6 @@ nav .sublist a {
     color: inherit;
  }
 
-
-.posts-list-entry .post-title:hover {
-    text-decoration: underline;
-}
-
 .posts-list-entry .post-date {
     flex-shrink: 0;
     white-space: nowrap;
@@ -199,4 +194,16 @@ nav .sublist a {
 .posts-list-entry .post-summary {
     margin: 0;
     color: #666;
+}
+
+main a {
+  color: #555;
+  text-decoration: none;
+  border-bottom: 2px solid #ddd;
+  transition: border-color 0.2s;
+}
+
+main a:hover {
+  color: #333;
+  border-bottom-color: #337ab7;
 }
