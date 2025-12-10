@@ -36,7 +36,11 @@ def build_pages(include_drafts=False):
     posts = load_posts(POSTS_DIR, is_draft=False)
     if include_drafts:
         drafts = load_posts(DRAFTS_DIR, is_draft=True)
+        for draft in drafts:
+            draft['title'] = '[DRAFT] ' + draft['title']
         posts.extend(drafts)
+    posts.sort(key=lambda post: post['date'], reverse=True)
+    
     template = add_recent_posts_to_template(template, posts)
 
     for post in posts:
@@ -128,7 +132,6 @@ def load_posts(directory, is_draft):
             post['url'] = '/posts/' + post['slug'] + '.html'
             post['draft'] = is_draft
             posts.append(post)
-    posts.sort(key=lambda post: post['date'], reverse=True)
     return posts
 
 def convert_block_math(match):
