@@ -15,7 +15,9 @@ def foo(x):
 
 and with math $f(x) = 2 \cdot x$ inline and
 
-$$f(x) = 2 \cdot x$$
+$$ f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(a)}{n!} (x-a)^n $$
+
+$$ M = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} $$
 
 blocks. You also need to be able to share your \$0.02 about \$\$\$.
 
