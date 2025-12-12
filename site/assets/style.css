@@ -103,14 +103,14 @@ pre {
   padding: 10px;
   margin: 10px 25px;
   overflow: auto;
-  font-family: "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "Jetbrains Mono", "Fira Mono", Menlo, Consolas, monospace;
 }
 
 code {
   border: 1px solid #ccc;
   border-radius: 3px;
   padding: 1px 3px;
-  font-family: "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "Jetbrains Mono", "Fira Mono", Menlo, Consolas, monospace;
 }
 
 pre code {
