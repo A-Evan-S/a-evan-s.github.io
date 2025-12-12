@@ -39,9 +39,10 @@
     </div>
     <p>This is a post (also) With some text in it.</p>
 <p>Which tests what <code>markdown</code> does with codeblocks:</p>
-<pre><code class="language-python">def foo(x):
+<pre><code class="python">def foo(x):
     return 2 * x
 </code></pre>
+
 <p>and with math <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>2</mn><mi>&#x000B7;</mi><mi>x</mi></mrow></math> inline and</p>
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><munderover><mo>&#x02211;</mo><mrow><mi>n</mi><mo>&#x0003D;</mo><mn>0</mn></mrow><mo>&#x0221E;</mo></munderover><mfrac><mrow><msup><mi>f</mi><mrow><mo stretchy="false">&#x00028;</mo><mi>n</mi><mo stretchy="false">&#x00029;</mo></mrow></msup><mo stretchy="false">&#x00028;</mo><mi>a</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>n</mi><mo>&#x00021;</mo></mrow></mfrac><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x02212;</mo><mi>a</mi><msup><mo stretchy="false">&#x00029;</mo><mi>n</mi></msup></mrow></math>
 
@@ -49,7 +50,7 @@
 
 <p>blocks. You also need to be able to share your $0.02 about $$$.</p>
 <p>We also need to test larger lines of text so here we go: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p>Lastly, we'll need some links, both to <a href="/posts.html">other pages on this site</a>, and to <a href="https://www.wikipedia.org/">other websites</a>, as well as just raw links like https://www.wikipedia.org/ without any markdown.</p>
+<p>Lastly, we'll need some links, both to <a href="/posts.html">other pages on this site</a>, and to <a href="https://www.wikipedia.org/">other websites</a>, as well as just raw links like https://www.wikipedia.org/ without any markdown. Also <a href="#Headers">links to headers</a></p>
 <p>We should also test basic markdown things like <em>italics</em> <strong>bolding</strong></p>
 <h1>Headers</h1>
 <h2>Of Various</h2>
@@ -82,10 +83,46 @@
 <!-- comments -->
 
 <p>horiziontal lines</p>
+<p>See if (r) (c) or (tm) work</p>
+<p>How about H<sub>2</sub>O or 12<sup>th</sup></p>
+<p>I really want footnotes to work<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> but I'm not convinced the will.<sup id="fnref:hope-so"><a class="footnote-ref" href="#fn:hope-so" rel="footnote">2</a></sup></p>
 <hr />
 <p>Just html by itself: <button>Click me</button></p>
 <p>and images:</p>
 <p><img alt="An image of some mushrooms growing on a tree" height="500" src="/assets/images/mushrooms.jpg" title="Cool mushrooms!" /></p>
+<p>Tables:</p>
+<table>
+<thead>
+<tr>
+<th>Column 1</th>
+<th>Column 2</th>
+<th>Column 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>John</td>
+<td>Doe</td>
+<td>Male</td>
+</tr>
+<tr>
+<td>Mary</td>
+<td>Smith</td>
+<td>Female</td>
+</tr>
+</tbody>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>maybe this one&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:hope-so">
+<p>less confident here&#160;<a class="footnote-backref" href="#fnref:hope-so" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 </main>
             </div>
         </div>
