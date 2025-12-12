@@ -23,7 +23,7 @@ blocks. You also need to be able to share your \$0.02 about \$\$\$.
 
 We also need to test larger lines of text so here we go: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lastly, we'll need some links, both to [other pages on this site](/posts.html), and to [other websites](https://www.wikipedia.org/), as well as just raw links like https://www.wikipedia.org/ without any markdown.
+Lastly, we'll need some links, both to [other pages on this site](/posts.html), and to [other websites](https://www.wikipedia.org/), as well as just raw links like https://www.wikipedia.org/ without any markdown. Also [links to headers](#Headers)
 
 We should also test basic markdown things like *italics* **bolding**
 
@@ -57,6 +57,12 @@ As well as
 
 horiziontal lines
 
+See if (r) (c) or (tm) work
+
+How about H~2~O or 12^th^
+
+I really want footnotes to work[^1] but I'm not convinced the will.[^hope-so]
+
 ---
 
 Just html by itself: <button>Click me</button>
@@ -64,3 +70,13 @@ Just html by itself: <button>Click me</button>
 and images:
 
 ![An image of some mushrooms growing on a tree](/assets/images/mushrooms.jpg "Cool mushrooms!"){: height="500"}
+
+Tables:
+
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| John     | Doe      | Male     |
+| Mary     | Smith    | Female   |
+
+[^1]: maybe this one
+[^hope-so]: less confident here

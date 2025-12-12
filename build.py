@@ -103,7 +103,7 @@ def generate_home_page(template, posts):
     md_path = os.path.join(PAGES_DIR, 'index.md')
     out_path = os.path.join(DIST_DIR, 'index.html')
     main_page = frontmatter.load(md_path)
-    html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
+    html_content = markdown.markdown(main_page.content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
     html_content = '<h1 class="post-title">Home</h1>' + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT)
@@ -114,7 +114,7 @@ def generate_about_page(template):
     md_path = os.path.join(PAGES_DIR, 'about.md')
     out_path = os.path.join(DIST_DIR, 'about.html')
     main_page = frontmatter.load(md_path)
-    html_content = markdown.markdown(main_page.content, extensions=['fenced_code', 'attr_list'])
+    html_content = markdown.markdown(main_page.content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
     html_content = '<h1 class="post-title">About</h1>' + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
@@ -154,7 +154,7 @@ def generate_post_page(template, post):
     <time class="post-date" datetime="{iso_date}">{display_date}</time>
     </div>
     '''
-    html_content = markdown.markdown(post.content, extensions=['fenced_code', 'attr_list'])
+    html_content = markdown.markdown(post.content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
     html_content = html_title + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + post['title'])

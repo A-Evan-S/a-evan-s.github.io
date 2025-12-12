@@ -1,3 +1,5 @@
 markdown
 python-frontmatter
 latex2mathml
+MarkdownSubscript
+MarkdownSuperscript
