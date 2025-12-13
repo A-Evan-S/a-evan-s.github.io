@@ -27,6 +27,14 @@ Lastly, we'll need some links, both to [other pages on this site](/posts.html), 
 
 We should also test basic markdown things like *italics* **bolding**
 
+Tables:
+
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| John     | Doe      | Male     |
+| Mary     | Smith    | Female   |
+
+
 # Headers
 
 ## Of Various
@@ -70,13 +78,5 @@ Just html by itself: <button>Click me</button>
 and images:
 
 ![An image of some mushrooms growing on a tree](/assets/images/mushrooms.jpg "Cool mushrooms!"){: height="500"}
-
-Tables:
-
-| Column 1 | Column 2 | Column 3 |
-| -------- | -------- | -------- |
-| John     | Doe      | Male     |
-| Mary     | Smith    | Female   |
-
 [^1]: maybe this one
 [^hope-so]: less confident here
