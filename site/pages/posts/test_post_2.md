@@ -65,11 +65,9 @@ As well as
 
 horiziontal lines
 
-See if (r) (c) or (tm) work
-
 How about H~2~O or 12^th^
 
-I really want footnotes to work[^1] but I'm not convinced the will.[^hope-so]
+I really want footnotes to work[^1] but I'm not convinced they will.[^hope-so]
 
 ---
 
@@ -78,5 +76,6 @@ Just html by itself: <button>Click me</button>
 and images:
 
 ![An image of some mushrooms growing on a tree](/assets/images/mushrooms.jpg "Cool mushrooms!"){: height="500"}
+
 [^1]: maybe this one
 [^hope-so]: less confident here
