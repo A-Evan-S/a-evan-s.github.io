@@ -207,3 +207,32 @@ main a:hover {
   color: #333;
   border-bottom-color: #337ab7;
 }
+
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  min-width: 350px;
+}
+
+th, td {
+  text-align: left;
+  padding: 6px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: normal;
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #ccc;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+th:first-of-type {
+  border-top-left-radius: 3px;
+}
+th:last-of-type {
+  border-top-right-radius: 3px;
+}
