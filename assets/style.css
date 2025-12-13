@@ -1,15 +1,24 @@
 #container {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 #nav-main-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  gap: 20px;
 }
 
 nav {
-  flex-basis: 175px;
+  width: 175px;
+  flex-shrink: 0;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
 }
 
 @media (max-width: 900px) {
@@ -19,6 +28,7 @@ nav {
   
   nav {
     flex-basis: auto;
+    width: 100%;
   }
   
   nav ul {
@@ -47,11 +57,6 @@ nav {
   }
 }
 
-main {
-  flex: 1;
-  padding: 0 25px;
-}
-
 header {
   margin: 20px 0;
 }
@@ -72,7 +77,7 @@ main img {
 blockquote {
   border-left: 4px solid #ccc;
   padding-left: 15px;
-  margin-left: 35px;
+  margin: 30px 0px 30px 35px;
   color: #666;
   font-style: italic;
 }
@@ -111,12 +116,14 @@ code {
   border-radius: 3px;
   padding: 1px 3px;
   font-family: "Jetbrains Mono", "Fira Mono", Menlo, Consolas, monospace;
+  white-space: nowrap;
 }
 
 pre code {
   border: None;
   padding: 0px;
   background-color: transparent;
+  white-space: pre;
 }
 
 math[display="block"] {
@@ -208,10 +215,30 @@ main a:hover {
   border-bottom-color: #337ab7;
 }
 
+.footnote-ref,
+.footnote-backref {
+  border-bottom: none;
+}
+
+.footnote-ref:hover,
+.footnote-backref:hover {
+  font-weight: bold;
+  color: #337ab7;
+}
+
+.footnote {
+  margin: 16px 0px 30px 16px;
+}
+
 table {
   border-collapse: collapse;
   margin: 20px auto;
-  min-width: 350px;
+  max-width: 100%;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 th, td {
