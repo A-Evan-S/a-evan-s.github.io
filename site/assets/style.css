@@ -1,15 +1,24 @@
 #container {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 #nav-main-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  gap: 20px;
 }
 
 nav {
-  flex-basis: 175px;
+  width: 175px;
+  flex-shrink: 0;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
 }
 
 @media (max-width: 900px) {
@@ -19,6 +28,7 @@ nav {
   
   nav {
     flex-basis: auto;
+    width: 100%;
   }
   
   nav ul {
@@ -45,11 +55,6 @@ nav {
       font-size: 0.9em;
       margin: -15px 0 5px 0;
   }
-}
-
-main {
-  flex: 1;
-  padding: 0 25px;
 }
 
 header {
