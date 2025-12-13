@@ -103,7 +103,7 @@ def generate_home_page(template, posts):
     md_path = os.path.join(PAGES_DIR, 'index.md')
     out_path = os.path.join(DIST_DIR, 'index.html')
     main_page = frontmatter.load(md_path)
-    html_content = markdown.markdown(main_page.content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
+    html_content = process_markdown(main_page.content)
     html_content = '<h1 class="post-title">Home</h1>' + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT)
@@ -114,7 +114,7 @@ def generate_about_page(template):
     md_path = os.path.join(PAGES_DIR, 'about.md')
     out_path = os.path.join(DIST_DIR, 'about.html')
     main_page = frontmatter.load(md_path)
-    html_content = markdown.markdown(main_page.content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
+    html_content = process_markdown(main_page.content)
     html_content = '<h1 class="post-title">About</h1>' + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
@@ -154,12 +154,23 @@ def generate_post_page(template, post):
     <time class="post-date" datetime="{iso_date}">{display_date}</time>
     </div>
     '''
-    html_content = markdown.markdown(post.content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
+    html_content = process_markdown(post.content)
     html_content = html_title + html_content
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + post['title'])
     rendered = rendered.replace("{{description}}", post['summary'])
     write_html(out_path, rendered)
+
+def process_markdown(markdown_content):
+    html_content = markdown.markdown(markdown_content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
+    html_content = re.sub(
+        r'(<table>.*?</table>)',
+        r'<div class="table-wrapper">\1</div>',
+        html_content,
+        flags=re.DOTALL
+    )
+    return html_content
+
 
 def filename_from_title(title, max_length=50):
     slug = title.lower()
