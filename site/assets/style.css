@@ -257,7 +257,7 @@ table {
 }
 
 th, td {
-  text-align: left;
+  text-align: center;
   padding: 6px 15px;
   border-bottom: 1px solid #ddd;
 }
@@ -277,4 +277,8 @@ th:first-of-type {
 }
 th:last-of-type {
   border-top-right-radius: 3px;
+}
+
+main li {
+  margin-bottom: 5px;
 }
