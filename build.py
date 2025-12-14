@@ -169,6 +169,12 @@ def process_markdown(markdown_content):
         html_content,
         flags=re.DOTALL
     )
+    html_content = re.sub(
+        r'(<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">.*?</math>)',
+        r'<div class="math-wrapper">\1</div>',
+        html_content,
+        flags=re.DOTALL
+    )
     return html_content
 
 

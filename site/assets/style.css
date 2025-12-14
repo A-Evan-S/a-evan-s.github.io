@@ -136,8 +136,14 @@ pre .codehilite {
 }
 
 math[display="block"] {
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin: 20px;
+}
+
+.math-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 nav ul {
