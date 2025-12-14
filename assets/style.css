@@ -108,18 +108,27 @@ pre {
   padding: 10px;
   margin: 10px 25px;
   overflow: auto;
-  font-family: "Jetbrains Mono", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
 }
 
 code {
   border: 1px solid #ccc;
+  font-size: 0.95em;
   border-radius: 3px;
   padding: 1px 3px;
-  font-family: "Jetbrains Mono", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
   white-space: nowrap;
 }
 
-pre code {
+.codehilite {
+  font-size: 0.95em;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
+  white-space: nowrap;
+}
+
+pre .codehilite {
   border: None;
   padding: 0px;
   background-color: transparent;
@@ -127,8 +136,14 @@ pre code {
 }
 
 math[display="block"] {
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin: 20px;
+}
+
+.math-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 nav ul {
@@ -242,7 +257,7 @@ table {
 }
 
 th, td {
-  text-align: left;
+  text-align: center;
   padding: 6px 15px;
   border-bottom: 1px solid #ddd;
 }
@@ -262,4 +277,8 @@ th:first-of-type {
 }
 th:last-of-type {
   border-top-right-radius: 3px;
+}
+
+main li {
+  margin-bottom: 5px;
 }

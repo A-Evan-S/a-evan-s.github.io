@@ -6,6 +6,7 @@
         <meta name="description" content="A second test post to test various formatting pieces">
         <title>evan.schor | Test Post 2</title>
         <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/syntax.css">
     </head>
     <body>
         <div id="container">
@@ -39,14 +40,15 @@
     </div>
     <p>This is a post (also) With some text in it.</p>
 <p>Which tests what <code>markdown</code> does with codeblocks:</p>
-<pre><code class="python">def foo(x):
-    return 2 * x
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+
 
 <p>and with math <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>2</mn><mi>&#x000B7;</mi><mi>x</mi></mrow></math> inline and</p>
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><munderover><mo>&#x02211;</mo><mrow><mi>n</mi><mo>&#x0003D;</mo><mn>0</mn></mrow><mo>&#x0221E;</mo></munderover><mfrac><mrow><msup><mi>f</mi><mrow><mo stretchy="false">&#x00028;</mo><mi>n</mi><mo stretchy="false">&#x00029;</mo></mrow></msup><mo stretchy="false">&#x00028;</mo><mi>a</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>n</mi><mo>&#x00021;</mo></mrow></mfrac><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x02212;</mo><mi>a</mi><msup><mo stretchy="false">&#x00029;</mo><mi>n</mi></msup></mrow></math>
+<div class="math-wrapper"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><munderover><mo>&#x02211;</mo><mrow><mi>n</mi><mo>&#x0003D;</mo><mn>0</mn></mrow><mo>&#x0221E;</mo></munderover><mfrac><mrow><msup><mi>f</mi><mrow><mo stretchy="false">&#x00028;</mo><mi>n</mi><mo stretchy="false">&#x00029;</mo></mrow></msup><mo stretchy="false">&#x00028;</mo><mi>a</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>n</mi><mo>&#x00021;</mo></mrow></mfrac><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x02212;</mo><mi>a</mi><msup><mo stretchy="false">&#x00029;</mo><mi>n</mi></msup></mrow></math></div>
 
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>M</mi><mo>&#x0003D;</mo><mo>&#x0005B;</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr><mtr><mtd><mn>3</mn></mtd><mtd><mn>4</mn></mtd></mtr></mtable><mo>&#x0005D;</mo></mrow></math>
+<div class="math-wrapper"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>M</mi><mo>&#x0003D;</mo><mo>&#x0005B;</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr><mtr><mtd><mn>3</mn></mtd><mtd><mn>4</mn></mtd></mtr></mtable><mo>&#x0005D;</mo></mrow></math></div>
 
 <p>blocks. You also need to be able to share your $0.02 about $$$.</p>
 <p>We also need to test larger lines of text so here we go: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
