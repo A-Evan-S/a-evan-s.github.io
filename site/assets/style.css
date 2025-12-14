@@ -17,10 +17,11 @@ nav {
 
 main {
   flex: 1;
-  align-self: center;
   width: 100%;
   max-width: 805px;
   overflow-x: auto;
+  margin-left: auto;
+  margin-right: auto
 }
 
 @media (max-width: 1075px) {
