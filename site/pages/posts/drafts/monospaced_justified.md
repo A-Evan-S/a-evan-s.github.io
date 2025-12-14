@@ -10,8 +10,6 @@ Justified text stretches or compresses the whitespace between words such that th
 
 Monospaced fonts attempt to provide uniformity to text by making each character take up the same width on the page. When using these fonts for most applications we opt for "flush left" alignment, where the left side of each line is aligned, but the right side remains ragged.
 
-
-
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
 <pre style="display: inline-block; text-align: left;">
 This is some sample text written to     
@@ -53,9 +51,9 @@ versions.
 
 Rather than limit ourselves to the standard `' '` space character, the above makes use of:
 
-* `' '` - U+0020 - 1 character
-* `' '` - U+2009 - 1/3 of a character
-* `' '` - U+202F - 1/2 of a character
+* U+0020: `' '` - 1 character width
+* U+2009: `' '` - 1/3 of a character width
+* U+202F: `' '` - 1/2 of a character width
 
 The first line has 6 gaps and is 5 full character widths from the end of the line. We can add to each gap one U+2009 character and one U+202F character for a total gap width of $\frac{11}{6}$ characters.
 
@@ -63,9 +61,9 @@ Similarly, the second line has 3 gaps and is 1 character width from the end of t
 
 ## Generalizing
 
-The good news is that we have a lot more whitespace characters to work with, so we have more granularity than just the couple characters in the example above. The bad news is that many of their widths overlap and that different fonts represent the various whitespace characters differently.
+The good news is that we have a lot more whitespace characters to work with, so we have more granularity than just the characters in the example above. The bad news is that many of their widths overlap and that different fonts represent the various whitespace characters differently.
 
-I wrote a script to render all the whitespace characters in a variety of fonts to produce the following table:
+I wrote a script to render all the whitespace characters in a variety of fonts to produce the following table, expressing each character's width as a ratio to the width of a regular space U+0020.
 
 <table>
     <thead>
@@ -578,14 +576,14 @@ I wrote a script to render all the whitespace characters in a variety of fonts t
     </tbody>
 </table>
 
-Note: the ratios here match to $\epsilon \le 0.1\%$, but it's notable that some fonts are much closer to exact integer ratios. In most situations, the small difference at the subpixel level will still result in the right ends of the lines aligning to the nearest pixel.
+Note: the ratios here match to $\epsilon \le 0.1\%$, but it's notable that some fonts are much closer to exact integer ratios than others. In most situations, the small difference at the subpixel level will still result in the right ends of the lines aligning to the nearest pixel.
 
 Most of these fonts preserve whitespace width ratios *between* these whitespace characters rather similarly (e.g. `THREE-PER-EM SPACE` is almost exactly $\frac{1}{3}$ of the `EM SPACE`). However, they don't all share the same ratio to the width of the uniform width characters and differ in a handful of other cases.
 
 
 ## Solving
 
-To see how we can find the appropriate combination of whitespace characters for a given line of text, let's work through an example using the most common ratios from the table above:
+To see how we can find the appropriate combination of whitespace characters to justify a given line of text, let's work through an example using the most common ratios from the table above:
 
 <table>
     <tr>
@@ -665,7 +663,7 @@ Getting a common denominator, we see we have:
 
 Say our line in question has $m$ total spaces to distribute into $n$ total gaps, the ideal version of our problem can be defined as:
 
-> Find a way to represent $\frac{432m}{n}$ as the sum of multiples of $120$, $144$, $45$, $216$, and $160$
+> Find a way to represent $\frac{432m}{n}$ as an integer linear combination of $120$, $144$, $45$, $216$, and $160$
 
 If $\frac{432m}{n}$ is non-integral, then there will be no solution. If it is an integer, this turns into a variation of the [change making problem](https://en.wikipedia.org/wiki/Change-making_problem) where we're just interested in feasibility without any optimization.
 
@@ -673,7 +671,7 @@ Using the above numbers, we can see which scenarios will be solvable:
 
 ![Graph of working values](\assets\images\unweighted.png "what does this do again?"){: width="500"}
 
-This doesn't look too bad at first; a good amount of the cases are solvable. However, we have to account for the frequency of different combinations. Since the number of extra spaces is upper-bounded by typical word length, we see most lines needing 0–5 extra spaces, and a typical line might consist of 10–20 words. I ran the plaintext copy of Alice's Adventures in Wonderland[^1] through this algorithm and, only focusing on text which would be justified (excluding the last line of each paragraphs), we can weight the above chart by frequency of occurence.
+This doesn't look too bad at first; a good amount of the cases are solvable. However, we have to account for the frequency of different combinations. Since the number of extra spaces is upper-bounded by typical word length, we see most lines needing 0–5 extra spaces, and a typical line might consist of 10–20 words. I ran the plaintext copy of Alice's Adventures in Wonderland[^1] through this algorithm and, only focusing on text which would be justified (excluding the last line of each paragraph), we can weight the above chart by frequency of occurence.
 
 ![Graph of working values, weighted](\assets\images\weighted.png "what does this do again?"){: width="500"}
 
@@ -683,7 +681,9 @@ Around 46.6% of the lines can be justified with these space characters. For refe
 
 ### Word Shifting
 
-Before sullying our approach with non-uniform gaps, we can try altering the number of words which get placed on a line. By default, we place as many words as can fit on a given line width providing at least one full space for each. However, we can push words onto the next line, widening the gaps in the process. This both reduces the number of gaps and increases the extra spaces to distribute, which allows us to move us towards the solvable areas on our graph.
+Before sullying our approach with non-uniform gaps, we can try altering the number of words which get placed on a line. By default, we place as many words as can fit on a given line width providing at least one full space for each. However, we can opt to push words onto the next line, widening the gaps of the current line in the process. This both reduces the number of gaps and increases the extra spaces to distribute, which allows us to move us towards the solvable areas on our graph.
+
+You can see the effect of allowing different numbers of words per line to be shifted onto the next line. We're effectively able to shift the frequencies of different values on the graph to move as many as possible to solvable postions.
 
 ![Graph of working values, removed words](\assets\images\word_removals.png "what does this do again?"){: width="600"}
 
@@ -716,7 +716,81 @@ Here, "but out-of-the-way" was pushed to the next line, creating some glaringly 
 
 Instead of adjusting the splitting of words into lines, we can go back to an approach more similar to the leetcode style solution of always reaching full justification but accepting varied gap sizes. However, with the addition of the various whitespace characters, we can get a more uniform spacing than was possible with regular spaces alone.
 
-First we need to define what we're optimizing for...
+First we need to define what we're optimizing for. Two definitions for an objective function come to mind:
 
+1. Minimize the difference between the largest gap width and the smallest
+2. Minimize the variance of the gap widths
+
+In each example I've tried, these two objectives converge to the same solution, but I haven't been able to prove that generally. I opted to solve for minimizing the variance.
+
+In either case, the first step is identifying all the reachable gap widths for a given set of witespace characters. This can be solved again using the change making algorithm, this time finding the total feasible space. For example, using the numbers above (where a single space is 432 units), we can make gaps of size:
+
+$$0, 45, 90, 120, 135, 144, 160, 165, 180, 189, 205, 210, 216, 225, 234, 240, 250, 255 ...$$
+
+For the algorithm itself, we'll use a solution that greedily searches feasible gaps closest to the ideal ratio, pruning cases that would put the overall variance above the best found thus far. Here's the implementation I used:
+
+```python
+def solve(text, line_length, unit_size, whitespaces):
+    words = text.split()
+    whitespace_needed = (line_length - sum(map(len, words))) * unit_size
+    num_gaps = len(words) - 1
+    feasible_gaps = feasible(whitespace_needed, whitespaces)
+    ideal_gap_size = whitespace_needed / num_gaps
+    feasible_sorted = sorted(
+        feasible_gaps.keys(),
+        key=lambda gap: abs(gap - ideal_gap_size)
+    )[:500]
+
+    best_variance = float('inf')
+
+    def find_gaps(length, num_gaps, idx, acc_variance):
+        nonlocal best_variance
+        if acc_variance >= best_variance:
+            return None
+        if length == 0:
+            best_variance = min(best_variance, acc_variance)
+            return []
+        if num_gaps == 0 or idx >= len(feasible_sorted):
+            return None
+
+        gap_size = feasible_sorted[idx]
+        if gap_size > length:
+            return find_gaps(length, num_gaps, idx + 1, acc_variance)
+
+        new_variance = acc_variance + (ideal_gap_size - gap_size) ** 2
+        use_gap = find_gaps(length - gap_size, num_gaps - 1, idx, new_variance)
+        skip_gap = find_gaps(length, num_gaps, idx + 1, acc_variance)
+
+        if use_gap is None:
+            return skip_gap
+        if skip_gap is None:
+            return [gap_size] + use_gap
+        return skip_gap  # min due to pruning
+
+    gap_widths = find_gaps(whitespace_needed, num_gaps, 0, 0)
+    gaps = [feasible_gaps[w] for w in gap_widths]
+    result = ''.join(word + gap for word, gap in zip(words, gaps)) + words[-1]
+
+    return result, best_variance
+```
+
+Unfortunately, this proved too inefficient to use with the full list of feasible gap sizes, so I opted to cap the feasible gaps to the 500 closest to the ideal gap size,  $\frac{\text{nubmer of spaces}}{\text{number of gaps}}$. This is highly likely to get us the optimal solution, but if in reading this you identify an improved solution that would avoid this, I'd be very interested in hearing about it!
+
+Using this approach, we get the following result on the previously attempted paragraph:
+
+<div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
+<pre style="display: inline-block; text-align: left;">
+She         ate         a         little         bit,         and         said         anxiously         to         herself,         “Which         way?         Which
+way?”,      holding      her      hand      on      the      top      of      her      head      to      feel      which   way   it   was
+growing,      and      she      was      quite      surprised      to      find      that      she      remained      the      same
+size:         to         be         sure,         this         generally         happens         when         one         eats         cake,         but         Alice
+had     got     so     much     into     the     way     of     expecting     nothing     but        out-of-the-way
+things        to        happen,        that        it        seemed        quite        dull        and        stupid        for        life        to        go
+on in the common way.
+</div>
+</pre>
+
+It might not be as true to the aim of having uniform gap widths, but just looking visually I couldn't tell which lines were uneven (out of the 6 justified lines, half are non-uniform in their spacing[^2]).
 
 [^1]: [https://www.gutenberg.org/cache/epub/11/pg11.txt](https://www.gutenberg.org/cache/epub/11/pg11.txt)
+[^2]: The 2nd, 5th, and 6th lines are slightly uneven
