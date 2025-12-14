@@ -792,5 +792,123 @@ on in the common way.
 
 It might not be as true to the aim of having uniform gap widths, but just looking visually I couldn't tell which lines were uneven (out of the 6 justified lines, half are non-uniform in their spacing[^2]).
 
+## Try It Out
+
+<div id="monospace-justifier">
+    <div id="justifier-options">
+        <div class="option-group">
+            <label for="justifier-font-select">Font:</label>
+            <select name="justifier-font" id="justifier-font-select">
+                <option value="Courier New">Courier New</option>
+                <option value="SF Mono">SF Mono</option>
+                <option value="Cascadia Mono">Cascadia Mono</option>
+                <option value="Ubuntu Mono">Ubuntu Mono</option>
+            </select>
+        </div>
+        <div class="option-group">
+            <label for="justifier-num-cols">Columns:</label>
+            <input type="number" id="justifier-num-cols" value="72" />
+        </div>
+        <div class="option-group">
+            <label for="justifier-mode-select">Mode:</label>
+            <select name="justifier-mode" id="justifier-mode-select">
+                <option value="Non-uniform Gaps">Non-uniform Gaps</option>
+                <option value="Word Shifting">Word Shifting</option>
+                <option value="Spaces Only">Spaces Only</option>
+            </select>
+        </div>
+        <button id="justify-button">Justify</button>
+    </div>
+    <textarea id="text-to-justify" placeholder="Enter text to justify..."></textarea>
+    <textarea id="justified-text" readonly wrap="off"></textarea>
+</div>
+
+<script>
+document.getElementById('justify-button').addEventListener('click', function() {
+    const inputText = document.getElementById('text-to-justify').value;
+    document.getElementById('justified-text').value = inputText;
+});
+</script>
+
+<style>
+#monospace-justifier {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fafafa;
+  max-width: 100%;
+}
+
+#justifier-options {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.option-group label {
+  font-size: 14px;
+  color: #555;
+}
+
+#justifier-options select,
+#justifier-options input,
+#justifier-options button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background-color: white;
+}
+
+#justifier-options button {
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: auto;  /* pushes button to the right if there's room */
+}
+
+#justifier-options button:hover {
+  background-color: #e3e3e3;
+}
+
+#justifier-num-cols {
+  width: 60px;
+}
+
+#text-to-justify,
+#justified-text {
+    font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
+    width: 100%;
+    box-sizing: border-box;  /* Add this - includes padding in width calculation */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    field-sizing: content;
+    resize: none;
+    min-height: 5lh;
+    font-size: 13px;
+    line-height: 1.4;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#text-to-justify {
+    max-height: 15lh;
+}
+
+#justified-text {
+  background-color: #fafafa;
+}
+</style>
+
 [^1]: [https://www.gutenberg.org/cache/epub/11/pg11.txt](https://www.gutenberg.org/cache/epub/11/pg11.txt)
 [^2]: The 2nd, 5th, and 6th lines are slightly uneven
