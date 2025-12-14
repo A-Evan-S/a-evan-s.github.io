@@ -162,7 +162,7 @@ def generate_post_page(template, post):
     write_html(out_path, rendered)
 
 def process_markdown(markdown_content):
-    html_content = markdown.markdown(markdown_content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'attr_list'])
+    html_content = markdown.markdown(markdown_content, extensions=['subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'codehilite', 'attr_list'])
     html_content = re.sub(
         r'(<table>.*?</table>)',
         r'<div class="table-wrapper">\1</div>',

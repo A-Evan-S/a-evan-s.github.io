@@ -108,18 +108,27 @@ pre {
   padding: 10px;
   margin: 10px 25px;
   overflow: auto;
-  font-family: "Jetbrains Mono", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
 }
 
 code {
   border: 1px solid #ccc;
+  font-size: 0.95em;
   border-radius: 3px;
   padding: 1px 3px;
-  font-family: "Jetbrains Mono", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
   white-space: nowrap;
 }
 
-pre code {
+.codehilite {
+  font-size: 0.95em;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
+  white-space: nowrap;
+}
+
+pre .codehilite {
   border: None;
   padding: 0px;
   background-color: transparent;
