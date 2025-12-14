@@ -17,11 +17,13 @@ nav {
 
 main {
   flex: 1;
-  min-width: 0;
+  align-self: center;
+  width: 100%;
+  max-width: 805px;
   overflow-x: auto;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1075px) {
   #nav-main-container {
     flex-direction: column;
   }
@@ -99,6 +101,7 @@ body {
   line-height: 1.4;
   color: #333;
   background-color: #fafafa;
+  padding-bottom: 75px;
 }
 
 pre {
@@ -243,6 +246,10 @@ main a:hover {
 
 .footnote {
   margin: 16px 0px 30px 16px;
+}
+
+.footnote a {
+  overflow-wrap: break-word;
 }
 
 table {
