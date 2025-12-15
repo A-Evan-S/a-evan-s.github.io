@@ -290,3 +290,23 @@ th:last-of-type {
 main li {
   margin-bottom: 5px;
 }
+
+#home-quote {
+  font-size: 1.1em;
+  color: #555;
+  font-style: italic;
+  background-color: #f5f5f5;
+  border: none;
+  padding: 20px 30px;
+  margin: 15px auto;
+  max-width: 80%;
+  border-radius: 3px;
+}
+
+#home-quote cite {
+  display: block;
+  font-size: 0.85em;
+  color: #777;
+  font-style: normal;
+  text-align: right;
+}
