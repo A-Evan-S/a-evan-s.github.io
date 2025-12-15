@@ -794,6 +794,8 @@ It might not be as true to the aim of having uniform gap widths, but just lookin
 
 ## Try It Out
 
+If you want to try out any of these monospaced justification techniques on your own text, you can give it a try with this tool. I don't properly know javascript, so this was my attempt to translate from the python I used to originally test this idea. If you notice any issues, let me know.
+
 <div id="monospace-justifier">
     <div id="justifier-options">
         <div class="option-group">
