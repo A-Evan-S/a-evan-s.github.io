@@ -41,22 +41,13 @@ def build_pages(include_drafts=False):
         posts.extend(drafts)
     posts.sort(key=lambda post: post['date'], reverse=True)
 
-    template = add_recent_posts_to_template(template, posts)
-
     for post in posts:
-        generate_post_page(template, post)
+        generate_post_page(template, post, posts)
     
     generate_home_page(template, posts)
-    generate_about_page(template)
+    generate_about_page(template, posts)
     generate_post_index(template, posts)
     generate_404_page()
-
-def add_recent_posts_to_template(template, posts):
-    post_elements = []
-    for post in posts:
-        short_title = shorten_title(post['title'])
-        post_elements.append(f'<li><a href="{post["url"]}">{short_title}</a></li>')
-    return template.replace('{{recent-posts}}', '\n'.join(post_elements))
 
 def shorten_title(orig_title, max_length=40):
     if len(orig_title) < max_length:
@@ -72,17 +63,40 @@ def generate_404_page():
     template_404 = template_404.replace("{{title}}", TITLE_ROOT + ' | ' + '404')
     shutil.copy(template_404, DIST_DIR)
 
+def write_html(out_path, html_content):
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+def add_nav_to_template(template, posts, current_page=''):
+    default_nav = f'''<ul>
+                        <li>
+                            <a href="/" {'class="active"' if current_page == 'home' else ''}>Home</a>
+                        </li>
+                        <li>
+                            <a href="/posts.html" {'class="active"' if current_page == 'posts' else ''}>Posts</a>
+                                <ul class="sublist">
+                                    {{{{recent-posts}}}}
+                                </ul>
+                        </li>
+                        <li>
+                            <a href="/about.html" {'class="active"' if current_page == 'about' else ''}>About</a>
+                        </li>
+                    </ul>'''
+    template = template.replace('{{navigation}}', default_nav)
+    post_elements = []
+    for post in posts:
+        short_title = shorten_title(post['title'])
+        post_elements.append(f'''<li><a href="{post["url"]}" {'class="active"' if current_page == post['title'] else ''}>{short_title}</a></li>''')
+    return template.replace('{{recent-posts}}', '\n'.join(post_elements))
+
 def generate_post_index(template, posts):
         out_path = os.path.join(DIST_DIR, 'posts.html')
-        html_content = '<h1 class="post-title">Posts</h1>' + '\n'.join(make_post_entry(post) for post in posts)
+        html_content = '\n'.join(make_post_entry(post) for post in posts)
+        template = add_nav_to_template(template, posts, 'posts')
         rendered = template.replace("{{content}}", html_content)
         rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'Posts')
         rendered = rendered.replace("{{description}}", 'Posts listing')
         write_html(out_path, rendered)
-
-def write_html(out_path, html_content):
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
 
 def make_post_entry(post):
     date_obj = post['date']
@@ -104,18 +118,18 @@ def generate_home_page(template, posts):
     out_path = os.path.join(DIST_DIR, 'index.html')
     main_page = frontmatter.load(md_path)
     html_content = process_markdown(main_page.content)
-    html_content = '<h1 class="post-title">Home</h1>' + html_content
+    template = add_nav_to_template(template, posts, 'home')
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT)
     rendered = rendered.replace("{{description}}", 'Evan Schor\'s personal website')
     write_html(out_path, rendered)
 
-def generate_about_page(template):
+def generate_about_page(template, posts):
     md_path = os.path.join(PAGES_DIR, 'about.md')
     out_path = os.path.join(DIST_DIR, 'about.html')
     main_page = frontmatter.load(md_path)
     html_content = process_markdown(main_page.content)
-    html_content = '<h1 class="post-title">About</h1>' + html_content
+    template = add_nav_to_template(template, posts, 'about')
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
     rendered = rendered.replace("{{description}}", 'About Evan Schor')
@@ -142,7 +156,7 @@ def convert_block_math(match):
 def convert_inline_math(match):
     return latex2mathml.converter.convert(match.group(1))
     
-def generate_post_page(template, post):
+def generate_post_page(template, post, posts):
     base = post['slug'] + ".html"
     out_path = os.path.join(DIST_DIR, 'posts', base)
     date_obj = post['date']
@@ -156,6 +170,7 @@ def generate_post_page(template, post):
     '''
     html_content = process_markdown(post.content)
     html_content = html_title + html_content
+    template = add_nav_to_template(template, posts, post['title'])
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + post['title'])
     rendered = rendered.replace("{{description}}", post['summary'])
