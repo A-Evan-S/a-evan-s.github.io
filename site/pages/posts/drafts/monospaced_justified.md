@@ -892,8 +892,10 @@ function findSpaceWidths(font) {
         let width = measureCharacterWidth(char, font);
         let ratio = width / regularSpaceWidth;
         let simplifiedRatio = findRatio(ratio);
-        whitespacesRational[char] = simplifiedRatio;
-        denominators.push(simplifiedRatio.den);
+        if (simplifiedRatio.num != 0) {
+            whitespacesRational[char] = simplifiedRatio;
+            denominators.push(simplifiedRatio.den);
+        }
     });
     let unitSize = denominators.reduce((acc, x) => { return (acc * x) / gcd(acc, x) });
     let whitespacesIntegral = {}
