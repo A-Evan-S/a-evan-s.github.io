@@ -802,9 +802,12 @@ If you want to try out any of these monospaced justification techniques on your 
             <label for="justifier-font-select">Font:</label>
             <select name="justifier-font" id="justifier-font-select" style="font-family: 'Courier New';">
                 <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                <option value="Consolas" style="font-family: 'Consolas';">Consolas</option>
                 <option value="SF Mono" style="font-family: 'SF Mono';">SF Mono</option>
                 <option value="Cascadia Mono" style="font-family: 'Cascadia Mono';">Cascadia Mono</option>
                 <option value="Ubuntu Mono" style="font-family: 'Ubuntu Mono';">Ubuntu Mono</option>
+                <option value="Lucida Console" style="font-family: 'Lucida Console';">Lucida Console</option>
+                <!-- TODO: add remaining fonts -->
             </select>
         </div>
         <div class="option-group">
