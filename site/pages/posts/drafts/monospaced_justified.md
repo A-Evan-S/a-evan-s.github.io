@@ -1,7 +1,7 @@
 ---
 title: Monospaced Justification
 date: 2025-12-10
-summary: Playing around with fully justified, monospace text
+summary: Playing around with whitespace characters to produce justified text in monospace fonts
 ---
 
 ## Justification
@@ -798,16 +798,16 @@ It might not be as true to the aim of having uniform gap widths, but just lookin
     <div id="justifier-options">
         <div class="option-group">
             <label for="justifier-font-select">Font:</label>
-            <select name="justifier-font" id="justifier-font-select">
-                <option value="Courier New">Courier New</option>
-                <option value="SF Mono">SF Mono</option>
-                <option value="Cascadia Mono">Cascadia Mono</option>
-                <option value="Ubuntu Mono">Ubuntu Mono</option>
+            <select name="justifier-font" id="justifier-font-select" style="font-family: 'Courier New';">
+                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                <option value="SF Mono" style="font-family: 'SF Mono';">SF Mono</option>
+                <option value="Cascadia Mono" style="font-family: 'Cascadia Mono';">Cascadia Mono</option>
+                <option value="Ubuntu Mono" style="font-family: 'Ubuntu Mono';">Ubuntu Mono</option>
             </select>
         </div>
         <div class="option-group">
             <label for="justifier-num-cols">Columns:</label>
-            <input type="number" id="justifier-num-cols" value="72" />
+            <input type="number" id="justifier-num-cols" value="40" />
         </div>
         <div class="option-group">
             <label for="justifier-mode-select">Mode:</label>
@@ -819,20 +819,116 @@ It might not be as true to the aim of having uniform gap widths, but just lookin
         </div>
         <button id="justify-button">Justify</button>
     </div>
-    <textarea id="text-to-justify" placeholder="Enter text to justify..."></textarea>
-    <textarea id="justified-text" readonly wrap="off"></textarea>
+    <textarea id="text-to-justify" placeholder="Enter text to justify..."  style="font-family: 'Courier New';"></textarea>
+    <textarea id="justified-text" readonly wrap="off"  style="font-family: 'Courier New';"></textarea>
 </div>
 
 <script>
-document.getElementById('justify-button').addEventListener('click', function() {
-    const inputText = document.getElementById('text-to-justify').value;
-    document.getElementById('justified-text').value = inputText;
+const userText = document.getElementById("text-to-justify");
+const justifiedText = document.getElementById("justified-text");
+const fontSelect = document.getElementById("justifier-font-select");
+const justifyButton = document.getElementById('justify-button');
+const columnInput = document.getElementById('justifier-num-cols');
+const modeInput = document.getElementById('justifier-mode-select');
+
+justifyButton.addEventListener('click', function() {
+    const font = fontSelect.value
+    const inputText = userText.value;
+    const numColumns = Number(columnInput.value);
+    const mode = modeInput.value;
+
+    let resultText = '';
+
+    switch (mode) {
+        case 'Non-uniform Gaps':
+            resultText = nonUniformSolve(inputText, numColumns, font)
+            break;
+        case 'Word Shifting':
+            resultText = wordShiftSolve(inputText, numColumns, font)
+            break;
+        case 'Spaces Only':
+            resultText = spacesOnlySolve(inputText, numColumns)
+            break;
+    }
+
+    justifiedText.value = resultText;
 });
+
+fontSelect.addEventListener('change', function(event) {
+    event.target.style.fontFamily = event.target.value;
+    userText.style.fontFamily = event.target.value;
+    justifiedText.style.fontFamily = event.target.value;
+});
+
+function feasibleSpaces(font) {
+    feasible = {
+        0: "",
+        1: " "
+    }
+    return feasible;
+}
+
+function nonUniformSolve(text, lineLength, font) {
+    console.log([text, lineLength, font, "non-uniform mode"]);
+    let words = text.match(/\S+/g) || [];
+    words = words.reverse();
+    let lines = []
+    while (words.length > 0) {
+        let line = [];
+        while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength) {
+            line.push(words.pop());
+        }
+        if (words.length == 0) {
+            lines.push(line.join(" "));
+        } else {
+            lines.push(line.join(" ")); // TODO: this
+        }
+    }
+    return lines.join("\n");
+    return "test";
+};
+
+function wordShiftSolve(text, lineLength, font) {
+    console.log([text, lineLength, font, "word shift mode"]);
+    // TODO: all this
+    return "test";
+};
+
+function spacesOnlySolve(text, lineLength) {
+    let words = text.match(/\S+/g) || [];
+    words = words.reverse();
+    let lines = []
+    while (words.length > 0) {
+        let line = [];
+        while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength) {
+            line.push(words.pop());
+        }
+        if (words.length == 0) {
+            lines.push(line.join(" "));
+        } else {
+            let wordLengthSum = line.reduce((total, str) => total + str.length, 0);
+            let totalSpaces = lineLength - wordLengthSum;
+            let defaultSpaces = Math.floor(totalSpaces / (line.length - 1));
+            let extraSpaces = totalSpaces - defaultSpaces * (line.length - 1);
+            let lineText = "";
+            for (let i = 0; i < line.length - 1; i++) {
+                lineText += line[i];
+                lineText += " ".repeat(defaultSpaces);
+                if (i < extraSpaces) {
+                    lineText += " ";
+                }
+            }
+            lineText += line[line.length - 1];
+            lines.push(lineText);
+        }
+    }
+    return lines.join("\n");
+};
 </script>
 
 <style>
 #monospace-justifier {
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   border: 1px solid #ccc;
   border-radius: 6px;
   background-color: #fafafa;
@@ -888,7 +984,7 @@ document.getElementById('justify-button').addEventListener('click', function() {
 #justified-text {
     font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Lucida Console", "Courier New", monospace;
     width: 100%;
-    box-sizing: border-box;  /* Add this - includes padding in width calculation */
+    box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 3px;
     field-sizing: content;
