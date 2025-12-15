@@ -7,7 +7,7 @@
 #nav-main-container {
   display: flex;
   flex-wrap: nowrap;
-  gap: 20px;
+  gap: 0 20px;
 }
 
 nav {
@@ -60,8 +60,36 @@ main {
   }
 }
 
+h1 {
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+h2 {
+  margin-top: 25px;
+  margin-bottom: 0px;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+h3 {
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+main > *:first-child {
+  margin-top: 5px;
+}
+
+main > .posts-list-entry:first-child {
+  padding-top: 5px;
+}
+
 header {
-  margin: 20px 0;
+  margin: 20px 0 10px 0;
 }
 
 #site-title {
@@ -312,5 +340,12 @@ main li {
 }
 
 nav a.active {
-  font-weight: bold;
+  color: #000;
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.1em;
+}
+
+html {
+  scrollbar-gutter: stable both-edges;
 }
