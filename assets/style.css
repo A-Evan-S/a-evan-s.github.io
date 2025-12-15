@@ -310,3 +310,7 @@ main li {
   font-style: normal;
   text-align: right;
 }
+
+nav a.active {
+  font-weight: bold;
+}
