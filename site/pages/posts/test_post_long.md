@@ -1,5 +1,5 @@
 ---
-title: A very long post, both in title and in content to test what should be done in, quite frankly, ridiculous cases such as this
+title: A very long test post, both in title and in content to test what should be done in, quite frankly, ridiculous cases such as this
 date: 2025-12-08
 summary: A very long post to test how the site handles overly long content
 ---

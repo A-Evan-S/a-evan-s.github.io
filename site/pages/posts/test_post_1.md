@@ -1,7 +1,0 @@
----
-title: Test Post 1
-date: 2025-12-06
-summary: A first test post to test site builder
----
-
-This is a post With some text in it.

@@ -1,7 +1,7 @@
 ---
-title: Test Post 2
+title: Test Post for Formatting
 date: 2025-12-07
-summary: A second test post to test various formatting pieces
+summary: A test post to test various formatting pieces
 ---
 
 This is a post (also) With some text in it.
