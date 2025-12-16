@@ -803,11 +803,31 @@ If you want to try out any of these monospaced justification techniques on your 
             <select name="justifier-font" id="justifier-font-select" style="font-family: 'Courier New';">
                 <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
                 <option value="Consolas" style="font-family: 'Consolas';">Consolas</option>
-                <option value="SF Mono" style="font-family: 'SF Mono';">SF Mono</option>
+                <option value="Monaco" style="font-family: 'Monaco';">Monaco</option>
+                <option value="Menlo" style="font-family: 'Menlo';">Menlo</option>
+                <option value="Fira Mono" style="font-family: 'Fira Mono';">Fira Mono</option>
+                <option value="Source Code Pro" style="font-family: 'Source Code Pro';">Source Code Pro</option>
+                <option value="Roboto Mono" style="font-family: 'Roboto Mono';">Roboto Mono</option>
+                <option value="JetBrains Mono" style="font-family: 'JetBrains Mono';">JetBrains Mono</option>
+                <option value="IBM Plex Mono" style="font-family: 'IBM Plex Mono';">IBM Plex Mono</option>
                 <option value="Cascadia Mono" style="font-family: 'Cascadia Mono';">Cascadia Mono</option>
+                <option value="SF Mono" style="font-family: 'SF Mono';">SF Mono</option>
+                <option value="Inconsolata" style="font-family: 'Inconsolata';">Inconsolata</option>
+                <option value="DejaVu Sans Mono" style="font-family: 'DejaVu Sans Mono';">DejaVu Sans Mono</option>
                 <option value="Ubuntu Mono" style="font-family: 'Ubuntu Mono';">Ubuntu Mono</option>
+                <option value="Droid Sans Mono" style="font-family: 'Droid Sans Mono';">Droid Sans Mono</option>
+                <option value="Liberation Mono" style="font-family: 'Liberation Mono';">Liberation Mono</option>
+                <option value="Noto Sans Mono" style="font-family: 'Noto Sans Mono';">Noto Sans Mono</option>
+                <option value="PT Mono" style="font-family: 'PT Mono';">PT Mono</option>
+                <option value="Anonymous Pro" style="font-family: 'Anonymous Pro';">Anonymous Pro</option>
+                <option value="Hack" style="font-family: 'Hack';">Hack</option>
+                <option value="Space Mono" style="font-family: 'Space Mono';">Space Mono</option>
+                <option value="Overpass Mono" style="font-family: 'Overpass Mono';">Overpass Mono</option>
+                <option value="Victor Mono" style="font-family: 'Victor Mono';">Victor Mono</option>
+                <option value="CommitMono" style="font-family: 'CommitMono';">CommitMono</option>
                 <option value="Lucida Console" style="font-family: 'Lucida Console';">Lucida Console</option>
-                <!-- TODO: add remaining fonts -->
+                <option value="Lucida Sans Typewriter" style="font-family: 'Lucida Sans Typewriter';">Lucida Sans Typewriter</option>
+                <option value="Andale Mono" style="font-family: 'Andale Mono';">Andale Mono</option>
             </select>
         </div>
         <div class="option-group">
