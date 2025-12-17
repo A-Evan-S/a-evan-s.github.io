@@ -21,7 +21,10 @@ justifyButton.addEventListener('click', function() {
             resultText = wordShiftSolve(inputText, numColumns, font)
             break;
         case 'Spaces Only':
-            resultText = spacesOnlySolve(inputText, numColumns)
+            resultText = spacesOnlySolve(inputText, numColumns);
+            break;
+        case 'Find Two':
+            resultText = twoSizeSolve(inputText, numColumns, font);
             break;
     }
 
@@ -105,6 +108,60 @@ function measureCharacterWidth(char, font, repetitions = 100) {
     return totalWidth / repetitions;
 }
 
+function twoSizeSolve(text, lineLength, font) {
+    let [unitSize, whitespaces] = findSpaceWidths(font);
+    let words = text.match(/\S+/g) || [];
+    words = words.reverse();
+    let lines = []
+    while (words.length > 0) {
+        let line = [];
+        while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength) {
+            line.push(words.pop());
+        }
+        if (words.length == 0) {
+            lines.push(line.join(" "));
+        } else {
+            result = solveLineTwoSize(line, lineLength, unitSize, whitespaces);
+            lines.push(result);
+        }
+    }
+    return lines.join("\n");
+}
+
+function solveLineTwoSize(words, lineLength, unitSize, whitespaces) {
+    console.log(unitSize);
+    console.log(whitespaces);
+    const whitespace_needed = (lineLength - words.reduce((sum, word) => sum + word.length, 0)) * unitSize;
+    const num_gaps = words.length - 1;
+    let ideal = idealSolver(whitespaces, num_gaps, whitespace_needed);
+    if (ideal != null) {
+        return words.join(ideal);
+    }
+    const ideal_gap_size = whitespace_needed / num_gaps;
+    console.log("ideal: " + ideal_gap_size);
+    const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + 2*unitSize), whitespaces);
+    const feasible_sorted = Object.keys(feasible_gaps)
+        .map(k => parseInt(k))
+        .sort((a, b) => Math.abs(a - ideal_gap_size) - Math.abs(b - ideal_gap_size));
+    console.log(feasible_sorted.slice(0, 50));
+    for (const gap of feasible_sorted) {
+        console.log(gap);
+        for (let i = 1; i < num_gaps; i++) {
+            let neededGap = (whitespace_needed - i * gap) / (num_gaps - i)
+            if (gap == unitSize) {
+                console.log("here: ", neededGap);
+            }
+            if (neededGap in feasible_gaps) {
+                const first = words.slice(0, i + 1).join(feasible_gaps[gap]);
+                const rest = words.slice(i + 1).join(feasible_gaps[neededGap]);
+                console.log("found");
+                return rest ? first + feasible_gaps[neededGap] + rest : first;
+            }
+        }
+    }
+    console.log("failed");
+}
+
 function nonUniformSolve(text, lineLength, font) { // TODO: fix this
     let [unitSize, whitespaces] = findSpaceWidths(font);
     let words = text.match(/\S+/g) || [];
@@ -118,18 +175,18 @@ function nonUniformSolve(text, lineLength, font) { // TODO: fix this
         if (words.length == 0) {
             lines.push(line.join(" "));
         } else {
-            [variance, result] = solveLineNonUniform(line, lineLength, unitSize, whitespaces)
+            [variance, result] = solveLineNonUniform(line, lineLength, unitSize, whitespaces);
             lines.push(result);
         }
     }
     return lines.join("\n");
 };
 
-function solveLineNonUniform(words, line_length, unit_size, whitespaces) { // TODO: touch up AI code
-    const whitespace_needed = (line_length - words.reduce((sum, word) => sum + word.length, 0)) * unit_size;
+function solveLineNonUniform(words, lineLength, unitSize, whitespaces) { // TODO: touch up AI code
+    const whitespace_needed = (lineLength - words.reduce((sum, word) => sum + word.length, 0)) * unitSize;
     const num_gaps = words.length - 1;
     const ideal_gap_size = whitespace_needed / num_gaps;
-    const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + unit_size), whitespaces);
+    const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + unitSize), whitespaces);
     const feasible_sorted = Object.keys(feasible_gaps)
         .map(k => parseInt(k))
         .sort((a, b) => Math.abs(a - ideal_gap_size) - Math.abs(b - ideal_gap_size))
