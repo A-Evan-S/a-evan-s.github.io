@@ -840,6 +840,7 @@ If you want to try out any of these monospaced justification techniques on your 
                 <option value="Non-uniform Gaps">Non-uniform Gaps</option>
                 <option value="Word Shifting">Word Shifting</option>
                 <option value="Spaces Only">Spaces Only</option>
+                <option value="Find Two">Find Two</option>
             </select>
         </div>
         <button id="justify-button">Justify</button>
