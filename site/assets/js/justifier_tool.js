@@ -118,18 +118,18 @@ function nonUniformSolve(text, lineLength, font) { // TODO: fix this
         if (words.length == 0) {
             lines.push(line.join(" "));
         } else {
-            [variance, result] = solveLineNonUniform(line, lineLength, unitSize, whitespaces)
+            [variance, result] = solveLineNonUniform(line, lineLength, unitSize, whitespaces);
             lines.push(result);
         }
     }
     return lines.join("\n");
 };
 
-function solveLineNonUniform(words, line_length, unit_size, whitespaces) { // TODO: touch up AI code
-    const whitespace_needed = (line_length - words.reduce((sum, word) => sum + word.length, 0)) * unit_size;
+function solveLineNonUniform(words, lineLength, unitSize, whitespaces) { // TODO: touch up AI code
+    const whitespace_needed = (lineLength - words.reduce((sum, word) => sum + word.length, 0)) * unitSize;
     const num_gaps = words.length - 1;
     const ideal_gap_size = whitespace_needed / num_gaps;
-    const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + unit_size), whitespaces);
+    const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + unitSize), whitespaces);
     const feasible_sorted = Object.keys(feasible_gaps)
         .map(k => parseInt(k))
         .sort((a, b) => Math.abs(a - ideal_gap_size) - Math.abs(b - ideal_gap_size))
