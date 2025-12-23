@@ -21,6 +21,10 @@ Here "neighbors" are defined by the [Moore neighborhood](link), meaning the 4 ad
 
 These simple rules give rise to some marvelously complex behaviors if given the right starting cell states, and a seemingly natural chaos when randomly initialized.
 
+<div class="demo-container">
+<canvas id="GOL-demo"></canvas>
+</div>
+
 \[Put in some cool examples!\]
 
 ## Wireworld
@@ -43,6 +47,10 @@ The rules for the transitions between these states are relatively simple. At eac
 
 In effect, this means that a long sequence of connected Conductor cells acts as a wire and pairs of Electron Heads and Electron Tails move along these wires. However, the constraint that three or more Electron Heads stop the propagation of the "electron" creates opportunities to design interesting circuits.
 
+
+<div class="demo-container">
+<canvas id="Wireworld-demo"></canvas>
+</div>
 \[Demo of simple circuit\]
 
 In fact, some absolute madmen created patterns for diodes, gates, flip-flops, and put together a Wireworld computer [https://www.quinapalus.com/wi-index.html](https://www.quinapalus.com/wi-index.html).
@@ -52,3 +60,20 @@ In fact, some absolute madmen created patterns for diodes, gates, flip-flops, an
 Wireworld is tremendously cool, and hexagons are tremendously cool, so what if we build wireworld not on a square grid, but on a hexagonally tiled grid?
 
 ...
+
+<div class="demo-container">
+<canvas id="Hex-wireworld-demo"></canvas>
+</div>
+
+
+<script src="/assets/js/hexagonal_wireworld_demos.js"></script>
+<style>
+    .demo-container canvas {
+        width: 90%;
+        border: 1px dashed #ccc; /* Delete in final version */
+        padding: 5px;
+        display: block;
+        margin: auto;
+        aspect-ratio: 4 / 3;
+    }
+</style>
