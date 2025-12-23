@@ -42,10 +42,10 @@ More precicely, Wireworld uses four different cell states:
 
 The rules for the transitions between these states are relatively simple. At each step
 
-1. Empty cells always stay Empty
-2. Electron Heads transition to Electron Tails
-3. Electron Tails transition to Conductors
-4. Conductors transition to Electron Heads if one or two neighboring (Moore neighborhood) cells are electron heads
+1. *Empty* cells always stay Empty
+2. *Electron Heads* transition to Electron Tails
+3. *Electron Tails* transition to Conductors
+4. *Conductors* transition to Electron Heads if one or two neighboring (Moore neighborhood) cells are electron heads
 
 In effect, this means that a long sequence of connected Conductor cells acts as a wire and pairs of Electron Heads and Electron Tails move along these wires. However, the constraint that three or more Electron Heads stop the propagation of the "electron" creates opportunities to design interesting circuits.
 
@@ -67,12 +67,65 @@ In fact, some absolute madmen created patterns for diodes, gates, flip-flops, an
 
 Wireworld is tremendously cool, and hexagons are tremendously cool, so what if we build wireworld not on a square grid, but on a hexagonally tiled grid?
 
-...
+[Super Cool Reference](https://www.redblobgames.com/grids/hexagons/)
+
+My hope at the outset that the unique neighboring and the 6-fold symmetry (as opposed to the 4-fold of a square grid) would provide a unique opportunity for interesting rulesets and designs. I did wind up with what I think is an interesting result, but I quickly became disillusioned that the hexagonal grid by itself provides much value.
+
+For example, hexagonal grids have six immediate neighbors, so a simple ruleset should allow for six angles of straight wires, as opposed to a square grid's four.
+
+\[Image of 4 vs 6 neighbors\]
+
+This is true, but mislideading. A square grid does have 4 immediate neighbors, but by the rules for Wireworld, each of its eight neighbors present a valid direction for a wire. We haven't gone up from 4 neighbors, but down from 8.
+
+\[Image of 8 vs 6 directions\]
+
+With this in mind, I tried a few different versions of rulesets:
+    * Just use the 6 neighbors (more limited than Wireworld with little benefit)
+    * Use the 6 neighbors but split into two groups of 3 with different rules (didn't find anything here, but I still think the idea of removing one level of rotational symmetry interesting)
+    * Expand to use additonal neighbors (either 12 or 18)
+    * Expand to use additional neighbors and split into two groups
+
+\[Image of various neighbor versions\]
+
+## Hexagonal Wireworld
+
+I ended up going with 18 neighbors, split into two tiers: the 6 immediate neighbors, and the 12 outer neighbors. I also added an intermediate cell state between Electron Head and Electron Tail, as we need two spaces away to prevent an electron from interacting with itself[^quantum].
+
+Here are the rules I ended up with:
+
+1. *Empty* cells always stay Empty
+2. *Electron Heads* transition to Electron Middles
+2. *Electron Middles* transition to Electron Tails
+3. *Electron Tails* transition to Conductors
+4. *Conductors* transition to Electron Heads if either
+    * 1 inner-neighbor cell is an electron head and 0 or 1 outer-neighbor cells are electron heads
+    * 0 inner-neighbor cells are electron heads and exactly 2 outer-neighbor cells are electron heads
+
+This rule is a bit more convoluted than the original Wireworld, but provides what we need for interesting circuits:
+
+* Electrons can move down directly connected wires
+* Two electrons colliding on a simple wire cancel out (as in the original Wireworld)
+* Two electrons can either join or cancel out based on gate structure
+
+It also has a cool visual effective reminiscent of inductance, where currents can affect each other and jump between conductors.
+
+## Examples
+
+Here are a bunch of different interesting structures I found playing with this ruleset
 
 <div class="demo-container">
+<div class="demo-buttons">
+<button id="Hex-repeater-1">Repeater 1</button>
+<button id="Hex-repeater-2">Repeater 2</button>
+</div>
 <canvas id="Hex-wireworld-demo"></canvas>
 </div>
 
+## Reflection
+
+Overall, the hexagonal grid didn't add much for flexibility for Wireworld, and has relatively fragile structures with regard to signals needing to be in phase. That combined with the larger structures due to the necessity of the Electron Middle state, means it's difficult to find much that the hexagonal version can do that the original cannot.
+
+Regardless, it was fun to build and makes some cool little animations!
 
 <script src="/assets/js/hexagonal_wireworld_demos.js"></script>
 <style>
@@ -115,3 +168,5 @@ Wireworld is tremendously cool, and hexagons are tremendously cool, so what if w
         background-color: #e3e3e3;
     }
 </style>
+
+[^quantum] Quantum Wireworld?
