@@ -22,10 +22,12 @@ Here "neighbors" are defined by the [Moore neighborhood](link), meaning the 4 ad
 These simple rules give rise to some marvelously complex behaviors if given the right starting cell states, and a seemingly natural chaos when randomly initialized.
 
 <div class="demo-container">
+<div class="demo-buttons">
+<button id="GOL-random">Random</button>
+<button id="GOL-glider">Glider</button>
+</div>
 <canvas id="GOL-demo"></canvas>
 </div>
-
-\[Put in some cool examples!\]
 
 ## Wireworld
 
@@ -49,6 +51,12 @@ In effect, this means that a long sequence of connected Conductor cells acts as 
 
 
 <div class="demo-container">
+<div class="demo-buttons">
+<button id="WW-diodes">Diode</button>
+<button id="WW-or">OR gate</button>
+<button id="WW-xor">XOR gate</button>
+<button id="WW-flip-flop">Flip-flop</button>
+</div>
 <canvas id="Wireworld-demo"></canvas>
 </div>
 \[Demo of simple circuit\]
@@ -69,11 +77,41 @@ Wireworld is tremendously cool, and hexagons are tremendously cool, so what if w
 <script src="/assets/js/hexagonal_wireworld_demos.js"></script>
 <style>
     .demo-container canvas {
-        width: 90%;
-        border: 1px dashed #ccc; /* Delete in final version */
-        padding: 5px;
+        width: 100%;
         display: block;
         margin: auto;
         aspect-ratio: 4 / 3;
+    }
+
+    .demo-container {
+        padding: 20px 20px 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fafafa;
+        max-width: 100%;
+    }
+
+    .demo-buttons {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .demo-buttons button {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .demo-buttons button:hover {
+        background-color: #e3e3e3;
     }
 </style>
