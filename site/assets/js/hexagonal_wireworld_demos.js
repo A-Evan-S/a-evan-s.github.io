@@ -121,7 +121,7 @@ function fillDiodeWW() {
     let state = demos['WW'].state;
     state.grid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('empty'));
 
-    let wires = [
+    [
         [9, 9], [10, 8], [11, 8], [12, 8], [13, 8], [13, 10], [14, 9], [10, 10],
         [8, 9], [7, 10], [7, 11], [7, 12], [7, 13], [7, 14],
         [15, 9], [16, 10], [16, 11], [16, 12], [16, 13], [16, 14],
@@ -129,9 +129,7 @@ function fillDiodeWW() {
         [15, 15], [17, 15], [15, 16], [16, 16], [17, 16], [16, 17], [16, 18],
         [7, 19], [7, 20], [7, 21],
         [16, 19], [16, 20], [16, 21]
-    ];
-
-    wires.forEach((pos) => state.grid[pos[0]][pos[1]] = 'conductor');
+    ].forEach((pos) => state.grid[pos[0]][pos[1]] = 'conductor');
     state.grid[11][10] = 'e-head';
     state.grid[12][10] = 'e-tail';
 }
@@ -139,6 +137,13 @@ function fillDiodeWW() {
 function fillORWW() {
     let state = demos['WW'].state;
     state.grid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('empty'));
+
+    [
+        [7, 2], [6, 3], [6, 4], [6, 5], [8, 3], [8, 4], [8, 5]
+        [16, 2]
+    ].forEach((pos) => state.grid[pos[0]][pos[1]] = 'conductor');
+    // state.grid[11][10] = 'e-head';
+    // state.grid[12][10] = 'e-tail';
 }
 
 function fillXORWW() {
@@ -512,10 +517,54 @@ const hexStep = document.getElementById("Hex-step");
 hexStep.addEventListener('click', () => tickHexWW(demos['HexWW'].state));
 
 hexWireworldDemo.addEventListener('click', function(event) {
-    // console.log(event.offsetX);
-    // console.log(event.offsetY);
-    // TODO: hit detection on hex grid
+    let state = demos['HexWW'].state;
+    let pos = getHexRowCol(event.offsetX, event.offsetY);
+    if (0 <= pos[0] && pos[0] < state.grid.length && 0 <= pos[1] && pos[1] < state.grid[0].length) {
+        state.grid[pos[0]][pos[1]] = 'conductor';
+    }
 });
+
+function getHexRowCol(x, y) {
+    let state = demos['HexWW'].state;
+
+    let a = (wireworldDemo.width - 5) / (2*state.numCols + 1) * 2 / Math.sqrt(3);
+    let b = (wireworldDemo.height - 5) / (state.numRows + 1/4) * 2 / 3;
+
+    let cornerRadius = Math.min(a, b); // center-to-corner
+    let edgeRadius = cornerRadius * Math.sqrt(3) / 2; // center-to-edge
+
+    let r = Math.floor(y / (3 * cornerRadius / 2));
+    let r_over = y - r * (3 * cornerRadius / 2);
+
+    if (r_over > cornerRadius / 2) {
+        let c = x / (2 * edgeRadius);
+        if (r % 2 == 0) {
+            c = (x - edgeRadius) / (2 * edgeRadius);
+        }
+        c = Math.floor(c);
+        return [r, c];
+    } else {
+        let c = Math.floor(x / (2 * edgeRadius));
+        let c_over = x - c * (2 * edgeRadius);
+        if (r % 2 == 1) {
+            if (r_over < (cornerRadius / 2) - c_over / Math.sqrt(3)) {
+                return [r-1, c-1];
+            } else if (r_over < -1 * (cornerRadius / 2) + c_over / Math.sqrt(3)) {
+                return [r-1, c];
+            } else {
+                return [r, c];
+            }
+        } else {
+            if (r_over > c_over / Math.sqrt(3)) {
+                return [r, c-1];
+            } else if (r_over > 2 * (cornerRadius / 2) - c_over / Math.sqrt(3)) {
+                return [r, c];
+            } else {
+                return [r-1, c];
+            }
+        }
+    }
+}
 
 
 
