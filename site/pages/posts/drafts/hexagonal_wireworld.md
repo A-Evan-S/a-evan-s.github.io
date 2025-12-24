@@ -115,10 +115,20 @@ Here are a bunch of different interesting structures I found playing with this r
 
 <div class="demo-container">
 <div class="demo-buttons">
-<button id="Hex-repeater-1">Repeater 1</button>
-<button id="Hex-repeater-2">Repeater 2</button>
+<button id="Hex-xor-gate">XOR Gate</button>
+<button id="Hex-and-gate">AND Gate</button>
+<button id="Hex-or-gate">OR Gate</button>
+<button id="Hex-diode">Diodes</button>
+<button id="Hex-repeaters">Repeaters</button>
+<button id="Hex-reflectors">Reflectors</button>
+<button id="Hex-flip-flop">Flip-Flop</button>
+<button id="Hex-flashers">Flashers</button>
 </div>
 <canvas id="Hex-wireworld-demo"></canvas>
+<div class="demo-buttons">
+<button id="Hex-play-pause">Play/Pause</button>
+<button id="Hex-step">Step</button>
+</div>
 </div>
 
 ## Reflection
@@ -169,4 +179,4 @@ Regardless, it was fun to build and makes some cool little animations!
     }
 </style>
 
-[^quantum] Quantum Wireworld?
+[^quantum]: Quantum Wireworld?
