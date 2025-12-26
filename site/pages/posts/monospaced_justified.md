@@ -1,12 +1,30 @@
 ---
 title: Monospaced Justification
-date: 2025-12-10
+date: 2025-12-26
 summary: Playing around with whitespace characters to produce justified text in monospace fonts
 ---
 
 ## Justification
 
-Justified text stretches or compresses the whitespace between words such that the left and right ends of each line are aligned. It's common in newspapers and other print media. I assume this has something to do with printing presses or something, but I didn't look it up.
+Justified text stretches or compresses the whitespace between words such that the left and right ends of each line are aligned. It's common in newspapers, books, and other print media. I assume this has something to do with printing presses or something, but I didn't look it up.
+
+<div style="width: 80%; margin: 0 auto; display: flex; flex-wrap: wrap;">
+  <div style="padding: 10px; flex: 1; min-width: 200px;">
+    <h4 style="text-align: center; margin-top: 0;">Left Aligned</h4>
+    <p style="text-align: start; font-size: 0.7em;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </p>
+  </div>
+
+  <div style="padding: 10px; flex: 1; min-width: 200px;">
+    <h4 style="text-align: center; margin-top: 0;">Justified</h4>
+    <p style="text-align: justify; font-size: 0.7em;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </p>
+  </div>
+</div>
+
+
 
 Monospaced fonts attempt to provide uniformity to text by making each character take up the same width on the page. When using these fonts for most applications we opt for "flush left" alignment, where the left side of each line is aligned, but the right side remains ragged.
 
@@ -18,7 +36,7 @@ versions.
 </pre>
 </div>
 
-We can approximate justified text by adding additional spaces between words, forcing both sides into aligment. By distributing the spaces as evenly as possible, we get reasonably good results.
+We can approximate justified text by adding additional spaces between words, forcing both sides into alignment. By distributing the spaces as evenly as possible, we get reasonably good results.
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
 <pre style="display: inline-block; text-align: left;">
@@ -30,7 +48,7 @@ versions.
 
 This method is a fairly common programming exercise[^leetcode], but produces notably imbalanced spacing: notice in the example above how the space between "demonstrate" and "the" is twice as large as the space between "the" and "different".
 
-We can do better. While many fonts are described as "monospaced", those with Unicode support are rarely consistant in keeping *every* character to a uniform width. If you've ever tried to include emojis in code, you've likely come across this.
+We can do better. While many fonts are described as "monospaced", those with Unicode support are rarely consistent in keeping *every* character to a uniform width. If you've ever tried to include emojis in code, you've likely come across this.
 
 ```python
 print('🙂-aligned')
@@ -63,7 +81,7 @@ Similarly, the second line has 3 gaps and is 1 character width from the end of t
 
 The good news is that we have a lot more whitespace characters to work with, so we have more granularity than just the characters in the example above. The bad news is that many of their widths overlap and that different fonts represent the various whitespace characters differently.
 
-I wrote a script to render all the whitespace characters in a variety of fonts to produce the following table, expressing each character's width as a ratio to the width of a regular space (U+0020).
+I wrote a script to render[^render] all the whitespace characters in a variety of fonts to produce the following table, expressing each character's width as a ratio to the width of a regular space (U+0020).
 
 <table>
     <thead>
@@ -578,7 +596,7 @@ I wrote a script to render all the whitespace characters in a variety of fonts t
 
 While the ratios here match to $\epsilon \le 0.1\%$, it's notable that some fonts are much closer to exact integer ratios than others. In most situations, the small difference at the subpixel level will still result in the right ends of the lines aligning to the nearest pixel.
 
-Notably, most of these fonts preserve whitespace width ratios *between* these whitespace characters rather similarly (e.g. `THREE-PER-EM SPACE` is almost exactly $\frac{1}{3}$ of the `EM SPACE`). However, they don't all share the same ratio to the width of the uniform width characters in the font and differ in a handful of other cases.
+Notably, most of these fonts are fairly consistent in preserving the width ratios *between* some of these whitespace characters (e.g. `THREE-PER-EM SPACE` is almost exactly $\frac{1}{3}$ of the `EM SPACE`). However, they are don't all have the same ratio of these whitespace characters to the standard space character. 
 
 
 ## Solving
@@ -674,7 +692,7 @@ This doesn't look too bad at first; a good amount of the cases are solvable. How
 
 ![Graph of working values, weighted](\assets\images\weighted.png "what does this do again?"){: width="500"}
 
-Around 46.6% of the lines can be justified with these space characters. For reference 17.8% of lines were justified without any additional whitespace chracters. Not terrible, but lots of room for improvement.
+Around 46.6% of the lines can be justified with these space characters. For reference 17.8% of lines were justified without any additional whitespace characters. Not terrible, but lots of room for improvement.
 
 ## Imperfect Solutions
 
@@ -692,7 +710,7 @@ justification versions.
 </pre>
 </div>
 
-Trying this on our Alice in Wonderland text, we're effectively able to shift the frequencies of different values on the graph to move as many as possible to solvable postions.
+Trying this on our Alice in Wonderland text, we're effectively able to shift the frequencies of different values on the graph to move as many as possible to solvable positions.
 
 ![Graph of working values, removed words](\assets\images\word_removals.png "what does this do again?"){: width="600"}
 
@@ -723,7 +741,7 @@ Here, "but out-of-the-way" was pushed to the next line, creating some glaringly 
 
 ### Non-uniform Gaps
 
-Instead of adjusting the splitting of words into lines, we can go back to an approach more similar to the leetcode style solution of always reaching full justification but accepting varied gap sizes. However, with the addition of the various whitespace characters, we can get a more uniform spacing than was possible with regular spaces alone.
+Instead of adjusting the splitting of words into lines, we can go back to an approach more similar to the original solution of always reaching full justification but accepting varied gap sizes. However, with the addition of the various whitespace characters, we can get a more uniform spacing than was possible with regular spaces alone.
 
 First we need to define what we're optimizing for. Two definitions for an objective function come to mind:
 
@@ -732,7 +750,7 @@ First we need to define what we're optimizing for. Two definitions for an object
 
 In each example I've tried, these two objectives converge to the same solution, but I haven't been able to prove that generally. I opted to solve for minimizing the variance.
 
-In either case, the first step is identifying all the reachable gap widths for a given set of witespace characters. This can be solved again using the change making algorithm, this time finding the total feasible space. For example, using the numbers above (where a single space is 432 units), we can make gaps of size:
+In either case, the first step is identifying all the reachable gap widths for a given set of whitespace characters. This can be solved again using the change making algorithm, this time finding the total feasible space. For example, using the numbers above (where a single space is 432 units), we can make gaps of size:
 
 $$0, 45, 90, 120, 135, 144, 160, 165, 180, 189, 205, 210, 216, 225, 234, 240, 250, 255 ...$$
 
@@ -748,7 +766,7 @@ def solve(text, line_length, unit_size, whitespaces):
     feasible_sorted = sorted(
         feasible_gaps.keys(),
         key=lambda gap: abs(gap - ideal_gap_size)
-    )[:100]
+    )
 
     best_variance = float('inf')
 
@@ -783,8 +801,6 @@ def solve(text, line_length, unit_size, whitespaces):
     return result, best_variance
 ```
 
-Unfortunately, this proved too inefficient to use with the full list of feasible gap sizes, so I opted to cap the feasible gaps to the 100 closest to the ideal gap size,  $\frac{\text{nubmer of spaces}}{\text{number of gaps}}$. This is highly likely to get us the optimal solution, but if in reading this you identify an improved solution that would avoid this, I'd be very interested in hearing about it!
-
 Using this approach, we get the following result on the previously attempted paragraph:
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
@@ -801,8 +817,7 @@ on in the common way.
 
 It might not be as true to the aim of having uniform gap widths, but just looking visually I couldn't tell which lines were uneven (out of the 6 justified lines, half are non-uniform in their spacing[^answer]).
 
-While this algorithm worked fine for fonts with simple whitespace size ratios, it blows up for fonts like Cascadia Mono or Lucida Console with their more complex ratios as seen in the earlier table. I did find an alternative apporach, though I haven't been able to prove to myself that it's guaranteed to produce the same result in general. In all the cases I found running the above solution, the resulting lines only ever used two different gap-sizes. Adding this as a constraint drastically reduces the search space, and is what is implemented in the tool below.
-
+While this algorithm worked fine for fonts with simple whitespace size ratios, it blows up for fonts like Cascadia Mono or Lucida Console with their more complex ratios as seen in the earlier table. I first tried to cap the feasible gaps to the 100 closest to the ideal gap size,  $\frac{\text{number of spaces}}{\text{number of gaps}}$. This is highly likely to get us the optimal solution, and did reduce the search space, but still failed on certain inputs with certain fonts. I did find an alternative approach, though I haven't been able to prove to myself that it's guaranteed to produce the same result in general. In all the cases I found running the above solution, the resulting lines only ever used two different gap-sizes. Adding this as a constraint drastically reduces the search space, and is what is implemented in the tool below.
 
 ## Try It Out
 
@@ -943,5 +958,6 @@ If you want to try out any of these monospaced justification techniques on your 
 </style>
 
 [^leetcode]:[https://leetcode.com/problems/text-justification/](https://leetcode.com/problems/text-justification/)
+[^render]: I didn't think of a better way to do this, but after learning a bit more about fonts I suspect I could have inspected the fonts more directly to get the exact widths rather than measuring.
 [^alice]: [https://www.gutenberg.org/cache/epub/11/pg11.txt](https://www.gutenberg.org/cache/epub/11/pg11.txt)
 [^answer]: The 2nd, 5th, and 6th lines are slightly uneven
