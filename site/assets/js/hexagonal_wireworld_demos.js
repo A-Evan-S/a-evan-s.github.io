@@ -493,6 +493,11 @@ function fillFlashersHex() {
     state.grid[18][22] = 'e-head';
 }
 
+function clearHex() {
+    let state = demos['HexWW'].state;
+    state.grid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('empty'));
+}
+
 const hexButton1 = document.getElementById("Hex-repeaters");
 const hexButton2 = document.getElementById("Hex-reflectors");
 const hexButton3 = document.getElementById("Hex-diode");
@@ -501,6 +506,7 @@ const hexButton5 = document.getElementById("Hex-xor-gate");
 const hexButton6 = document.getElementById("Hex-or-gate");
 const hexButton7 = document.getElementById("Hex-flip-flop");
 const hexButton8 = document.getElementById("Hex-flashers");
+const hexButton9 = document.getElementById("Hex-clear");
 
 hexButton1.addEventListener('click', fillRepeaters);
 hexButton2.addEventListener('click', fillReflectors);
@@ -510,6 +516,19 @@ hexButton5.addEventListener('click', fillXorGateHex);
 hexButton6.addEventListener('click', fillOrGateHex);
 hexButton7.addEventListener('click', fillFlipFlopHex);
 hexButton8.addEventListener('click', fillFlashersHex);
+hexButton9.addEventListener('click', clearHex);
+
+const colorButtons = document.querySelectorAll('.color-selector');
+let hexSelected = 'conductor';
+
+colorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        colorButtons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+        hexSelected = button.id.substring(9);
+        console.log(hexSelected);
+    });
+});
 
 const hexPlayPause = document.getElementById("Hex-play-pause");
 hexPlayPause.addEventListener('click', () => demos['HexWW'].state.paused = !demos['HexWW'].state.paused);
@@ -520,7 +539,7 @@ hexWireworldDemo.addEventListener('click', function(event) {
     let state = demos['HexWW'].state;
     let pos = getHexRowCol(event.offsetX, event.offsetY);
     if (0 <= pos[0] && pos[0] < state.grid.length && 0 <= pos[1] && pos[1] < state.grid[0].length) {
-        state.grid[pos[0]][pos[1]] = 'conductor';
+        state.grid[pos[0]][pos[1]] = hexSelected;
     }
 });
 

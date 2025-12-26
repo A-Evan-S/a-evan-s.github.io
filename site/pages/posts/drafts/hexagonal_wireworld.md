@@ -123,11 +123,32 @@ Here are a bunch of different interesting structures I found playing with this r
 <button id="Hex-reflectors">Reflectors</button>
 <button id="Hex-flip-flop">Flip-Flop</button>
 <button id="Hex-flashers">Flashers</button>
+<button id="Hex-clear">Clear</button>
 </div>
 <canvas id="Hex-wireworld-demo"></canvas>
-<div class="demo-buttons">
+
+<div class="demo-buttons demo-buttons-split">
+<div class="demo-buttons-left">
 <button id="Hex-play-pause">Play/Pause</button>
 <button id="Hex-step">Step</button>
+</div>
+<div class="demo-buttons-right">
+<button id="selector-conductor" class="color-selector">
+    <div class="color-swatch" style="background-color: #aaaaaa;"></div>
+</button>
+<button id="selector-e-head" class="color-selector">
+    <div class="color-swatch" style="background-color: #29b1ff;"></div>
+</button>
+<button id="selector-e-mid" class="color-selector">
+    <div class="color-swatch" style="background-color: #67c6f1;"></div>
+</button>
+<button id="selector-e-tail" class="color-selector">
+    <div class="color-swatch" style="background-color: #a1cae6;"></div>
+</button>
+<button id="selector-empty" class="color-selector selected">
+    <div class="color-swatch" style="background-color: #F0F0F0;"></div>
+</button>
+</div>
 </div>
 </div>
 
@@ -163,6 +184,20 @@ Regardless, it was fun to build and makes some cool little animations!
         justify-content: center;
     }
 
+    .demo-buttons-split {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .demo-buttons-left {
+        display: flex;
+        gap: 15px;
+    }
+    .demo-buttons-right {
+        display: flex;
+        flex-direction: row;
+    }
+
     .demo-buttons button {
         padding: 8px 12px;
         border: 1px solid #ccc;
@@ -176,6 +211,30 @@ Regardless, it was fun to build and makes some cool little animations!
 
     .demo-buttons button:hover {
         background-color: #e3e3e3;
+    }
+
+    .demo-buttons button.color-selector {
+        padding: 2px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .demo-buttons button.color-selector .color-swatch {
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .demo-buttons button.color-selector.selected {
+        background-color: #d0d0d0;
+        border-color: #999;
+    }
+
+    .demo-buttons button.color-selector.selected:hover {
+        background-color: #d0d0d0;
     }
 </style>
 
