@@ -28,7 +28,7 @@ versions.
 </pre>
 </div>
 
-This method is a fairly common programming exercise ([seen here on LeetCode](https://leetcode.com/problems/text-justification/)), but produces notably imbalanced spacing: notice in the example above how the space between "demonstrate" and "the" is twice as large as the space between "the" and "different".
+This method is a fairly common programming exercise[^leetcode], but produces notably imbalanced spacing: notice in the example above how the space between "demonstrate" and "the" is twice as large as the space between "the" and "different".
 
 We can do better. While many fonts are described as "monospaced", those with Unicode support are rarely consistant in keeping *every* character to a uniform width. If you've ever tried to include emojis in code, you've likely come across this.
 
@@ -63,7 +63,7 @@ Similarly, the second line has 3 gaps and is 1 character width from the end of t
 
 The good news is that we have a lot more whitespace characters to work with, so we have more granularity than just the characters in the example above. The bad news is that many of their widths overlap and that different fonts represent the various whitespace characters differently.
 
-I wrote a script to render all the whitespace characters in a variety of fonts to produce the following table, expressing each character's width as a ratio to the width of a regular space U+0020.
+I wrote a script to render all the whitespace characters in a variety of fonts to produce the following table, expressing each character's width as a ratio to the width of a regular space (U+0020).
 
 <table>
     <thead>
@@ -576,9 +576,9 @@ I wrote a script to render all the whitespace characters in a variety of fonts t
     </tbody>
 </table>
 
-Note: the ratios here match to $\epsilon \le 0.1\%$, but it's notable that some fonts are much closer to exact integer ratios than others. In most situations, the small difference at the subpixel level will still result in the right ends of the lines aligning to the nearest pixel.
+While the ratios here match to $\epsilon \le 0.1\%$, it's notable that some fonts are much closer to exact integer ratios than others. In most situations, the small difference at the subpixel level will still result in the right ends of the lines aligning to the nearest pixel.
 
-Most of these fonts preserve whitespace width ratios *between* these whitespace characters rather similarly (e.g. `THREE-PER-EM SPACE` is almost exactly $\frac{1}{3}$ of the `EM SPACE`). However, they don't all share the same ratio to the width of the uniform width characters and differ in a handful of other cases.
+Notably, most of these fonts preserve whitespace width ratios *between* these whitespace characters rather similarly (e.g. `THREE-PER-EM SPACE` is almost exactly $\frac{1}{3}$ of the `EM SPACE`). However, they don't all share the same ratio to the width of the uniform width characters in the font and differ in a handful of other cases.
 
 
 ## Solving
@@ -660,8 +660,7 @@ Getting a common denominator, we see we have:
     </tr>
 </table>
 
-
-Say our line in question has $m$ total spaces to distribute into $n$ total gaps, the ideal version of our problem can be defined as:
+If our line has $m$ total spaces to distribute into $n$ total gaps, the ideal version of our problem can be defined as:
 
 > Find a way to represent $\frac{432m}{n}$ as an integer linear combination of $120$, $144$, $45$, $216$, and $160$
 
@@ -671,7 +670,7 @@ Using the above numbers, we can see which scenarios will be solvable:
 
 ![Graph of working values](\assets\images\unweighted.png "what does this do again?"){: width="500"}
 
-This doesn't look too bad at first; a good amount of the cases are solvable. However, we have to account for the frequency of different combinations. Since the number of extra spaces is upper-bounded by typical word length, we see most lines needing 0–5 extra spaces, and a typical line might consist of 10–20 words. I ran the plaintext copy of Alice's Adventures in Wonderland[^1] through this algorithm and, only focusing on text which would be justified (excluding the last line of each paragraph), we can weight the above chart by frequency of occurence.
+This doesn't look too bad at first; a good amount of the cases are solvable. However, we have to account for the frequency of different combinations. Since the number of extra spaces is upper-bounded by typical word length, we see most lines needing 0–5 extra spaces, and a typical line might consist of 10–20 words. I ran the plaintext copy of Alice's Adventures in Wonderland[^alice] through this algorithm and, only focusing on text which would be justified (excluding the last line of each paragraph), we can weight the above chart by frequency of occurence.
 
 ![Graph of working values, weighted](\assets\images\weighted.png "what does this do again?"){: width="500"}
 
@@ -681,9 +680,19 @@ Around 46.6% of the lines can be justified with these space characters. For refe
 
 ### Word Shifting
 
-Before sullying our approach with non-uniform gaps, we can try altering the number of words which get placed on a line. By default, we place as many words as can fit on a given line width providing at least one full space for each. However, we can opt to push words onto the next line, widening the gaps of the current line in the process. This both reduces the number of gaps and increases the extra spaces to distribute, which allows us to move us towards the solvable areas on our graph.
+Before sullying our approach with non-uniform gaps, we can try altering the number of words which get placed on a line. By default, we place as many words as can fit on a given line width, providing at least one full space between each. However, we can opt to push words onto the next line, widening the gaps of the current line in the process. This both reduces the number of gaps and increases the extra spaces to distribute, which allows us to move a line to a new (hopefully solvable area) on our graph.
 
-You can see the effect of allowing different numbers of words per line to be shifted onto the next line. We're effectively able to shift the frequencies of different values on the graph to move as many as possible to solvable postions.
+Taking the original example again, we can move "written" and "to" to the second line, and "justification" to the third, which enables us to justify the text evenly using only regular space characters.
+
+<div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
+<pre style="display: inline-block; text-align: left;">
+This     is     some     sample     text
+written  to  demonstrate  the  different
+justification versions.
+</pre>
+</div>
+
+Trying this on our Alice in Wonderland text, we're effectively able to shift the frequencies of different values on the graph to move as many as possible to solvable postions.
 
 ![Graph of working values, removed words](\assets\images\word_removals.png "what does this do again?"){: width="600"}
 
@@ -739,7 +748,7 @@ def solve(text, line_length, unit_size, whitespaces):
     feasible_sorted = sorted(
         feasible_gaps.keys(),
         key=lambda gap: abs(gap - ideal_gap_size)
-    )[:500]
+    )[:100]
 
     best_variance = float('inf')
 
@@ -774,7 +783,7 @@ def solve(text, line_length, unit_size, whitespaces):
     return result, best_variance
 ```
 
-Unfortunately, this proved too inefficient to use with the full list of feasible gap sizes, so I opted to cap the feasible gaps to the 500 closest to the ideal gap size,  $\frac{\text{nubmer of spaces}}{\text{number of gaps}}$. This is highly likely to get us the optimal solution, but if in reading this you identify an improved solution that would avoid this, I'd be very interested in hearing about it!
+Unfortunately, this proved too inefficient to use with the full list of feasible gap sizes, so I opted to cap the feasible gaps to the 100 closest to the ideal gap size,  $\frac{\text{nubmer of spaces}}{\text{number of gaps}}$. This is highly likely to get us the optimal solution, but if in reading this you identify an improved solution that would avoid this, I'd be very interested in hearing about it!
 
 Using this approach, we get the following result on the previously attempted paragraph:
 
@@ -790,7 +799,10 @@ on in the common way.
 </div>
 </pre>
 
-It might not be as true to the aim of having uniform gap widths, but just looking visually I couldn't tell which lines were uneven (out of the 6 justified lines, half are non-uniform in their spacing[^2]).
+It might not be as true to the aim of having uniform gap widths, but just looking visually I couldn't tell which lines were uneven (out of the 6 justified lines, half are non-uniform in their spacing[^answer]).
+
+While this algorithm worked fine for fonts with simple whitespace size ratios, it blows up for fonts like Cascadia Mono or Lucida Console with their more complex ratios as seen in the earlier table. I did find an alternative apporach, though I haven't been able to prove to myself that it's guaranteed to produce the same result in general. In all the cases I found running the above solution, the resulting lines only ever used two different gap-sizes. Adding this as a constraint drastically reduces the search space, and is what is implemented in the tool below.
+
 
 ## Try It Out
 
@@ -837,10 +849,9 @@ If you want to try out any of these monospaced justification techniques on your 
         <div class="option-group">
             <label for="justifier-mode-select">Mode:</label>
             <select name="justifier-mode" id="justifier-mode-select">
-                <option value="Non-uniform Gaps">Non-uniform Gaps</option>
-                <option value="Word Shifting">Word Shifting</option>
                 <option value="Spaces Only">Spaces Only</option>
-                <option value="Find Two">Find Two</option>
+                <option value="Word Shifting">Word Shifting</option>
+                <option value="Non-uniform Gaps">Non-uniform Gaps</option>
             </select>
         </div>
         <button id="justify-button">Justify</button>
@@ -931,5 +942,6 @@ If you want to try out any of these monospaced justification techniques on your 
 }
 </style>
 
-[^1]: [https://www.gutenberg.org/cache/epub/11/pg11.txt](https://www.gutenberg.org/cache/epub/11/pg11.txt)
-[^2]: The 2nd, 5th, and 6th lines are slightly uneven
+[^leetcode]:[https://leetcode.com/problems/text-justification/](https://leetcode.com/problems/text-justification/)
+[^alice]: [https://www.gutenberg.org/cache/epub/11/pg11.txt](https://www.gutenberg.org/cache/epub/11/pg11.txt)
+[^answer]: The 2nd, 5th, and 6th lines are slightly uneven

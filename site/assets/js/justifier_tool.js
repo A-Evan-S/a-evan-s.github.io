@@ -15,16 +15,13 @@ justifyButton.addEventListener('click', function() {
 
     switch (mode) {
         case 'Non-uniform Gaps':
-            resultText = nonUniformSolve(inputText, numColumns, font)
+            resultText = twoSizeSolve(inputText, numColumns, font)
             break;
         case 'Word Shifting':
             resultText = wordShiftSolve(inputText, numColumns, font)
             break;
         case 'Spaces Only':
             resultText = spacesOnlySolve(inputText, numColumns);
-            break;
-        case 'Find Two':
-            resultText = twoSizeSolve(inputText, numColumns, font);
             break;
     }
 
@@ -37,7 +34,7 @@ fontSelect.addEventListener('change', function(event) {
     justifiedText.style.fontFamily = event.target.value;
 });
 
-function feasibleSpaces(maxGap, whitespaces) { // TODO: touch up AI code
+function feasibleSpaces(maxGap, whitespaces) {
     const reachable = [0];
     const reachable_dict = {0: ''};
     for (let i = 0; i < reachable.length && reachable[i] <= maxGap; i++) {
@@ -75,7 +72,7 @@ function findSpaceWidths(font) {
 
 const gcd = (a, b) => b === 0 ? a : gcd(b, a % b); 
 
-function findRatio(decimal, maxDenominator = 100, tolerance = 0.001) { // TODO: touch up AI code
+function findRatio(decimal, maxDenominator = 100, tolerance = 0.001) {
     if (Math.abs(decimal) < tolerance) {
         return { num: 0, den: 1, error: 0 };
     }
@@ -90,7 +87,7 @@ function findRatio(decimal, maxDenominator = 100, tolerance = 0.001) { // TODO: 
         
         if (relativeError < tolerance && error < bestRatio.error) {
             bestRatio = { num, den, error };
-            if (error < 0.00001) {
+            if (error < 0.001) {
                 break;
             }
         }
@@ -115,121 +112,122 @@ function twoSizeSolve(text, lineLength, font) {
     let lines = []
     while (words.length > 0) {
         let line = [];
-        while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength) {
+        do { 
             line.push(words.pop());
-        }
+        } while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength);
+        
         if (words.length == 0) {
             lines.push(line.join(" "));
-        } else {
-            result = solveLineTwoSize(line, lineLength, unitSize, whitespaces);
-            lines.push(result);
+            break;
         }
+
+        if (line.length == 1) {
+            lines.push(line[0]);
+            continue;
+        }
+        
+        if (line.length == 2) {
+            lines.push(line.join(" ".repeat(lineLength - line[0].length - line[1].length)));
+            continue;
+        }
+
+        result = solveLineTwoSize(line, lineLength, unitSize, whitespaces);
+        lines.push(result);
     }
     return lines.join("\n");
 }
 
 function solveLineTwoSize(words, lineLength, unitSize, whitespaces) {
-    console.log(unitSize);
-    console.log(whitespaces);
     const whitespace_needed = (lineLength - words.reduce((sum, word) => sum + word.length, 0)) * unitSize;
     const num_gaps = words.length - 1;
-    let ideal = idealSolver(whitespaces, num_gaps, whitespace_needed);
-    if (ideal != null) {
-        return words.join(ideal);
-    }
     const ideal_gap_size = whitespace_needed / num_gaps;
-    console.log("ideal: " + ideal_gap_size);
     const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + 2*unitSize), whitespaces);
     const feasible_sorted = Object.keys(feasible_gaps)
         .map(k => parseInt(k))
         .sort((a, b) => Math.abs(a - ideal_gap_size) - Math.abs(b - ideal_gap_size));
-    console.log(feasible_sorted.slice(0, 50));
+
+    if (words.length == 2) {
+        return words.join(" ".repeat(whitespace_needed / unitSize));
+    }
     for (const gap of feasible_sorted) {
-        console.log(gap);
         for (let i = 1; i < num_gaps; i++) {
             let neededGap = (whitespace_needed - i * gap) / (num_gaps - i)
-            if (gap == unitSize) {
-                console.log("here: ", neededGap);
-            }
-            if (neededGap in feasible_gaps) {
+            if (neededGap >= unitSize && neededGap in feasible_gaps) {
                 const first = words.slice(0, i + 1).join(feasible_gaps[gap]);
                 const rest = words.slice(i + 1).join(feasible_gaps[neededGap]);
-                console.log("found");
                 return rest ? first + feasible_gaps[neededGap] + rest : first;
             }
         }
     }
-    console.log("failed");
 }
 
-function nonUniformSolve(text, lineLength, font) { // TODO: fix this
-    let [unitSize, whitespaces] = findSpaceWidths(font);
-    let words = text.match(/\S+/g) || [];
-    words = words.reverse();
-    let lines = []
-    while (words.length > 0) {
-        let line = [];
-        while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength) {
-            line.push(words.pop());
-        }
-        if (words.length == 0) {
-            lines.push(line.join(" "));
-        } else {
-            [variance, result] = solveLineNonUniform(line, lineLength, unitSize, whitespaces);
-            lines.push(result);
-        }
-    }
-    return lines.join("\n");
-};
+// function nonUniformSolve(text, lineLength, font) { // TODO: fix this
+//     let [unitSize, whitespaces] = findSpaceWidths(font);
+//     let words = text.match(/\S+/g) || [];
+//     words = words.reverse();
+//     let lines = []
+//     while (words.length > 0) {
+//         let line = [];
+//         while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength) {
+//             line.push(words.pop());
+//         }
+//         if (words.length == 0) {
+//             lines.push(line.join(" "));
+//         } else {
+//             [variance, result] = solveLineNonUniform(line, lineLength, unitSize, whitespaces);
+//             lines.push(result);
+//         }
+//     }
+//     return lines.join("\n");
+// };
 
-function solveLineNonUniform(words, lineLength, unitSize, whitespaces) { // TODO: touch up AI code
-    const whitespace_needed = (lineLength - words.reduce((sum, word) => sum + word.length, 0)) * unitSize;
-    const num_gaps = words.length - 1;
-    const ideal_gap_size = whitespace_needed / num_gaps;
-    const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + unitSize), whitespaces);
-    const feasible_sorted = Object.keys(feasible_gaps)
-        .map(k => parseInt(k))
-        .sort((a, b) => Math.abs(a - ideal_gap_size) - Math.abs(b - ideal_gap_size))
-        .slice(0, 100);
+// function solveLineNonUniform(words, lineLength, unitSize, whitespaces) {
+//     const whitespace_needed = (lineLength - words.reduce((sum, word) => sum + word.length, 0)) * unitSize;
+//     const num_gaps = words.length - 1;
+//     const ideal_gap_size = whitespace_needed / num_gaps;
+//     const feasible_gaps = feasibleSpaces(Math.ceil(ideal_gap_size + unitSize), whitespaces);
+//     const feasible_sorted = Object.keys(feasible_gaps)
+//         .sort((a, b) => Math.abs(a - ideal_gap_size) - Math.abs(b - ideal_gap_size))
+//         .slice(0, 100);
 
-    let best_variance = Infinity;
+//     let best_variance = Infinity;
 
-    function find_gaps(length, num_gaps, idx, acc_variance) {
-        if (acc_variance >= best_variance) {
-            return null;
-        }
-        if (length === 0) {
-            best_variance = Math.min(best_variance, acc_variance);
-            return [];
-        }
-        if (num_gaps === 0 || idx >= feasible_sorted.length) {
-            return null;
-        }
+//     function find_gaps(length, num_gaps, idx, acc_variance) {
+//         if (acc_variance >= best_variance) {
+//             return null;
+//         }
+//         if (length === 0) {
+//             best_variance = Math.min(best_variance, acc_variance);
+//             return [];
+//         }
+//         if (num_gaps === 0 || idx >= feasible_sorted.length) {
+//             return null;
+//         }
 
-        const gap_size = feasible_sorted[idx];
-        if (gap_size > length) {
-            return find_gaps(length, num_gaps, idx + 1, acc_variance);
-        }
+//         const gap_size = feasible_sorted[idx];
+//         if (gap_size > length) {
+//             return find_gaps(length, num_gaps, idx + 1, acc_variance);
+//         }
 
-        const new_variance = acc_variance + (ideal_gap_size - gap_size) ** 2;
-        const use_gap = find_gaps(length - gap_size, num_gaps - 1, idx, new_variance);
-        const skip_gap = find_gaps(length, num_gaps, idx + 1, acc_variance);
+//         const new_variance = acc_variance + (ideal_gap_size - gap_size) ** 2;
+//         const use_gap = find_gaps(length - gap_size, num_gaps - 1, idx, new_variance);
+//         const skip_gap = find_gaps(length, num_gaps, idx + 1, acc_variance);
 
-        if (use_gap === null) {
-            return skip_gap;
-        }
-        if (skip_gap === null) {
-            return [gap_size, ...use_gap];
-        }
-        return skip_gap;  // min due to pruning
-    }
+//         if (use_gap === null) {
+//             return skip_gap;
+//         }
+//         if (skip_gap === null) {
+//             return [gap_size, ...use_gap];
+//         }
+//         return skip_gap;  // min due to pruning
+//     }
 
-    const gap_widths = find_gaps(whitespace_needed, num_gaps, 0, 0);
-    const gaps = gap_widths.map(w => feasible_gaps[w]);
-    const result = words.map((word, i) => word + (gaps[i] || '')).join('');
+//     const gap_widths = find_gaps(whitespace_needed, num_gaps, 0, 0);
+//     const gaps = gap_widths.map(w => feasible_gaps[w]);
+//     const result = words.map((word, i) => word + (gaps[i] || '')).join('');
 
-    return [best_variance, result];
-}
+//     return [best_variance, result];
+// }
 
 function wordShiftSolve(text, lineLength, font) {
     let [unitSize, whitespaces] = findSpaceWidths(font);
@@ -239,13 +237,23 @@ function wordShiftSolve(text, lineLength, font) {
 
     while (words.length > 0) {
         let line = [];
-        while (words.length > 0 && line.reduce((acc, s) => acc + s.length, 0) + line.length + words[words.length-1].length <= lineLength) {
+        do { 
             line.push(words.pop());
-        }
+        } while (words.length > 0 && line.reduce((acc, s) => acc + s.length, 0) + line.length + words[words.length-1].length <= lineLength);
 
         if (words.length == 0) {
             lines.push(line.join(" "));
             break;
+        }
+        
+        if (line.length == 1) {
+            lines.push(line[0]);
+            continue;
+        }
+        
+        if (line.length == 2) {
+            lines.push(line.join(" ".repeat(lineLength - line[0].length - line[1].length)));
+            continue;
         }
 
         let gaps = line.length - 1;
@@ -304,9 +312,9 @@ function spacesOnlySolve(text, lineLength) {
     let lines = []
     while (words.length > 0) {
         let line = [];
-        while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength) {
+        do {
             line.push(words.pop());
-        }
+        } while (words.length > 0 && line.reduce((total, str) => total + str.length, 0) + line.length + words[words.length - 1].length <= lineLength);
         if (words.length == 0) {
             lines.push(line.join(" "));
         } else {
