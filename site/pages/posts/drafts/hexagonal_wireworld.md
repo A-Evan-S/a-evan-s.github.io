@@ -23,10 +23,25 @@ These simple rules give rise to some marvelously complex behaviors if given the 
 
 <div class="demo-container">
 <div class="demo-buttons">
-<button id="GOL-random">Random</button>
-<button id="GOL-glider">Glider</button>
+<button id="gol-random">Random</button>
+<button id="gol-glider">Glider</button>
 </div>
-<canvas id="GOL-demo"></canvas>
+<canvas id="gol-demo"></canvas>
+
+<div class="demo-buttons demo-buttons-split">
+<div class="demo-buttons-left">
+<button id="gol-play-pause">Play/Pause</button>
+<button id="gol-step">Step</button>
+</div>
+<div class="demo-buttons-right">
+<button id="gol-selector-alive" class="gol-color-selector color-selector selected">
+    <div class="color-swatch" style="background-color: #333333;"></div>
+</button>
+<button id="gol-selector-dead" class="gol-color-selector color-selector">
+    <div class="color-swatch" style="background-color: #F0F0F0;"></div>
+</button>
+</div>
+</div>
 </div>
 
 ## Wireworld
@@ -52,14 +67,34 @@ In effect, this means that a long sequence of connected Conductor cells acts as 
 
 <div class="demo-container">
 <div class="demo-buttons">
-<button id="WW-diodes">Diode</button>
-<button id="WW-or">OR gate</button>
-<button id="WW-xor">XOR gate</button>
-<button id="WW-flip-flop">Flip-flop</button>
+<button id="ww-diodes">Diode</button>
+<button id="ww-or">OR gate</button>
+<button id="ww-xor">XOR gate</button>
+<button id="ww-flip-flop">Flip-flop</button>
 </div>
-<canvas id="Wireworld-demo"></canvas>
+<canvas id="ww-demo"></canvas>
+
+<div class="demo-buttons demo-buttons-split">
+<div class="demo-buttons-left">
+<button id="ww-play-pause">Play/Pause</button>
+<button id="ww-step">Step</button>
 </div>
-\[Demo of simple circuit\]
+<div class="demo-buttons-right">
+<button id="ww-selector-conductor" class="ww-color-selector color-selector selected">
+    <div class="color-swatch" style="background-color: #aaaaaa;"></div>
+</button>
+<button id="ww-selector-e-head" class="ww-color-selector color-selector">
+    <div class="color-swatch" style="background-color: #29b1ff;"></div>
+</button>
+<button id="ww-selector-e-tail" class="ww-color-selector color-selector">
+    <div class="color-swatch" style="background-color: #a1cae6;"></div>
+</button>
+<button id="ww-selector-empty" class="ww-color-selector color-selector">
+    <div class="color-swatch" style="background-color: #F0F0F0;"></div>
+</button>
+</div>
+</div>
+</div>
 
 In fact, some absolute madmen created patterns for diodes, gates, flip-flops, and put together a Wireworld computer [https://www.quinapalus.com/wi-index.html](https://www.quinapalus.com/wi-index.html).
 
@@ -115,37 +150,37 @@ Here are a bunch of different interesting structures I found playing with this r
 
 <div class="demo-container">
 <div class="demo-buttons">
-<button id="Hex-xor-gate">XOR Gate</button>
-<button id="Hex-and-gate">AND Gate</button>
-<button id="Hex-or-gate">OR Gate</button>
-<button id="Hex-diode">Diodes</button>
-<button id="Hex-repeaters">Repeaters</button>
-<button id="Hex-reflectors">Reflectors</button>
-<button id="Hex-flip-flop">Flip-Flop</button>
-<button id="Hex-flashers">Flashers</button>
-<button id="Hex-clear">Clear</button>
+<button id="hex-xor-gate">XOR Gate</button>
+<button id="hex-and-gate">AND Gate</button>
+<button id="hex-or-gate">OR Gate</button>
+<button id="hex-diode">Diodes</button>
+<button id="hex-repeaters">Repeaters</button>
+<button id="hex-reflectors">Reflectors</button>
+<button id="hex-flip-flop">Flip-Flop</button>
+<button id="hex-flashers">Flashers</button>
+<button id="hex-clear">Clear</button>
 </div>
-<canvas id="Hex-wireworld-demo"></canvas>
+<canvas id="hex-demo"></canvas>
 
 <div class="demo-buttons demo-buttons-split">
 <div class="demo-buttons-left">
-<button id="Hex-play-pause">Play/Pause</button>
-<button id="Hex-step">Step</button>
+<button id="hex-play-pause">Play/Pause</button>
+<button id="hex-step">Step</button>
 </div>
 <div class="demo-buttons-right">
-<button id="selector-conductor" class="color-selector">
+<button id="selector-conductor" class="hex-color-selector color-selector selected">
     <div class="color-swatch" style="background-color: #aaaaaa;"></div>
 </button>
-<button id="selector-e-head" class="color-selector">
+<button id="selector-e-head" class="hex-color-selector color-selector">
     <div class="color-swatch" style="background-color: #29b1ff;"></div>
 </button>
-<button id="selector-e-mid" class="color-selector">
+<button id="selector-e-mid" class="hex-color-selector color-selector">
     <div class="color-swatch" style="background-color: #67c6f1;"></div>
 </button>
-<button id="selector-e-tail" class="color-selector">
+<button id="selector-e-tail" class="hex-color-selector color-selector">
     <div class="color-swatch" style="background-color: #a1cae6;"></div>
 </button>
-<button id="selector-empty" class="color-selector selected">
+<button id="selector-empty" class="hex-color-selector color-selector">
     <div class="color-swatch" style="background-color: #F0F0F0;"></div>
 </button>
 </div>
@@ -163,7 +198,7 @@ Regardless, it was fun to build and makes some cool little animations!
     .demo-container canvas {
         width: 100%;
         display: block;
-        margin: auto;
+        margin: 15px auto;
         aspect-ratio: 4 / 3;
     }
 
@@ -178,7 +213,6 @@ Regardless, it was fun to build and makes some cool little animations!
     .demo-buttons {
         display: flex;
         gap: 15px;
-        margin-bottom: 15px;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;

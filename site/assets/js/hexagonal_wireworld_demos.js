@@ -1,11 +1,11 @@
-const golDemo = document.getElementById("GOL-demo");
+const golDemo = document.getElementById("gol-demo");
 const golDemoCtx = golDemo.getContext('2d');
 
-const wireworldDemo = document.getElementById("Wireworld-demo");
-const wireworldDemoCtx = wireworldDemo.getContext('2d');
+const wwDemo = document.getElementById("ww-demo");
+const wwDemoCtx = wwDemo.getContext('2d');
 
-const hexWireworldDemo = document.getElementById("Hex-wireworld-demo");
-const hexWireworldDemoCtx = hexWireworldDemo.getContext('2d');
+const hexDemo = document.getElementById("hex-demo");
+const hexDemoCtx = hexDemo.getContext('2d');
 
 const demos = {
     'GOL': {
@@ -19,8 +19,8 @@ const demos = {
         'state': {}
     },
     'WW': {
-        'canvas': wireworldDemo,
-        'ctx': wireworldDemoCtx,
+        'canvas': wwDemo,
+        'ctx': wwDemoCtx,
         'initFunc': initWW,
         'drawFunc': drawWW,
         'tickFunc': tickWW,
@@ -29,8 +29,8 @@ const demos = {
         'state': {}
     },
     'HexWW': {
-        'canvas': hexWireworldDemo,
-        'ctx': hexWireworldDemoCtx,
+        'canvas': hexDemo,
+        'ctx': hexDemoCtx,
         'initFunc': initHexWW,
         'drawFunc': drawHexWW,
         'tickFunc': tickHexWW,
@@ -40,30 +40,33 @@ const demos = {
     }
 };
 
-const golButton1 = document.getElementById("GOL-random");
-const golButton2 = document.getElementById("GOL-glider");
+const golButton1 = document.getElementById("gol-random");
+const golButton2 = document.getElementById("gol-glider");
 golButton1.addEventListener('click', fillRandomGOL);
 golButton2.addEventListener('click', fillGliderGOL);
 
 function fillRandomGOL() {
-    demos['GOL'].state.liveCells = new Set();
-    for (let r = 0; r < demos['GOL'].state.numRows; r++) {
-        for (let c = 0; c < demos['GOL'].state.numCols; c++) {
+    let state = demos['GOL'].state;
+    state.grid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('dead'));
+    for (let r = 0; r < state.numRows; r++) {
+        for (let c = 0; c < state.numCols; c++) {
             if (Math.random() < 0.4) {
-                demos['GOL'].state.liveCells.add(`${r},${c}`);
+                state.grid[r][c] = 'alive';
             }
         }
     }
 }
 
 function fillGliderGOL() {
-    demos['GOL'].state.liveCells = new Set(["10,10", "10,11", "10,12", "9,12", "8,11"]);
+    let state = demos['GOL'].state;
+    state.grid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('dead'));
+    [[10, 10], [10, 11], [10, 12], [9, 12], [8, 11]].forEach((pos) => state.grid[pos[0]][pos[1]] = 'alive');
 }
 
 function initGOL(state) {
     state.numRows = 30;
     state.numCols = 40;
-    fillRandomGOL();
+    fillGliderGOL();
 }
 
 function drawGOL(state, ctx) {
@@ -74,7 +77,7 @@ function drawGOL(state, ctx) {
     for (let r = 0; r < state.numRows; r++) {
         for (let c = 0; c < state.numCols; c++) {
             ctx.beginPath()
-            if (state.liveCells.has(`${r},${c}`)) {
+            if (state.grid[r][c] == 'alive') {
                 ctx.fillStyle = '#333333';
             } else {
                 ctx.fillStyle = '#F0F0F0';
@@ -90,28 +93,28 @@ function drawGOL(state, ctx) {
 }
 
 function tickGOL(state) {
-    let nextLiveCells = new Set();
+    let nextGrid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('dead'));
     for (let r = 0; r < state.numRows; r++) {
         for (let c = 0; c < state.numCols; c++) {
             let aliveNeighbors = 0;
             let neighbors = [[r-1, c-1], [r-1, c], [r-1, c+1], [r, c-1], [r, c+1], [r+1, c-1], [r+1, c], [r+1, c+1]];
             neighbors.forEach((neighbor) => {
-                aliveNeighbors += state.liveCells.has(`${neighbor[0]},${neighbor[1]}`) ? 1 : 0;
+                aliveNeighbors += state.grid[neighbor[0]]?.[neighbor[1]] == 'alive' ? 1 : 0;
             });
-            if (aliveNeighbors == 3 || (aliveNeighbors == 2 && state.liveCells.has(`${r},${c}`))) {
-                nextLiveCells.add(`${r},${c}`);
+            if (aliveNeighbors == 3 || (aliveNeighbors == 2 && state.grid[r][c] == 'alive')) {
+                nextGrid[r][c] = 'alive';
             }
 
         }
     }
-    state.liveCells = nextLiveCells;
+    state.grid = nextGrid;
 }
 
 
-const wwButton1 = document.getElementById("WW-diodes");
-const wwButton2 = document.getElementById("WW-or");
-const wwButton3 = document.getElementById("WW-xor");
-const wwButton4 = document.getElementById("WW-flip-flop");
+const wwButton1 = document.getElementById("ww-diodes");
+const wwButton2 = document.getElementById("ww-or");
+const wwButton3 = document.getElementById("ww-xor");
+const wwButton4 = document.getElementById("ww-flip-flop");
 wwButton1.addEventListener('click', fillDiodeWW);
 wwButton2.addEventListener('click', fillORWW);
 wwButton3.addEventListener('click', fillXORWW);
@@ -139,7 +142,7 @@ function fillORWW() {
     state.grid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('empty'));
 
     [
-        [7, 2], [6, 3], [6, 4], [6, 5], [8, 3], [8, 4], [8, 5]
+        [7, 2], [6, 3], [6, 4], [6, 5], [8, 3], [8, 4], [8, 5],
         [16, 2]
     ].forEach((pos) => state.grid[pos[0]][pos[1]] = 'conductor');
     // state.grid[11][10] = 'e-head';
@@ -163,10 +166,10 @@ function initWW(state) {
 }
 
 function drawWW(state, ctx) {
-    ctx.clearRect(0, 0, wireworldDemo.width, wireworldDemo.height);
-    let cellSize = Math.floor(Math.min(wireworldDemo.width / state.numCols, wireworldDemo.height / state.numRows));
-    let hBuffer = Math.floor((wireworldDemo.width - cellSize * state.numCols + 2) / 2);
-    let vBuffer = Math.floor((wireworldDemo.height - cellSize * state.numRows + 2) / 2);
+    ctx.clearRect(0, 0, wwDemo.width, wwDemo.height);
+    let cellSize = Math.floor(Math.min(wwDemo.width / state.numCols, wwDemo.height / state.numRows));
+    let hBuffer = Math.floor((wwDemo.width - cellSize * state.numCols + 2) / 2);
+    let vBuffer = Math.floor((wwDemo.height - cellSize * state.numRows + 2) / 2);
     for (let r = 0; r < state.numRows; r++) {
         for (let c = 0; c < state.numCols; c++) {
             ctx.beginPath();
@@ -210,7 +213,7 @@ function tickWW(state) {
                     let eNeighbors = 0;
                     let neighbors = [[r-1, c-1], [r-1, c], [r-1, c+1], [r, c-1], [r, c+1], [r+1, c-1], [r+1, c], [r+1, c+1]];
                     neighbors.forEach((neighbor) => {
-                        eNeighbors += state.grid[neighbor[0]][neighbor[1]] == 'e-head' ? 1 : 0;
+                        eNeighbors += state.grid[neighbor[0]]?.[neighbor[1]] == 'e-head' ? 1 : 0;
                     });
                     nextGrid[r][c] = eNeighbors == 1 || eNeighbors == 2 ? 'e-head' : 'conductor';
                     break;
@@ -498,15 +501,15 @@ function clearHex() {
     state.grid = Array.from({ length: state.numRows }, () => new Array(state.numCols).fill('empty'));
 }
 
-const hexButton1 = document.getElementById("Hex-repeaters");
-const hexButton2 = document.getElementById("Hex-reflectors");
-const hexButton3 = document.getElementById("Hex-diode");
-const hexButton4 = document.getElementById("Hex-and-gate");
-const hexButton5 = document.getElementById("Hex-xor-gate");
-const hexButton6 = document.getElementById("Hex-or-gate");
-const hexButton7 = document.getElementById("Hex-flip-flop");
-const hexButton8 = document.getElementById("Hex-flashers");
-const hexButton9 = document.getElementById("Hex-clear");
+const hexButton1 = document.getElementById("hex-repeaters");
+const hexButton2 = document.getElementById("hex-reflectors");
+const hexButton3 = document.getElementById("hex-diode");
+const hexButton4 = document.getElementById("hex-and-gate");
+const hexButton5 = document.getElementById("hex-xor-gate");
+const hexButton6 = document.getElementById("hex-or-gate");
+const hexButton7 = document.getElementById("hex-flip-flop");
+const hexButton8 = document.getElementById("hex-flashers");
+const hexButton9 = document.getElementById("hex-clear");
 
 hexButton1.addEventListener('click', fillRepeaters);
 hexButton2.addEventListener('click', fillReflectors);
@@ -518,24 +521,58 @@ hexButton7.addEventListener('click', fillFlipFlopHex);
 hexButton8.addEventListener('click', fillFlashersHex);
 hexButton9.addEventListener('click', clearHex);
 
-const colorButtons = document.querySelectorAll('.color-selector');
+
+const hexColorButtons = document.querySelectorAll('.hex-color-selector');
 let hexSelected = 'conductor';
 
-colorButtons.forEach(button => {
+hexColorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        colorButtons.forEach(btn => btn.classList.remove('selected'));
+        hexColorButtons.forEach(btn => btn.classList.remove('selected'));
         button.classList.add('selected');
         hexSelected = button.id.substring(9);
-        console.log(hexSelected);
     });
 });
 
-const hexPlayPause = document.getElementById("Hex-play-pause");
+
+const golColorButtons = document.querySelectorAll('.gol-color-selector');
+let golSelected = 'alive';
+
+golColorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        golColorButtons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+        golSelected = button.id.substring(13);
+    });
+});
+
+
+const wwColorButtons = document.querySelectorAll('.ww-color-selector');
+let wwSelected = 'conductor';
+
+wwColorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        wwColorButtons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+        wwSelected = button.id.substring(12);
+    });
+});
+
+const hexPlayPause = document.getElementById("hex-play-pause");
 hexPlayPause.addEventListener('click', () => demos['HexWW'].state.paused = !demos['HexWW'].state.paused);
-const hexStep = document.getElementById("Hex-step");
+const hexStep = document.getElementById("hex-step");
 hexStep.addEventListener('click', () => tickHexWW(demos['HexWW'].state));
 
-hexWireworldDemo.addEventListener('click', function(event) {
+const wwPlayPause = document.getElementById("ww-play-pause");
+wwPlayPause.addEventListener('click', () => demos['WW'].state.paused = !demos['WW'].state.paused);
+const wwStep = document.getElementById("ww-step");
+wwStep.addEventListener('click', () => tickWW(demos['WW'].state));
+
+const golPlayPause = document.getElementById("gol-play-pause");
+golPlayPause.addEventListener('click', () => demos['GOL'].state.paused = !demos['GOL'].state.paused);
+const golStep = document.getElementById("gol-step");
+golStep.addEventListener('click', () => tickGOL(demos['GOL'].state));
+
+hexDemo.addEventListener('click', function(event) {
     let state = demos['HexWW'].state;
     let pos = getHexRowCol(event.offsetX, event.offsetY);
     if (0 <= pos[0] && pos[0] < state.grid.length && 0 <= pos[1] && pos[1] < state.grid[0].length) {
@@ -543,11 +580,47 @@ hexWireworldDemo.addEventListener('click', function(event) {
     }
 });
 
+wwDemo.addEventListener('click', function(event) {
+    let state = demos['WW'].state;
+    let pos = getWWRowCol(event.offsetX, event.offsetY);
+    if (0 <= pos[0] && pos[0] < state.grid.length && 0 <= pos[1] && pos[1] < state.grid[0].length) {
+        state.grid[pos[0]][pos[1]] = wwSelected;
+    }
+});
+
+golDemo.addEventListener('click', function(event) {
+    let state = demos['GOL'].state;
+    let pos = getGOLRowCol(event.offsetX, event.offsetY);
+    if (0 <= pos[0] && pos[0] < state.grid.length && 0 <= pos[1] && pos[1] < state.grid[0].length) {
+        state.grid[pos[0]][pos[1]] = golSelected;
+    }
+});
+
+function getGOLRowCol(x, y) {
+    let state = demos['GOL'].state;
+    let cellSize = Math.floor(Math.min(golDemo.width / state.numCols, golDemo.height / state.numRows));
+    let hBuffer = Math.floor((golDemo.width - cellSize * state.numCols + 2) / 2);
+    let vBuffer = Math.floor((golDemo.height - cellSize * state.numRows + 2) / 2);
+    let r = Math.floor((y - vBuffer) / (cellSize));
+    let c = Math.floor((x - hBuffer) / (cellSize));
+    return [r, c];
+}
+
+function getWWRowCol(x, y) {
+    let state = demos['WW'].state;
+    let cellSize = Math.floor(Math.min(wwDemo.width / state.numCols, wwDemo.height / state.numRows));
+    let hBuffer = Math.floor((wwDemo.width - cellSize * state.numCols + 2) / 2);
+    let vBuffer = Math.floor((wwDemo.height - cellSize * state.numRows + 2) / 2);
+    let r = Math.floor((y - vBuffer) / (cellSize));
+    let c = Math.floor((x - hBuffer) / (cellSize));
+    return [r, c];
+}
+
 function getHexRowCol(x, y) {
     let state = demos['HexWW'].state;
 
-    let a = (wireworldDemo.width - 5) / (2*state.numCols + 1) * 2 / Math.sqrt(3);
-    let b = (wireworldDemo.height - 5) / (state.numRows + 1/4) * 2 / 3;
+    let a = (hexDemo.width - 5) / (2*state.numCols + 1) * 2 / Math.sqrt(3);
+    let b = (hexDemo.height - 5) / (state.numRows + 1/4) * 2 / 3;
 
     let cornerRadius = Math.min(a, b); // center-to-corner
     let edgeRadius = cornerRadius * Math.sqrt(3) / 2; // center-to-edge
@@ -588,17 +661,17 @@ function getHexRowCol(x, y) {
 
 
 function initHexWW(state) {
-    state.numRows = 27;
+    state.numRows = 28;
     state.numCols = 32;
     state.paused = false;
     fillXorGateHex();
 }
 
 function drawHexWW(state, ctx) {
-    ctx.clearRect(0, 0, hexWireworldDemo.width, hexWireworldDemo.height);
+    ctx.clearRect(0, 0, hexDemo.width, hexDemo.height);
 
-    let a = (wireworldDemo.width - 5) / (2*state.numCols + 1) * 2 / Math.sqrt(3);
-    let b = (wireworldDemo.height - 5) / (state.numRows + 1/4) * 2 / 3;
+    let a = (hexDemo.width - 5) / (2*state.numCols + 1) * 2 / Math.sqrt(3);
+    let b = (hexDemo.height - 5) / (state.numRows + 1/4) * 2 / 3;
 
     let cornerRadius = Math.min(a, b); // center-to-corner
     let edgeRadius = cornerRadius * Math.sqrt(3) / 2; // center-to-edge
