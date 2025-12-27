@@ -4,8 +4,6 @@ date: 2025-12-26
 summary: Playing around with whitespace characters to produce justified text in monospace fonts
 ---
 
-<link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
-
 ## Justification
 
 Justified text stretches or compresses the whitespace between words such that the left and right ends of each line are aligned. It's common in newspapers, books, and other print media. I assume this has something to do with printing presses or something, but I didn't look it up.
