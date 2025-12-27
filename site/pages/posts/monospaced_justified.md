@@ -827,7 +827,7 @@ If you want to try out any of these monospaced justification techniques on your 
     <div id="justifier-options">
         <div class="option-group">
             <label for="justifier-font-select">Font:</label>
-            <select name="justifier-font" id="justifier-font-select" style="font-family: 'Courier New';">
+            <select name="justifier-font" id="justifier-font-select" style="font-family: 'Fira Mono';">
                 <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
                 <option value="Consolas" style="font-family: 'Consolas';">Consolas</option>
                 <option value="Monaco" style="font-family: 'Monaco';">Monaco</option>
