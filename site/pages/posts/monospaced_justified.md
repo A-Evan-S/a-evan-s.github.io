@@ -827,33 +827,33 @@ If you want to try out any of these monospaced justification techniques on your 
     <div id="justifier-options">
         <div class="option-group">
             <label for="justifier-font-select">Font:</label>
-            <select name="justifier-font" id="justifier-font-select" style="font-family: 'Fira Mono';">
-                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
-                <option value="Consolas" style="font-family: 'Consolas';">Consolas</option>
-                <option value="Monaco" style="font-family: 'Monaco';">Monaco</option>
-                <option value="Menlo" style="font-family: 'Menlo';">Menlo</option>
-                <option value="Fira Mono" style="font-family: 'Fira Mono';">Fira Mono</option>
-                <option value="Source Code Pro" style="font-family: 'Source Code Pro';">Source Code Pro</option>
-                <option value="Roboto Mono" style="font-family: 'Roboto Mono';">Roboto Mono</option>
-                <option value="JetBrains Mono" style="font-family: 'JetBrains Mono';">JetBrains Mono</option>
-                <option value="IBM Plex Mono" style="font-family: 'IBM Plex Mono';">IBM Plex Mono</option>
-                <option value="Cascadia Mono" style="font-family: 'Cascadia Mono';">Cascadia Mono</option>
-                <option value="SF Mono" style="font-family: 'SF Mono';">SF Mono</option>
-                <option value="Inconsolata" style="font-family: 'Inconsolata';">Inconsolata</option>
-                <option value="DejaVu Sans Mono" style="font-family: 'DejaVu Sans Mono';">DejaVu Sans Mono</option>
-                <option value="Ubuntu Mono" style="font-family: 'Ubuntu Mono';">Ubuntu Mono</option>
-                <option value="Droid Sans Mono" style="font-family: 'Droid Sans Mono';">Droid Sans Mono</option>
-                <option value="Liberation Mono" style="font-family: 'Liberation Mono';">Liberation Mono</option>
-                <option value="Noto Sans Mono" style="font-family: 'Noto Sans Mono';">Noto Sans Mono</option>
-                <option value="PT Mono" style="font-family: 'PT Mono';">PT Mono</option>
-                <option value="Anonymous Pro" style="font-family: 'Anonymous Pro';">Anonymous Pro</option>
-                <option value="Hack" style="font-family: 'Hack';">Hack</option>
-                <option value="Space Mono" style="font-family: 'Space Mono';">Space Mono</option>
-                <option value="Overpass Mono" style="font-family: 'Overpass Mono';">Overpass Mono</option>
-                <option value="Victor Mono" style="font-family: 'Victor Mono';">Victor Mono</option>
-                <option value="CommitMono" style="font-family: 'CommitMono';">CommitMono</option>
-                <option value="Lucida Console" style="font-family: 'Lucida Console';">Lucida Console</option>
-                <option value="Lucida Sans Typewriter" style="font-family: 'Lucida Sans Typewriter';">Lucida Sans Typewriter</option>
+            <select name="justifier-font" id="justifier-font-select" style="font-family: 'Fira Mono', monospace;">
+                <option value="Fira Mono" style="font-family: 'Fira Mono', monospace;">Fira Mono</option>
+                <option value="Courier New" style="font-family: 'Courier New', monospace;">Courier New</option>
+                <option value="Consolas" style="font-family: 'Consolas', monospace;">Consolas</option>
+                <option value="Monaco" style="font-family: 'Monaco', monospace;">Monaco</option>
+                <option value="Menlo" style="font-family: 'Menlo', monospace;">Menlo</option>
+                <option value="Source Code Pro" style="font-family: 'Source Code Pro', monospace;">Source Code Pro</option>
+                <option value="Roboto Mono" style="font-family: 'Roboto Mono', monospace;">Roboto Mono</option>
+                <option value="JetBrains Mono" style="font-family: 'JetBrains Mono', monospace;">JetBrains Mono</option>
+                <option value="IBM Plex Mono" style="font-family: 'IBM Plex Mono', monospace;">IBM Plex Mono</option>
+                <option value="Cascadia Mono" style="font-family: 'Cascadia Mono', monospace;">Cascadia Mono</option>
+                <option value="SF Mono" style="font-family: 'SF Mono', monospace;">SF Mono</option>
+                <option value="Inconsolata" style="font-family: 'Inconsolata', monospace;">Inconsolata</option>
+                <option value="DejaVu Sans Mono" style="font-family: 'DejaVu Sans Mono', monospace;">DejaVu Sans Mono</option>
+                <option value="Ubuntu Mono" style="font-family: 'Ubuntu Mono', monospace;">Ubuntu Mono</option>
+                <option value="Droid Sans Mono" style="font-family: 'Droid Sans Mono', monospace;">Droid Sans Mono</option>
+                <option value="Liberation Mono" style="font-family: 'Liberation Mono', monospace;">Liberation Mono</option>
+                <option value="Noto Sans Mono" style="font-family: 'Noto Sans Mono', monospace;">Noto Sans Mono</option>
+                <option value="PT Mono" style="font-family: 'PT Mono', monospace;">PT Mono</option>
+                <option value="Anonymous Pro" style="font-family: 'Anonymous Pro', monospace;">Anonymous Pro</option>
+                <option value="Hack" style="font-family: 'Hack', monospace;">Hack</option>
+                <option value="Space Mono" style="font-family: 'Space Mono', monospace;">Space Mono</option>
+                <option value="Overpass Mono" style="font-family: 'Overpass Mono', monospace;">Overpass Mono</option>
+                <option value="Victor Mono" style="font-family: 'Victor Mono', monospace;">Victor Mono</option>
+                <option value="CommitMono" style="font-family: 'CommitMono', monospace;">CommitMono</option>
+                <option value="Lucida Console" style="font-family: 'Lucida Console', monospace;">Lucida Console</option>
+                <option value="Lucida Sans Typewriter" style="font-family: 'Lucida Sans Typewriter', monospace;">Lucida Sans Typewriter</option>
                 <option value="Andale Mono" style="font-family: 'Andale Mono';">Andale Mono</option>
             </select>
         </div>
@@ -871,8 +871,8 @@ If you want to try out any of these monospaced justification techniques on your 
         </div>
         <button id="justify-button">Justify</button>
     </div>
-    <textarea id="text-to-justify" placeholder="Enter text to justify..."  style="font-family: 'Courier New';"></textarea>
-    <textarea id="justified-text" readonly wrap="off"  style="font-family: 'Courier New';"></textarea>
+    <textarea id="text-to-justify" placeholder="Enter text to justify..."  style="font-family: 'Fira Mono, monospace';"></textarea>
+    <textarea id="justified-text" readonly wrap="off"  style="font-family: 'Fira Mono', monospace;"></textarea>
 </div>
 
 <script src="/assets/js/justifier_tool.js"></script>
