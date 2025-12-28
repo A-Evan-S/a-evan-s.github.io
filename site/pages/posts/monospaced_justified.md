@@ -29,7 +29,7 @@ Justified text stretches or compresses the whitespace between words such that th
 Monospaced fonts attempt to provide uniformity to text by making each character take up the same width on the page. When using these fonts for most applications we opt for "flush left" alignment, where the left side of each line is aligned, but the right side remains ragged.
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
-<pre style="display: inline-block; text-align: left;">
+<pre style="display: inline-block; text-align: left; margin: 10px;">
 This is some sample text written to     
 demonstrate the different justification 
 versions.                               
@@ -39,7 +39,7 @@ versions.
 We can approximate justified text by adding additional spaces between words, forcing both sides into alignment. By distributing the spaces as evenly as possible, we get reasonably good results.
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
-<pre style="display: inline-block; text-align: left;">
+<pre style="display: inline-block; text-align: left; margin: 10px;">
 This  is  some  sample  text  written to
 demonstrate  the different justification
 versions.                               
@@ -58,7 +58,7 @@ print('misaligned')
 While this font non-uniformity is often the source of some subtle annoyance, it also allows us to produce the following evenly-justified, "monospaced" text.
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
-<pre style="display: inline-block; text-align: left;">
+<pre style="display: inline-block; text-align: left; margin: 10px;">
 This   is   some   sample   text   written   to
 demonstrate  the  different  justification
 versions.                               
@@ -703,7 +703,7 @@ Before sullying our approach with non-uniform gaps, we can try altering the numb
 Taking the original example again, we can move "written" and "to" to the second line, and "justification" to the third, which enables us to justify the text evenly using only regular space characters.
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
-<pre style="display: inline-block; text-align: left;">
+<pre style="display: inline-block; text-align: left; margin: 10px;">
 This     is     some     sample     text
 written  to  demonstrate  the  different
 justification versions.
@@ -726,7 +726,7 @@ This shifting of words between lines gets us to 100% justification with an allow
 As for the actual results, even at 3 moved words, most paragraphs look reasonable, but there are some eye-sores.
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
-<pre style="display: inline-block; text-align: left;">
+<pre style="display: inline-block; text-align: left; margin: 10px;">
 She      ate      a      little      bit,      and      said      anxiously      to      herself,      “Which      way?      Which
 way?”,   holding   her   hand   on   the   top   of   her   head   to   feel   which   way   it   was
 growing,   and   she   was   quite   surprised   to   find   that   she   remained   the   same
@@ -804,7 +804,7 @@ def solve(text, line_length, unit_size, whitespaces):
 Using this approach, we get the following result on the previously attempted paragraph:
 
 <div class="centered-pre-container" style="text-align: center; overflow-x: auto;">
-<pre style="display: inline-block; text-align: left;">
+<pre style="display: inline-block; text-align: left; margin: 10px;">
 She         ate         a         little         bit,         and         said         anxiously         to         herself,         “Which         way?         Which
 way?”,      holding      her      hand      on      the      top      of      her      head      to      feel      which   way   it   was
 growing,      and      she      was      quite      surprised      to      find      that      she      remained      the      same
