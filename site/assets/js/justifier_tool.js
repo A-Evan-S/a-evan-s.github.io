@@ -15,10 +15,10 @@ justifyButton.addEventListener('click', function() {
 
     switch (mode) {
         case 'Non-uniform Gaps':
-            resultText = twoSizeSolve(inputText, numColumns, font)
+            resultText = twoSizeSolve(inputText, numColumns, `'${font}', monospace`)
             break;
         case 'Word Shifting':
-            resultText = wordShiftSolve(inputText, numColumns, font)
+            resultText = wordShiftSolve(inputText, numColumns, `'${font}', monospace`)
             break;
         case 'Spaces Only':
             resultText = spacesOnlySolve(inputText, numColumns);
