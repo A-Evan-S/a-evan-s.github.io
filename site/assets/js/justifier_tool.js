@@ -29,9 +29,9 @@ justifyButton.addEventListener('click', function() {
 });
 
 fontSelect.addEventListener('change', function(event) {
-    event.target.style.fontFamily = event.target.value;
-    userText.style.fontFamily = event.target.value;
-    justifiedText.style.fontFamily = event.target.value;
+    event.target.style.fontFamily = `'${event.target.value}', monospace`;
+    userText.style.fontFamily = `'${event.target.value}', monospace`;
+    justifiedText.style.fontFamily = `'${event.target.value}', monospace`;
 });
 
 function feasibleSpaces(maxGap, whitespaces) {
