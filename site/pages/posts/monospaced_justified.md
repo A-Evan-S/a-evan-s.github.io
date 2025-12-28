@@ -871,7 +871,7 @@ If you want to try out any of these monospaced justification techniques on your 
         </div>
         <button id="justify-button">Justify</button>
     </div>
-    <textarea id="text-to-justify" placeholder="Enter text to justify..."  style="font-family: 'Fira Mono, monospace';"></textarea>
+    <textarea id="text-to-justify" placeholder="Enter text to justify..."  style="font-family: 'Fira Mono', monospace;"></textarea>
     <textarea id="justified-text" readonly wrap="off"  style="font-family: 'Fira Mono', monospace;"></textarea>
 </div>
 
