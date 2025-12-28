@@ -68,6 +68,7 @@ function fillGliderGOL() {
 function initGOL(state) {
     state.numRows = 30;
     state.numCols = 40;
+    state.paused = true;
     fillGliderGOL();
 }
 
@@ -170,6 +171,7 @@ function fillFlipFlopWW() {
 function initWW(state) {
     state.numRows = 24;
     state.numCols = 32;
+    state.paused = true;
     fillDiodeWW();
 }
 
@@ -187,10 +189,10 @@ function drawWW(state, ctx) {
                     ctx.fillStyle = '#F0F0F0';
                     break;
                 case 'e-head':
-                    ctx.fillStyle = '#5f98daff';
+                    ctx.fillStyle = '#29b1ff';
                     break;
                 case 'e-tail':
-                    ctx.fillStyle = '#a1cae6ff';
+                    ctx.fillStyle = '#a1cae6';
                     break;
                 case 'conductor':
                     ctx.fillStyle = '#aaaaaa';
@@ -693,7 +695,7 @@ function getHexRowCol(x, y) {
 function initHexWW(state) {
     state.numRows = 28;
     state.numCols = 32;
-    state.paused = false;
+    state.paused = true;
     fillXorGateHex();
 }
 
@@ -719,13 +721,13 @@ function drawHexWW(state, ctx) {
                     ctx.fillStyle = '#F0F0F0';
                     break;
                 case 'e-head':
-                    ctx.fillStyle = '#29b1ffff';
+                    ctx.fillStyle = '#29b1ff';
                     break;
                 case 'e-mid':
                     ctx.fillStyle = '#67c6f1';
                     break;
                 case 'e-tail':
-                    ctx.fillStyle = '#a1cae6ff';
+                    ctx.fillStyle = '#a1cae6';
                     break;
                 case 'conductor':
                     ctx.fillStyle = '#aaaaaa';

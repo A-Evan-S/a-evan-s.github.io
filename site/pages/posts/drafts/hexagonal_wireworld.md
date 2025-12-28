@@ -4,20 +4,20 @@ date: 2025-12-10
 summary: Attempting to make a version of the Wireworld cellular automaton on a hexagonal grid
 ---
 
-Spoiler: it's just like the original, but... worse
-
 ## Cellular Automata
 
 Cellular automata are models comprised of a grid of cells, a finite set of states that each cell can be in, a neighborhood of cells whose states affect a given cell, and a set of rules which define how cells transition from one state to another. 
 
-The most famous cellular automaton is likey John Conway's Game of Life. In this, cells are in one of two states: Alive or Dead, and transition between these states based on the number of neighboring alive cells. Specifically, the Game of Life dictates that:
+The most famous cellular automaton is likely John Conway's Game of Life. In this, cells are in one of two states: Alive or Dead, and transition between these states based on the number of neighboring alive cells. Specifically, the Game of Life dictates that:
 
-1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-2. Any live cell with two or three live neighbours lives on to the next generation.
-3. Any live cell with more than three live neighbours dies, as if by overpopulation.
-4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+1. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #F0F0F0;"></div>
+   </button>**Dead** cells become alive if they have exactly three live neighbors
+1. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #333333;"></div>
+   </button>**Alive** cells stay alive if they have two or three live neighbors
 
-Here "neighbors" are defined by the [Moore neighborhood](link), meaning the 4 adjacent cells and the 4 diagnally adjacent cells.
+Here "neighbors" are defined by the [Moore neighborhood](https://en.wikipedia.org/wiki/Moore_neighborhood), meaning the 4 adjacent cells and the 4 diagonally adjacent cells.
 
 These simple rules give rise to some marvelously complex behaviors if given the right starting cell states, and a seemingly natural chaos when randomly initialized.
 
@@ -44,26 +44,28 @@ These simple rules give rise to some marvelously complex behaviors if given the 
 </div>
 </div>
 
+There are many other cellular automata using different states, rules, definitions of neighbors, or even numbers of dimensions. It is a [rabbit hole](https://en.wikipedia.org/wiki/Cellular_automaton#Specific_rules) well worth exploring.
+
 ## Wireworld
 
-Wireworld, a cellular automaton first proposed by Brian Silverman, is relatively constrained compared to the Game of Life. Rather than allow every cell to transition freely, simulations are constrained to pre-initialized paths (wires) and the rest of the cells are set to an Empty state which can only transition to itself.
+Wireworld, a cellular automaton first proposed by Brian Silverman, is relatively constrained compared to the Game of Life. Rather than allow every cell to transition freely, simulations are constrained to pre-initialized paths (conductors) and the rest of the cells are set to an empty state which can only transition to itself.
 
-More precicely, Wireworld uses four different cell states:
+More precisely, Wireworld uses four different cell states with their own transition rules:
 
-1. Empty
-2. Electron Head
-3. Electron Tail
-4. Conductor
-
-The rules for the transitions between these states are relatively simple. At each step
-
-1. *Empty* cells always stay Empty
-2. *Electron Heads* transition to Electron Tails
-3. *Electron Tails* transition to Conductors
-4. *Conductors* transition to Electron Heads if one or two neighboring (Moore neighborhood) cells are electron heads
+1. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #F0F0F0;"></div>
+   </button>**Empty** cells always stay Empty
+2. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #29b1ff;"></div>
+   </button>**Electron Heads** transition to Electron Tails
+3. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #a1cae6;"></div>
+   </button>**Electron Tails** transition to Conductors
+4. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #aaaaaa;"></div>
+   </button>**Conductors** transition to Electron Heads if one or two neighboring (Moore neighborhood) cells are electron heads
 
 In effect, this means that a long sequence of connected Conductor cells acts as a wire and pairs of Electron Heads and Electron Tails move along these wires. However, the constraint that three or more Electron Heads stop the propagation of the "electron" creates opportunities to design interesting circuits.
-
 
 <div class="demo-container">
 <div class="demo-buttons">
@@ -71,6 +73,7 @@ In effect, this means that a long sequence of connected Conductor cells acts as 
 <button id="ww-or">OR gate</button>
 <button id="ww-xor">XOR gate</button>
 <button id="ww-flip-flop">Flip-flop</button>
+<button id="ww-clear">Clear</button>
 </div>
 <canvas id="ww-demo"></canvas>
 
@@ -96,57 +99,84 @@ In effect, this means that a long sequence of connected Conductor cells acts as 
 </div>
 </div>
 
-In fact, some absolute madmen created patterns for diodes, gates, flip-flops, and put together a Wireworld computer [https://www.quinapalus.com/wi-index.html](https://www.quinapalus.com/wi-index.html).
+While the above examples show some of the core features of this ruleset, David Moore and Mark Owen took these building blocks and implemented a [computer entirely in Wireworld](https://www.quinapalus.com/wi-index.html). I love projects that take a simple system and, through abstraction and clever design, push its limits.
 
 ## Hexagonal Grids
 
-Wireworld is tremendously cool, and hexagons are tremendously cool, so what if we build wireworld not on a square grid, but on a hexagonally tiled grid?
+Wireworld is tremendously cool, and hexagons are tremendously cool, so what if we built Wireworld not on a square grid, but on a hexagonally tiled grid[^hexgrids]?
 
-[Super Cool Reference](https://www.redblobgames.com/grids/hexagons/)
+My hope at the outset was that the unique neighboring and the 6-fold symmetry (as opposed to the 4-fold of a square grid) would provide an opportunity for interesting rulesets and designs. I did wind up with what I think is an interesting result, but I quickly became disillusioned that the hexagonal grid by itself provides much value.
 
-My hope at the outset that the unique neighboring and the 6-fold symmetry (as opposed to the 4-fold of a square grid) would provide a unique opportunity for interesting rulesets and designs. I did wind up with what I think is an interesting result, but I quickly became disillusioned that the hexagonal grid by itself provides much value.
+For example, hexagonal grids have six immediate neighbors as opposed to a square grid's four, potentially allowing for wires to be created with more natural patterns with fewer restrictions.
 
-For example, hexagonal grids have six immediate neighbors, so a simple ruleset should allow for six angles of straight wires, as opposed to a square grid's four.
+<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
+    <img alt="A square cell's four immediate neighbors" src="/assets/images/grid_four_neighbors.svg" style="min-width: 200px; width: 30%; height: auto">
+    <img alt="A hexagonal cell's six immediate neighbors" src="/assets/images/hex_six_neighbors.svg" style="min-width: 200px; width: 30%; height: auto">
+</div>
 
-\[Image of 4 vs 6 neighbors\]
+This is true to an extent, but misleading. A square grid does have 4 immediate neighbors, but by the rules for Wireworld, each of its eight neighbors present a valid direction for a wire. We haven't gone up from 4 neighbors, but down from 8 directions.
 
-This is true, but mislideading. A square grid does have 4 immediate neighbors, but by the rules for Wireworld, each of its eight neighbors present a valid direction for a wire. We haven't gone up from 4 neighbors, but down from 8.
+<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
+    <img alt="A square cell's eight directions" src="/assets/images/grid_eight_directions.svg" style="min-width: 200px; width: 30%; height: auto">
+    <img alt="A hexagonal cell's six directions" src="/assets/images/hex_six_directions.svg" style="min-width: 200px; width: 30%; height: auto">
+</div>
 
-\[Image of 8 vs 6 directions\]
+To bring back the possibilities of the hexagonal format, I decided to mirror the original's use of diagonal neighbors by including cells not immediately adjacent in determine cell transitions. First, we can look at some or all of the cells in the ring around the six immediate neighbors. Second, we can split the neighbors into multiple groups whose state counts are measured separately. I tried a number of rulesets and neighbor configurations, including the ones depicted here.
 
-With this in mind, I tried a few different versions of rulesets:
-    * Just use the 6 neighbors (more limited than Wireworld with little benefit)
-    * Use the 6 neighbors but split into two groups of 3 with different rules (didn't find anything here, but I still think the idea of removing one level of rotational symmetry interesting)
-    * Expand to use additonal neighbors (either 12 or 18)
-    * Expand to use additional neighbors and split into two groups
+<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_1.svg" style="min-width: 150px; width: 25%; height: auto">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_2.svg" style="min-width: 150px; width: 25%; height: auto">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_3.svg" style="min-width: 150px; width: 25%; height: auto">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_4.svg" style="min-width: 150px; width: 25%; height: auto">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_5.svg" style="min-width: 150px; width: 25%; height: auto">
+</div>
 
-\[Image of various neighbor versions\]
+There are loads of combinations that could produce different results, so if I were to come back to this project later I maintain some optimism that other neighbor definitions and rulesets might result in worthwhile alternatives to explore.
 
 ## Hexagonal Wireworld
 
-I ended up going with 18 neighbors, split into two tiers: the 6 immediate neighbors, and the 12 outer neighbors. I also added an intermediate cell state between Electron Head and Electron Tail, as we need two spaces away to prevent an electron from interacting with itself[^quantum].
+I ended up using a ruleset with 18 neighbors, split into two tiers: the 6 inner neighbors, and the 12 outer neighbors.
 
-Here are the rules I ended up with:
 
-1. *Empty* cells always stay Empty
-2. *Electron Heads* transition to Electron Middles
-2. *Electron Middles* transition to Electron Tails
-3. *Electron Tails* transition to Conductors
-4. *Conductors* transition to Electron Heads if either
+<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_6.svg" style="min-width: 200px; width: 30%; height: auto">
+</div>
+
+ I also added an intermediate cell state between Electron Head and Electron Tail, as we need two spaces away to prevent an electron from interacting with the wire behind it. Here are the rules I ended up with:
+
+1. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #F0F0F0;"></div>
+   </button>**Empty** cells always stay Empty
+2. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #29b1ff;"></div>
+   </button>**Electron Heads** transition to Electron Middles
+2. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #67c6f1;"></div>
+   </button>**Electron Middles** transition to Electron Tails
+3. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #a1cae6;"></div>
+   </button>**Electron Tails** transition to Conductors
+4. <button inert class="sample-cell">
+        <div class="color-swatch" style="background-color: #aaaaaa;"></div>
+   </button>**Conductors** transition to Electron Heads if either
     * 1 inner-neighbor cell is an electron head and 0 or 1 outer-neighbor cells are electron heads
     * 0 inner-neighbor cells are electron heads and exactly 2 outer-neighbor cells are electron heads
 
-This rule is a bit more convoluted than the original Wireworld, but provides what we need for interesting circuits:
+This ruleset is a bit more convoluted than the original Wireworld, but provides what we need for interesting circuits:
 
-* Electrons can move down directly connected wires
+* Electrons can move along wires and split at junctions
 * Two electrons colliding on a simple wire cancel out (as in the original Wireworld)
-* Two electrons can either join or cancel out based on gate structure
+* Two electrons can join or cancel out based on gate structure
 
-It also has a cool visual effective reminiscent of inductance, where currents can affect each other and jump between conductors.
+It also has a cool visual effect reminiscent of inductance, where currents can affect each other and jump between conductors.
 
-## Examples
+## Building Circuits
 
-Here are a bunch of different interesting structures I found playing with this ruleset
+With the addition of cells affecting cells two away, we have to be cautious with our intuition when laying out circuits. A wire with a single gap in between is isolated only if we are dealing with one electron at a time, but as multiple electrons get involved we have to be cautious with spacing.
+
+I was able to build some standard circuit structures like diodes and logic gates, as well as a few other neat structures. The main weakness that isn't adequately shown here is each structure's fragility regarding timing (the XOR and AND gates work well, but the OR gate can only process signals at a slower rate). 
+
+Below are a bunch of different interesting structures I found playing with this ruleset. I'd encourage you to try out modifying some of the circuits; your intuition will likely be correct for a lot of cases, but it's easy to occasionally forget the effects of the wider neighbor range.
 
 <div class="demo-container">
 <div class="demo-buttons">
@@ -191,7 +221,7 @@ Here are a bunch of different interesting structures I found playing with this r
 
 Overall, the hexagonal grid didn't add much for flexibility for Wireworld, and has relatively fragile structures with regard to signals needing to be in phase. That combined with the larger structures due to the necessity of the Electron Middle state, means it's difficult to find much that the hexagonal version can do that the original cannot.
 
-Regardless, it was fun to build and makes some cool little animations!
+Regardless, it was fun to build and makes some cool animations!
 
 <script src="/assets/js/hexagonal_wireworld_demos.js"></script>
 <style>
@@ -256,7 +286,7 @@ Regardless, it was fun to build and makes some cool little animations!
         justify-content: center;
     }
 
-    .demo-buttons button.color-selector .color-swatch {
+    .color-swatch {
         width: 100%;
         height: 100%;
         pointer-events: none;
@@ -270,6 +300,16 @@ Regardless, it was fun to build and makes some cool little animations!
     .demo-buttons button.color-selector.selected:hover {
         background-color: #d0d0d0;
     }
+
+    .sample-cell {
+        padding: 0;
+        width: 1.3em;
+        height: 1.3em;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.3em;
+    }
 </style>
 
-[^quantum]: Quantum Wireworld?
+[^hexgrids]: 
+I feel obligated to share, if you're ever doing anything with hexagonal grids, do yourself a favor and bookmark [Amit's guide to hexagonal grids](https://www.redblobgames.com/grids/hexagons/). It is a fantastic overview for dealing with coordinates, drawing, and everything else you might run into.
