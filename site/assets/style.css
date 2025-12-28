@@ -1,3 +1,10 @@
+:root {
+  --off-white: #fafafa; /* Background */
+  --near-black: #333333; /* All text */
+  --black: #000000; /* Currently active nav */
+  --medium-grey: #cccccc; /* Borders */
+}
+
 @font-face {
   font-family: 'Fira Mono';
   src: url("/assets/fonts/FiraMono-Regular.woff2") format('woff2');
@@ -103,7 +110,7 @@ header {
   font-size: 30px;
   margin: 0 10px;
   text-decoration: none;
-  color: #333;
+  color: var(--near-black);
 }
 
 main img {
@@ -114,7 +121,7 @@ main img {
 }
 
 blockquote {
-  border-left: 4px solid #ccc;
+  border-left: 4px solid var(--medium-grey);
   padding-left: 15px;
   margin: 30px 0px 30px 35px;
   color: #666;
@@ -136,14 +143,14 @@ blockquote blockquote {
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4;
-  color: #333;
+  color: var(--near-black);
   background-color: #fafafa;
   padding-bottom: 75px;
 }
 
 pre {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background-color: var(--off-white);
+  border: 1px solid var(--medium-grey);
   border-radius: 6px;
   padding: 10px;
   margin: 10px 25px;
@@ -152,7 +159,7 @@ pre {
 }
 
 code {
-  border: 1px solid #ccc;
+  border: 1px solid var(--medium-grey);
   font-size: 0.95em;
   border-radius: 3px;
   padding: 1px 3px;
@@ -201,7 +208,7 @@ nav a {
   display: block;
   padding: 8px 12px;
   text-decoration: none;
-  color: #333;
+  color: var(--near-black);
   border-radius: 3px;
   transition: background-color 0.1s;
 }
@@ -266,7 +273,7 @@ main a {
 }
 
 main a:hover {
-  color: #333;
+  color: var(--near-black);
   border-bottom-color: #337ab7;
 }
 
@@ -309,7 +316,7 @@ th, td {
 th {
   font-weight: normal;
   background-color: #f0f0f0;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid var(--medium-grey);
 }
 
 tr:last-child td {
@@ -348,7 +355,7 @@ main li {
 }
 
 nav a.active {
-  color: #000;
+  color: var(--black);
   text-decoration: underline;
   text-decoration-thickness: 0.1em;
   text-underline-offset: 0.1em;
