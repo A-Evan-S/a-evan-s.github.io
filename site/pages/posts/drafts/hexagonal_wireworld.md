@@ -23,8 +23,11 @@ These simple rules give rise to some marvelously complex behaviors if given the 
 
 <div class="demo-container">
 <div class="demo-buttons">
-<button id="gol-random">Random</button>
 <button id="gol-glider">Glider</button>
+<button id="gol-mwss">Spaceship</button>
+<button id="gol-glider-gun">Glider Gun</button>
+<button id="gol-random">Random</button>
+<button id="gol-clear">Clear</button>
 </div>
 <canvas id="gol-demo"></canvas>
 
