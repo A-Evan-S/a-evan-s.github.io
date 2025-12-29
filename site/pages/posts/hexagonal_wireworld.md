@@ -37,10 +37,10 @@ These simple rules give rise to some marvelously complex behaviors if given the 
 <button id="gol-step">Step</button>
 </div>
 <div class="demo-buttons-right">
-<button id="gol-selector-alive" class="gol-color-selector color-selector selected">
+<button id="gol-selector-alive" class="gol-color-selector color-selector selected" aria-label="Alive">
     <div class="color-swatch" style="background-color: #333333;"></div>
 </button>
-<button id="gol-selector-dead" class="gol-color-selector color-selector">
+<button id="gol-selector-dead" class="gol-color-selector color-selector" aria-label="Dead">
     <div class="color-swatch" style="background-color: #F0F0F0;"></div>
 </button>
 </div>
@@ -86,16 +86,16 @@ In effect, this means that a long sequence of connected Conductor cells acts as 
 <button id="ww-step">Step</button>
 </div>
 <div class="demo-buttons-right">
-<button id="ww-selector-conductor" class="ww-color-selector color-selector selected">
+<button id="ww-selector-conductor" class="ww-color-selector color-selector selected" aria-label="Conductor">
     <div class="color-swatch" style="background-color: #aaaaaa;"></div>
 </button>
-<button id="ww-selector-e-head" class="ww-color-selector color-selector">
+<button id="ww-selector-e-head" class="ww-color-selector color-selector" aria-label="Electron Head">
     <div class="color-swatch" style="background-color: #29b1ff;"></div>
 </button>
-<button id="ww-selector-e-tail" class="ww-color-selector color-selector">
+<button id="ww-selector-e-tail" class="ww-color-selector color-selector" aria-label="Electron Tail">
     <div class="color-swatch" style="background-color: #a1cae6;"></div>
 </button>
-<button id="ww-selector-empty" class="ww-color-selector color-selector">
+<button id="ww-selector-empty" class="ww-color-selector color-selector" aria-label="Empty">
     <div class="color-swatch" style="background-color: #F0F0F0;"></div>
 </button>
 </div>
@@ -147,19 +147,19 @@ I ended up using a ruleset with 18 neighbors, split into two tiers: the 6 inner 
 
  I also added an intermediate cell state between Electron Head and Electron Tail, as we need two spaces away to prevent an electron from interacting with the wire behind it. Here are the rules I ended up with:
 
-1. <button inert class="sample-cell">
+1. <button inert class="sample-cell" aria-label="Empty">
         <div class="color-swatch" style="background-color: #F0F0F0;"></div>
    </button>**Empty** cells always stay Empty
-2. <button inert class="sample-cell">
+2. <button inert class="sample-cell" aria-label="Electron Head">
         <div class="color-swatch" style="background-color: #29b1ff;"></div>
    </button>**Electron Heads** transition to Electron Middles
-2. <button inert class="sample-cell">
+2. <button inert class="sample-cell" aria-label="Electron Middle">
         <div class="color-swatch" style="background-color: #67c6f1;"></div>
    </button>**Electron Middles** transition to Electron Tails
-3. <button inert class="sample-cell">
+3. <button inert class="sample-cell" aria-label="Electron Tail">
         <div class="color-swatch" style="background-color: #a1cae6;"></div>
    </button>**Electron Tails** transition to Conductors
-4. <button inert class="sample-cell">
+4. <button inert class="sample-cell" aria-label="Conductor">
         <div class="color-swatch" style="background-color: #aaaaaa;"></div>
    </button>**Conductors** transition to Electron Heads if either
     * 1 inner-neighbor cell is an electron head and 0 or 1 outer-neighbor cells are electron heads
