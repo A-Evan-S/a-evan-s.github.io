@@ -1,6 +1,6 @@
 ---
 title: Hexagonal Wireworld
-date: 2025-12-10
+date: 2025-12-28
 summary: Attempting to make a version of the Wireworld cellular automaton on a hexagonal grid
 ---
 
