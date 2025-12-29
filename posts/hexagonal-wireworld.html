@@ -164,19 +164,19 @@
 
 <p>I also added an intermediate cell state between Electron Head and Electron Tail, as we need two spaces away to prevent an electron from interacting with the wire behind it. Here are the rules I ended up with:</p>
 <ol>
-<li><button inert class="sample-cell" aria-label="Empty">
+<li><button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #F0F0F0;"></div>
    </button><strong>Empty</strong> cells always stay Empty</li>
-<li><button inert class="sample-cell" aria-label="Electron Head">
+<li><button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #29b1ff;"></div>
    </button><strong>Electron Heads</strong> transition to Electron Middles</li>
-<li><button inert class="sample-cell" aria-label="Electron Middle">
+<li><button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #67c6f1;"></div>
    </button><strong>Electron Middles</strong> transition to Electron Tails</li>
-<li><button inert class="sample-cell" aria-label="Electron Tail">
+<li><button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #a1cae6;"></div>
    </button><strong>Electron Tails</strong> transition to Conductors</li>
-<li><button inert class="sample-cell" aria-label="Conductor">
+<li><button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #aaaaaa;"></div>
    </button><strong>Conductors</strong> transition to Electron Heads if either<ul>
 <li>1 inner-neighbor cell is an electron head and 0 or 1 outer-neighbor cells are electron heads</li>
@@ -215,19 +215,19 @@
 <button id="hex-step">Step</button>
 </div>
 <div class="demo-buttons-right">
-<button id="selector-conductor" class="hex-color-selector color-selector selected">
+<button id="selector-conductor" class="hex-color-selector color-selector selected" aria-label="Conductor">
     <div class="color-swatch" style="background-color: #aaaaaa;"></div>
 </button>
-<button id="selector-e-head" class="hex-color-selector color-selector">
+<button id="selector-e-head" class="hex-color-selector color-selector" aria-label="Electron Head">
     <div class="color-swatch" style="background-color: #29b1ff;"></div>
 </button>
-<button id="selector-e-mid" class="hex-color-selector color-selector">
+<button id="selector-e-mid" class="hex-color-selector color-selector" aria-label="Electron Middle">
     <div class="color-swatch" style="background-color: #67c6f1;"></div>
 </button>
-<button id="selector-e-tail" class="hex-color-selector color-selector">
+<button id="selector-e-tail" class="hex-color-selector color-selector" aria-label="Electron Tail">
     <div class="color-swatch" style="background-color: #a1cae6;"></div>
 </button>
-<button id="selector-empty" class="hex-color-selector color-selector">
+<button id="selector-empty" class="hex-color-selector color-selector" aria-label="Empty">
     <div class="color-swatch" style="background-color: #F0F0F0;"></div>
 </button>
 </div>
