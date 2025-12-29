@@ -8,7 +8,7 @@ summary: Attempting to make a version of the Wireworld cellular automaton on a h
 
 Cellular automata are models comprised of a grid of cells, a finite set of states that each cell can be in, a neighborhood of cells whose states affect a given cell, and a set of rules which define how cells transition from one state to another. 
 
-The most famous cellular automaton is likely John Conway's Game of Life. In this, cells are in one of two states: Alive or Dead, and transition between these states based on the number of neighboring alive cells. Specifically, the Game of Life dictates that:
+The most famous cellular automaton is likely John Conway's Game of Life. In this particular model, cells are in one of two states: Alive or Dead, and transition between these states based on the number of neighboring alive cells. Specifically, the Game of Life dictates that:
 
 1. <button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #F0F0F0;"></div>
@@ -124,7 +124,7 @@ This is true to an extent, but misleading. A square grid does have 4 immediate n
     <img alt="A hexagonal cell's six directions" src="/assets/images/hex_six_directions.svg" style="min-width: 200px; width: 30%; height: auto">
 </div>
 
-To bring back the possibilities of the hexagonal format, I decided to mirror the original's use of diagonal neighbors by including cells not immediately adjacent in determine cell transitions. First, we can look at some or all of the cells in the ring around the six immediate neighbors. Second, we can split the neighbors into multiple groups whose state counts are measured separately. I tried a number of rulesets and neighbor configurations, including the ones depicted here.
+To bring back the possibilities of the hexagonal format, I decided to mirror the original's use of diagonal neighbors by including cells not immediately adjacent in determining cell transitions. First, we can look at some or all of the cells in the ring around the six immediate neighbors. Second, we can split the neighbors into multiple groups whose state counts are measured separately. I tried a number of rulesets and neighbor configurations, including the ones depicted here.
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
     <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_1.svg" style="min-width: 150px; width: 25%; height: auto">
@@ -175,9 +175,9 @@ It also has a cool visual effect reminiscent of inductance, where currents can a
 
 ## Building Circuits
 
-With the addition of cells affecting cells two away, we have to be cautious with our intuition when laying out circuits. A wire with a single gap in between is isolated only if we are dealing with one electron at a time, but as multiple electrons get involved we have to be cautious with spacing.
+With the addition of electrons affecting cells two away, we have to be cautious with our intuition when laying out circuits. Two wires with a single gap in between is isolated only if we are dealing with one electron at a time, but as multiple electrons get involved we have to be cautious with spacing.
 
-I was able to build some standard circuit structures like diodes and logic gates, as well as a few other neat structures. The main weakness that isn't adequately shown here is each structure's fragility regarding timing (the XOR and AND gates work well, but the OR gate can only process signals at a slower rate). 
+I was able to build some standard circuit components like diodes and logic gates, as well as a few other neat structures. The main weakness that isn't adequately shown here is each structure's fragility regarding timing (the XOR and AND gates work well, but the OR gate can only process signals at a slower rate). 
 
 Below are a bunch of different interesting structures I found playing with this ruleset. I'd encourage you to try out modifying some of the circuits; your intuition will likely be correct for a lot of cases, but it's easy to occasionally forget the effects of the wider neighbor range.
 
@@ -222,7 +222,7 @@ Below are a bunch of different interesting structures I found playing with this 
 
 ## Reflection
 
-Overall, the hexagonal grid didn't add much for flexibility for Wireworld, and has relatively fragile structures with regard to signals needing to be in phase. That combined with the larger structures due to the necessity of the Electron Middle state, means it's difficult to find much that the hexagonal version can do that the original cannot.
+Overall, the hexagonal grid didn't add much flexibility to Wireworld, and has relatively fragile structures with regard to signals needing to be in phase or processed at a certain rate. That combined with the larger structures due to the necessity of the Electron Middle state, means it's difficult to find much that the hexagonal version can do that the original cannot.
 
 Regardless, it was fun to build and makes some cool animations!
 
