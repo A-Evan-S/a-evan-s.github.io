@@ -16,7 +16,7 @@ summary: Making a font from scratch
 
 ## Why
 
-I'm a big fan of being mediocre at things. So many interesting hobbies and activities are ruined by being good enough to worry if you're good enough. For example, a while back I tought myself some basic photo editing in GIMP. Just enough to make little projects if I ever need, but not enough to ever be confused for someone who knows what they're doing. It is absolutely wonderful.
+I'm a big fan of being mediocre at things. So many interesting hobbies and activities are ruined by being good enough to worry if you're good enough. For example, a while back I taught myself some basic photo editing in GIMP. Just enough to make little projects if I ever need, but not enough to ever be confused for someone who knows what they're doing. It is absolutely wonderful.
 
 In creating this website, I started to pay more attention to how other websites are designed, and one aspect I could not wrap my brain around was fonts. Thousands of fonts to choose from, each with vocal proponents and detractors. I've also recently seen the creation of "variable fonts", the amount of options they contain genuinely striking fear into my soul.
 
