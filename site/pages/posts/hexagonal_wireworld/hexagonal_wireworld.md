@@ -62,10 +62,10 @@ More precisely, Wireworld uses four different cell states with their own transit
         <div class="color-swatch" style="background-color: #F0F0F0;"></div>
    </button>**Empty** cells always stay Empty
 2. <button inert class="sample-cell">
-        <div class="color-swatch" style="background-color: var(--color-full-accent);"></div>
+        <div class="color-swatch" style="background-color: var(--color-accent);"></div>
    </button>**Electron Heads** transition to Electron Tails
 3. <button inert class="sample-cell">
-        <div class="color-swatch" style="background-color: var(--color-light-accent)"></div>
+        <div class="color-swatch" style="background-color: var(--color-accent-light)"></div>
    </button>**Electron Tails** transition to Conductors
 4. <button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #aaaaaa;"></div>
@@ -94,10 +94,10 @@ In effect, this means that a long sequence of connected Conductor cells acts as 
                 <div class="color-swatch" style="background-color: #aaaaaa;"></div>
             </button>
             <button id="ww-selector-e-head" class="ww-color-selector color-selector" aria-label="Electron Head">
-                <div class="color-swatch" style="background-color: var(--color-full-accent);"></div>
+                <div class="color-swatch" style="background-color: var(--color-accent);"></div>
             </button>
             <button id="ww-selector-e-tail" class="ww-color-selector color-selector" aria-label="Electron Tail">
-                <div class="color-swatch" style="background-color: var(--color-light-accent);"></div>
+                <div class="color-swatch" style="background-color: var(--color-accent-light);"></div>
             </button>
             <button id="ww-selector-empty" class="ww-color-selector color-selector" aria-label="Empty">
                 <div class="color-swatch" style="background-color: #F0F0F0;"></div>
@@ -155,13 +155,13 @@ I ended up using a ruleset with 18 neighbors, split into two tiers: the 6 inner 
         <div class="color-swatch" style="background-color: #F0F0F0;"></div>
    </button>**Empty** cells always stay Empty
 2. <button inert class="sample-cell">
-        <div class="color-swatch" style="background-color: var(--color-full-accent);"></div>
+        <div class="color-swatch" style="background-color: var(--color-accent);"></div>
    </button>**Electron Heads** transition to Electron Middles
 2. <button inert class="sample-cell">
-        <div class="color-swatch" style="background-color: var(--color-med-accent);"></div>
+        <div class="color-swatch" style="background-color: var(--color-accent-medium-light);"></div>
    </button>**Electron Middles** transition to Electron Tails
 3. <button inert class="sample-cell">
-        <div class="color-swatch" style="background-color: var(--color-light-accent);"></div>
+        <div class="color-swatch" style="background-color: var(--color-accent-light);"></div>
    </button>**Electron Tails** transition to Conductors
 4. <button inert class="sample-cell">
         <div class="color-swatch" style="background-color: #aaaaaa;"></div>
@@ -210,13 +210,13 @@ Below are a bunch of different interesting structures I found playing with this 
                 <div class="color-swatch" style="background-color: #aaaaaa;"></div>
             </button>
             <button id="selector-e-head" class="hex-color-selector color-selector" aria-label="Electron Head">
-                <div class="color-swatch" style="background-color: var(--color-full-accent);"></div>
+                <div class="color-swatch" style="background-color: var(--color-accent);"></div>
             </button>
             <button id="selector-e-mid" class="hex-color-selector color-selector" aria-label="Electron Middle">
-                <div class="color-swatch" style="background-color: var(--color-med-accent);"></div>
+                <div class="color-swatch" style="background-color: var(--color-accent-medium-light);"></div>
             </button>
             <button id="selector-e-tail" class="hex-color-selector color-selector" aria-label="Electron Tail">
-                <div class="color-swatch" style="background-color: var(--color-light-accent);"></div>
+                <div class="color-swatch" style="background-color: var(--color-accent-light);"></div>
             </button>
             <button id="selector-empty" class="hex-color-selector color-selector" aria-label="Empty">
                 <div class="color-swatch" style="background-color: #F0F0F0;"></div>

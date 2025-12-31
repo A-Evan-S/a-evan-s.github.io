@@ -1,6 +1,6 @@
-const accentColorFull = getComputedStyle(document.documentElement).getPropertyValue('--color-full-accent').trim();
-const accentColorMed = getComputedStyle(document.documentElement).getPropertyValue('--color-med-accent').trim();
-const accentColorLight = getComputedStyle(document.documentElement).getPropertyValue('--color-light-accent').trim();
+const accentColorFull = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim();
+const accentColorMed = getComputedStyle(document.documentElement).getPropertyValue('--color-accent-medium-light').trim();
+const accentColorLight = getComputedStyle(document.documentElement).getPropertyValue('--color-accent-light').trim();
 
 const golDemo = document.getElementById("gol-demo");
 const golDemoCtx = golDemo.getContext('2d');

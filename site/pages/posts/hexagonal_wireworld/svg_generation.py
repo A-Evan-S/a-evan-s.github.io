@@ -1,8 +1,8 @@
 grey = 'rgb(240, 240, 240)'
 dark_grey = 'rgb(204, 204, 204)'
-full_accent = 'hsl(204, 98%, 60%)'
-light_accent = 'hsl(204, 58%, 77%)'
-med_accent = 'hsl(204, 94%, 72%)'
+full_accent = 'hsl(204, 80%, 51%)'
+med_accent = 'hsl(204, 89%, 72%)'
+light_accent = 'hsl(205, 91%, 87%)'
 text_color = '#333333'
 
 
