@@ -6,10 +6,10 @@
   --color-border: #cccccc;
 
   /* Accent Color: Hue 204 */
-  --color-link-highlight: hsl(204, 72%, 42%);
-  --color-full-accent: hsl(204, 98%, 60%);
-  --color-med-accent: hsl(204, 94%, 72%);
-  --color-light-accent: hsl(204, 58%, 77%);
+  --color-accent-dark:          hsl(204, 80%, 36%);
+  --color-accent:               hsl(204, 80%, 51%);
+  --color-accent-medium-light:  hsl(204, 89%, 72%);
+  --color-accent-light:         hsl(205, 91%, 87%);
 }
 
 @font-face {
@@ -233,41 +233,41 @@ nav .sublist a {
 }
 
 .posts-list-entry {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 6px;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 6px;
 }
 
 .posts-list-entry .post-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 8px;
 }
 
 .posts-list-entry .post-title {
-    margin: 0;
-    font-size: 1.2em;
-    font-weight: normal;
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: normal;
 }
 
- .post-title a {
-    text-decoration: none;
-    color: inherit;
- }
+.post-title a {
+  text-decoration: none;
+  color: inherit;
+}
 
 .posts-list-entry .post-date {
-    flex-shrink: 0;
-    white-space: nowrap;
-    font-size: 0.9em;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.9em;
 }
 
 .posts-list-entry .post-summary {
-    margin: 0;
-    color: var(--color-de-emphasized-text);
+  margin: 0;
+  color: var(--color-de-emphasized-text);
 }
 
 main a {
@@ -279,7 +279,7 @@ main a {
 
 main a:hover {
   color: var(--color-text);
-  border-bottom-color: var(--color-link-highlight);
+  border-bottom-color: var(--color-accent-dark);
 }
 
 .footnote-ref {
