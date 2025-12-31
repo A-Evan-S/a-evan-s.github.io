@@ -1,3 +1,7 @@
+const accentColorFull = getComputedStyle(document.documentElement).getPropertyValue('--color-full-accent').trim();
+const accentColorMed = getComputedStyle(document.documentElement).getPropertyValue('--color-med-accent').trim();
+const accentColorLight = getComputedStyle(document.documentElement).getPropertyValue('--color-light-accent').trim();
+
 const golDemo = document.getElementById("gol-demo");
 const golDemoCtx = golDemo.getContext('2d');
 
@@ -246,10 +250,10 @@ function drawWW(state, ctx) {
                     ctx.fillStyle = '#F0F0F0';
                     break;
                 case 'e-head':
-                    ctx.fillStyle = '#29b1ff';
+                    ctx.fillStyle = accentColorFull;
                     break;
                 case 'e-tail':
-                    ctx.fillStyle = '#a1cae6';
+                    ctx.fillStyle = accentColorLight;
                     break;
                 case 'conductor':
                     ctx.fillStyle = '#aaaaaa';
@@ -731,13 +735,13 @@ function drawHexWW(state, ctx) {
                     ctx.fillStyle = '#F0F0F0';
                     break;
                 case 'e-head':
-                    ctx.fillStyle = '#29b1ff';
+                    ctx.fillStyle = accentColorFull;
                     break;
                 case 'e-mid':
-                    ctx.fillStyle = '#67c6f1';
+                    ctx.fillStyle = accentColorMed;
                     break;
                 case 'e-tail':
-                    ctx.fillStyle = '#a1cae6';
+                    ctx.fillStyle = accentColorLight;
                     break;
                 case 'conductor':
                     ctx.fillStyle = '#aaaaaa';

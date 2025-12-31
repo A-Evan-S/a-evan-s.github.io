@@ -1,8 +1,15 @@
 :root {
-  --off-white: #fafafa; /* Background */
-  --near-black: #333333; /* All text */
-  --black: #000000; /* Currently active nav */
-  --medium-grey: #cccccc; /* Borders */
+  --color-background: #fafafa;
+  --color-accent-background: #f0f0f0;
+  --color-text: #333333;
+  --color-de-emphasized-text: #666666;
+  --color-border: #cccccc;
+
+  /* Accent Color: Hue 204 */
+  --color-link-highlight: hsl(204, 72%, 42%);
+  --color-full-accent: hsl(204, 98%, 60%);
+  --color-med-accent: hsl(204, 94%, 72%);
+  --color-light-accent: hsl(204, 58%, 77%);
 }
 
 @font-face {
@@ -68,7 +75,7 @@ main {
   .posts-list-entry .post-date {
       flex-shrink: 0;
       white-space: nowrap;
-      color: #666;
+      color: var(--color-de-emphasized-text);
       font-size: 0.9em;
       margin: -15px 0 5px 0;
   }
@@ -110,7 +117,7 @@ header {
   font-size: 30px;
   margin: 0 10px;
   text-decoration: none;
-  color: var(--near-black);
+  color: var(--color-text);
 }
 
 main img {
@@ -121,10 +128,10 @@ main img {
 }
 
 blockquote {
-  border-left: 4px solid var(--medium-grey);
+  border-left: 4px solid var(--color-border);
   padding-left: 15px;
   margin: 30px 0px 30px 35px;
-  color: #666;
+  color: var(--color-de-emphasized-text);
   font-style: italic;
 }
 
@@ -137,20 +144,20 @@ blockquote blockquote {
 }
 
 .post-date {
-  color: #666;
+  color: var(--color-de-emphasized-text);
 }
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4;
-  color: var(--near-black);
-  background-color: #fafafa;
+  color: var(--color-text);
+  background-color: var(--color-background);
   padding-bottom: 75px;
 }
 
 pre {
-  background-color: var(--off-white);
-  border: 1px solid var(--medium-grey);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 10px;
   margin: 10px 25px;
@@ -159,7 +166,7 @@ pre {
 }
 
 code {
-  border: 1px solid var(--medium-grey);
+  border: 1px solid var(--color-border);
   font-size: 0.95em;
   border-radius: 3px;
   padding: 1px 3px;
@@ -208,7 +215,7 @@ nav a {
   display: block;
   padding: 8px 12px;
   text-decoration: none;
-  color: var(--near-black);
+  color: var(--color-text);
   border-radius: 3px;
 }
 
@@ -255,13 +262,12 @@ nav .sublist a {
 .posts-list-entry .post-date {
     flex-shrink: 0;
     white-space: nowrap;
-    color: #666;
     font-size: 0.9em;
 }
 
 .posts-list-entry .post-summary {
     margin: 0;
-    color: #666;
+    color: var(--color-de-emphasized-text);
 }
 
 main a {
@@ -272,8 +278,8 @@ main a {
 }
 
 main a:hover {
-  color: var(--near-black);
-  border-bottom-color: #337ab7;
+  color: var(--color-text);
+  border-bottom-color: var(--color-link-highlight);
 }
 
 .footnote-ref {
@@ -307,8 +313,8 @@ th, td {
 
 th {
   font-weight: normal;
-  background-color: #f0f0f0;
-  border-bottom: 2px solid var(--medium-grey);
+  background-color: var(--color-accent-background);
+  border-bottom: 2px solid var(--color-border);
 }
 
 tr:last-child td {
@@ -330,7 +336,7 @@ main li {
   font-size: 1.1em;
   color: #555;
   font-style: italic;
-  background-color: #f5f5f5;
+  background-color: var(--color-accent-background);
   border: none;
   padding: 20px 30px;
   margin: 15px auto;
@@ -347,7 +353,6 @@ main li {
 }
 
 nav a.active {
-  color: var(--black);
   text-decoration: underline;
   text-decoration-thickness: 0.1em;
   text-underline-offset: 0.1em;
