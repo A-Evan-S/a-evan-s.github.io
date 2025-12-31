@@ -167,7 +167,7 @@ def generate_post_page(template, post, posts):
     post_dir = os.path.join(DIST_DIR, 'posts', post['slug'])
     os.makedirs(post_dir)
     for filename in os.listdir(post['orig_dir']):
-        if not filename.endswith('.md'):
+        if not (filename.endswith('.md') or filename.endswith('.py')):
             source_path = os.path.join(post['orig_dir'], filename)
             destination_path = os.path.join(post_dir, filename)
             shutil.copy2(source_path, destination_path)
