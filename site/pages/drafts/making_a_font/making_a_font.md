@@ -4,45 +4,14 @@ date: 2025-12-19
 summary: Making a font from scratch
 ---
 
-<style>
-@font-face {
-  font-family: 'sans_sands_sans_01';
-  src: url("San's_Sands_Sans_01.woff") format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'sans_sands_sans_02';
-  src: url("San's_Sands_Sans_02.woff") format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'sans_sands_sans_03';
-  src: url("San's_Sands_Sans_03.woff") format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'sans_sands_sans_04';
-  src: url("San's_Sands_Sans_04.woff") format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'sans_sands_sans';
-  src: url("San's_Sands_Sans.woff") format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-</style>
+<link rel="stylesheet" href="making_a_font.css">
 
 <div style='text-align: center; margin-bottom: -25px;'>
-<p style='font-family: "sans_sands_sans"; font-size:2em'>
-    This is my font.<br>
-    There are many like it,<br>
-    but this one is mine.
-</p>
+  <p style='font-family: "sans_sands_sans"; font-size:2em'>
+      This is my font.<br>
+      There are many like it,<br>
+      but this one is mine.
+  </p>
 </div>
 
 ## Why
@@ -104,9 +73,9 @@ Shortly after this I found the "Expand" tool to do what I had wanted without hav
 Here's a sample of what that first version looked like:
 
 <div style='text-align: center'>
-<p style='font-family: "sans_sands_sans_01"; font-size:1.5em'>
-    the quick red fox jumps over the lazy brown dog
-</p>
+  <p style='font-family: "sans_sands_sans_01"; font-size:1.5em'>
+      the quick red fox jumps over the lazy brown dog
+  </p>
 </div>
 
 ## Uniformity
@@ -125,9 +94,9 @@ Straight lines also weren't too difficult of a challenge, but did require me to 
 After a few hours of tweaking sizes and lines, I got to draft #2 (still only lowercase letters):
 
 <div style='text-align: center'>
-<p style='font-family: "sans_sands_sans_02"; font-size:1.5em'>
-    the quick red fox jumps over the lazy brown dog
-</p>
+  <p style='font-family: "sans_sands_sans_02"; font-size:1.5em'>
+      the quick red fox jumps over the lazy brown dog
+  </p>
 </div>
 
 
@@ -150,9 +119,9 @@ As for what I wanted to change from here, a few things stood out while working a
 A couple more hours tweaking and we get the following:
 
 <div style='text-align: center'>
-<p style='font-family: "sans_sands_sans_03"; font-size:1.5em'>
-    the quick red fox jumps over the lazy brown dog
-</p>
+  <p style='font-family: "sans_sands_sans_03"; font-size:1.5em'>
+      the quick red fox jumps over the lazy brown dog
+  </p>
 </div>
 
 ## More Characters
@@ -162,19 +131,19 @@ It looks like a font! There are still a few changes from this point that I'd mak
 There's still a massive challenge though, as, while I'm not setting my sights _too_ high to call this completed, I do want to implement all the uppercase letters and digits, as well as common punctuation. Similar to how I approached the lowercase letters, I thought I'd start with just a super fast pass through the uppercase letters to get a feel for things. I ended up with this:
 
 <div style='text-align: center'>
-<p style='font-family: "sans_sands_sans_04"; font-size:1.5em'>
-    THE QUICK RED FOX JUMPS OVER THE LAZY BROWN DOG
-</p>
+  <p style='font-family: "sans_sands_sans_04"; font-size:1.5em'>
+      THE QUICK RED FOX JUMPS OVER THE LAZY BROWN DOG
+  </p>
 </div>
 
 Similar to my first pass at the lowercase letters, spacing and width need some work, and I wasn't happy with most of the curved letters. I was, however, happy to have a draft done so that I can look at everything together. I was on a roll, so I figured I'd finish off first drafts for the digits, punctuation, and symbols as well.
 
 <div style='text-align: center'>
-<p style='font-family: "sans_sands_sans_04"; font-size:1.5em'>
-    0123456789<br>
-    !"#\$%&'()*+,-./<br>
-    :;<=>?@[]\^`{}|~<br>
-</p>
+  <p style='font-family: "sans_sands_sans_04"; font-size:1.5em'>
+      0123456789<br>
+      !"#\$%&'()*+,-./<br>
+      :;<=>?@[]\^`{}|~<br>
+  </p>
 </div>
 
 I put some time into the symbols and punctuation, so I was mostly happy there, but the numbers needed a lot of work.
@@ -184,9 +153,9 @@ I put some time into the symbols and punctuation, so I was mostly happy there, b
 At this point, with a rough set of uppercase letters, numerals, and symbols I realized that I fucked up pretty hard at the outset. Using the default values for ascent and descent were fine (though I did end up increasing the descent size), but I had chosen an xHeight way too low. With an ascent of 800 (capHeight of 750) I had chosen a midline of 470. This was somewhat apparent when comparing the height of uppercase letters and lowercase ones, but was really apparent as I tried to make some of the symbols balanced:
 
 <div style='text-align: center'>
-<p style='font-family: "sans_sands_sans_04"; font-size:1.5em'>
-    &lt;Not too bad&gt; <br> &lt;oops&gt;
-</p>
+  <p style='font-family: "sans_sands_sans_04"; font-size:1.5em'>
+      &lt;Not too bad&gt; <br> &lt;oops&gt;
+  </p>
 </div>
 
 I wasn't totally oblivious to this earlier, but hadn't realized that most uppercase letters with middle features (e.g. the bar across the 'A' or the split between the two sections of the 'B') don't typically match the xheight. I also took this opportunity to swap to an em-size of 1024 to match the ttf format.
@@ -204,11 +173,11 @@ While the remaining edits accounted for only small changes, they took lots of tr
 
 
 <div style='text-align: center'>
-<p style='font-family: "sans_sands_sans"; font-size:1.5em'>
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
-    abcdefghijklmnopqrstuvwxyz<br>
-    0123456789<br>
-</p>
+  <p style='font-family: "sans_sands_sans"; font-size:1.5em'>
+      ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+      abcdefghijklmnopqrstuvwxyz<br>
+      0123456789<br>
+  </p>
 </div>
 
 A lot of the last changes were actually breaking the standardization I'd held to up to this point. I tried to reuse pieces of letters as much as possible, but some things looked better slightly off, like the curved top of the 'P' and 'R' being different, or the period being a bit larger than the comma.
@@ -229,112 +198,7 @@ At the end of the day, while I'll likely never have a use for the end result, I 
     <textarea id="testing-text" placeholder="Enter text to test the font..."></textarea>
 </div>
 
-<script>
-  const sizeInput = document.getElementById('test-tool-size');
-  const testingText = document.getElementById('testing-text');
-  const sampleText0 = document.getElementById('clear-text');
-  const sampleText1 = document.getElementById('lorem-ipsum');
-  const sampleText2 = document.getElementById('pangrams');
-  const sampleText3 = document.getElementById('nums-symbols');
-
-  sizeInput.addEventListener('change', function() {
-    testingText.style.fontSize = sizeInput.value + "px";
-  });
-
-  sampleText0.addEventListener('click', function() {
-    testingText.value = "";
-  });
-
-  sampleText1.addEventListener('click', function() {
-    testingText.value = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-  });
-
-  sampleText2.addEventListener('click', function() {
-    testingText.value = "Jim quickly realized that the beautiful gowns are expensive.\nFive quacking zephyrs jolt my wax bed.\nThe wizard quickly jinxed the gnomes before they vaporized.\nThe quick onyx goblin jumps over the lazy dwarf.";
-  });
-
-  sampleText3.addEventListener('click', function() { // TODO: make more fun sample text
-    testingText.value = "\"The project, costing $1,250,000.75 (USD), requires 50+ team members; its deadline (Dec. 31st, 2025) is critical! Use @ to tag users, #hashtags for topics, & symbols like < > for ranges (e.g., ages 18–25).\"";
-  });
-</script>
-
-<style>
-  input[type=number]::-webkit-inner-spin-button {
-      opacity: 1
-  }
-
-  #font-test-tool {
-    padding: 20px 20px 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #fafafa;
-    max-width: 100%;
-  }
-
-  #tester-options {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .option-group {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .option-group label {
-    font-size: 14px;
-    color: #555;
-  }
-
-  #tester-options input,
-  #tester-options button {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    background-color: white;
-  }
-
-  #tester-options button {
-    background-color: #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-
-  
-  #clear-text {
-    margin-left: auto;  /* pushes button to the right if there's room */
-  }
-
-  #tester-options button:hover {
-    background-color: #e3e3e3;
-  }
-
-  #test-tool-size {
-    width: 40px;
-  }
-
-  #testing-text {
-      font-family: sans_sands_sans;
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      field-sizing: content;
-      resize: none;
-      min-height: 150px;
-      font-size: 20px;
-      line-height: 1.5;
-      background-color: white;
-      margin-bottom: 10px;
-      padding: 10px;
-  }
-</style>
+<script src="font_test_tool.js"></script>
 
 ## Reflections
 
