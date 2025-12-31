@@ -276,15 +276,8 @@ main a:hover {
   border-bottom-color: #337ab7;
 }
 
-.footnote-ref,
-.footnote-backref {
+.footnote-ref {
   border-bottom: none;
-}
-
-.footnote-ref:hover,
-.footnote-backref:hover {
-  font-weight: bold;
-  color: #337ab7;
 }
 
 .footnote {
