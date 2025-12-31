@@ -827,8 +827,6 @@ function animationLoop(t) {
 }
 
 Object.values(demos).forEach((demo) => demo.initFunc(demo.state));
-window.addEventListener('DOMContentLoaded', () => {
-  resizeCanvas();
-});
+window.addEventListener('DOMContentLoaded', resizeCanvas);
 requestAnimationFrame(animationLoop);
 window.addEventListener('resize', resizeCanvas);
