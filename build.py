@@ -73,13 +73,13 @@ def add_nav_to_template(template, posts, current_page=''):
                             <a href="/" {'class="active"' if current_page == 'home' else ''}>Home</a>
                         </li>
                         <li>
-                            <a href="/posts" {'class="active"' if current_page == 'posts' else ''}>Posts</a>
+                            <a href="/posts/" {'class="active"' if current_page == 'posts' else ''}>Posts</a>
                                 <ul class="sublist">
                                     {{{{recent-posts}}}}
                                 </ul>
                         </li>
                         <li>
-                            <a href="/about" {'class="active"' if current_page == 'about' else ''}>About</a>
+                            <a href="/about/" {'class="active"' if current_page == 'about' else ''}>About</a>
                         </li>
                     </ul>'''
     template = template.replace('{{navigation}}', default_nav)
@@ -103,7 +103,7 @@ def make_post_entry(post):
     date_obj = post['date']
     iso_date = date_obj.isoformat()
     display_date = date_obj.strftime('%B %d, %Y')
-    post_url = '/posts/' + post['slug']
+    post_url = '/posts/' + post['slug'] + '/'
     post_entry = f'''
     <div class="posts-list-entry">
         <div class="post-header">
