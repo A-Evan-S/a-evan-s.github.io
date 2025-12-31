@@ -1,6 +1,6 @@
 ---
 title: Making My Own Font
-date: 2025-12-19
+date: 2025-12-31
 summary: Making a font from scratch
 ---
 
