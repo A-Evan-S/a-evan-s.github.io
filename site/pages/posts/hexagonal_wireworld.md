@@ -114,7 +114,7 @@ These simple rules give rise to some marvelously complex behaviors if given the 
 <button id="gol-random">Random</button>
 <button id="gol-clear">Clear</button>
 </div>
-<canvas id="gol-demo"></canvas>
+<canvas id="gol-demo" width="800" height="600"></canvas>
 
 <div class="demo-buttons demo-buttons-split">
 <div class="demo-buttons-left">
@@ -163,7 +163,7 @@ In effect, this means that a long sequence of connected Conductor cells acts as 
 <button id="ww-flip-flop">Flip-flop</button>
 <button id="ww-clear">Clear</button>
 </div>
-<canvas id="ww-demo"></canvas>
+<canvas id="ww-demo" width="800" height="600"></canvas>
 
 <div class="demo-buttons demo-buttons-split">
 <div class="demo-buttons-left">
@@ -278,7 +278,7 @@ Below are a bunch of different interesting structures I found playing with this 
 <button id="hex-flashers">Flashers</button>
 <button id="hex-clear">Clear</button>
 </div>
-<canvas id="hex-demo"></canvas>
+<canvas id="hex-demo" width="800" height="600"></canvas>
 
 <div class="demo-buttons demo-buttons-split">
 <div class="demo-buttons-left">
