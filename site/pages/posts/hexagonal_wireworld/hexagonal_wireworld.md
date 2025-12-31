@@ -146,7 +146,7 @@ I ended up using a ruleset with 18 neighbors, split into two tiers: the 6 inner 
 
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_6.svg" style="min-width: 200px; width: 30%; height: auto">
+    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_6.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
 </div>
 
  I also added an intermediate cell state between Electron Head and Electron Tail, as we need two spaces away to prevent an electron from interacting with the wire behind it. Here are the rules I ended up with:
