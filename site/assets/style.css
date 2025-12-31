@@ -210,7 +210,6 @@ nav a {
   text-decoration: none;
   color: var(--near-black);
   border-radius: 3px;
-  transition: background-color 0.1s;
 }
 
 nav a:hover {
