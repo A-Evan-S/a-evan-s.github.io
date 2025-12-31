@@ -3,6 +3,91 @@ title: Hexagonal Wireworld
 date: 2025-12-28
 summary: Attempting to make a version of the Wireworld cellular automaton on a hexagonal grid
 ---
+<style>
+    .demo-container canvas {
+        width: 100%;
+        display: block;
+        margin: 15px auto;
+        aspect-ratio: 4 / 3;
+    }
+
+    .demo-container {
+        padding: 20px 20px 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fafafa;
+    }
+
+    .demo-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .demo-buttons-split {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .demo-buttons-left {
+        display: flex;
+        gap: 15px;
+    }
+    .demo-buttons-right {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .demo-buttons button {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .demo-buttons button:hover {
+        background-color: #e3e3e3;
+    }
+
+    .demo-buttons button.color-selector {
+        padding: 2px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .color-swatch {
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .demo-buttons button.color-selector.selected {
+        background-color: #d0d0d0;
+        border-color: #999;
+    }
+
+    .demo-buttons button.color-selector.selected:hover {
+        background-color: #d0d0d0;
+    }
+
+    .sample-cell {
+        padding: 0;
+        width: 1.3em;
+        height: 1.3em;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.3em;
+    }
+</style>
 
 ## Cellular Automata
 
@@ -113,25 +198,25 @@ My hope at the outset was that the unique neighboring and the 6-fold symmetry (a
 For example, hexagonal grids have six immediate neighbors as opposed to a square grid's four, potentially allowing for wires to be created with more natural patterns with fewer restrictions.
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="A square cell's four immediate neighbors" src="/assets/images/grid_four_neighbors.svg" style="min-width: 200px; width: 30%; height: auto">
-    <img alt="A hexagonal cell's six immediate neighbors" src="/assets/images/hex_six_neighbors.svg" style="min-width: 200px; width: 30%; height: auto">
+    <img alt="A square cell's four immediate neighbors" src="/assets/images/grid_four_neighbors.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
+    <img alt="A hexagonal cell's six immediate neighbors" src="/assets/images/hex_six_neighbors.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
 </div>
 
 This is true to an extent, but misleading. A square grid does have 4 immediate neighbors, but by the rules for Wireworld, each of its eight neighbors present a valid direction for a wire. We haven't gone up from 4 neighbors, but down from 8 directions.
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="A square cell's eight directions" src="/assets/images/grid_eight_directions.svg" style="min-width: 200px; width: 30%; height: auto">
-    <img alt="A hexagonal cell's six directions" src="/assets/images/hex_six_directions.svg" style="min-width: 200px; width: 30%; height: auto">
+    <img alt="A square cell's eight directions" src="/assets/images/grid_eight_directions.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
+    <img alt="A hexagonal cell's six directions" src="/assets/images/hex_six_directions.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
 </div>
 
 To bring back the possibilities of the hexagonal format, I decided to mirror the original's use of diagonal neighbors by including cells not immediately adjacent in determining cell transitions. First, we can look at some or all of the cells in the ring around the six immediate neighbors. Second, we can split the neighbors into multiple groups whose state counts are measured separately. I tried a number of rulesets and neighbor configurations, including the ones depicted here.
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_1.svg" style="min-width: 150px; width: 25%; height: auto">
-    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_2.svg" style="min-width: 150px; width: 25%; height: auto">
-    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_3.svg" style="min-width: 150px; width: 25%; height: auto">
-    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_4.svg" style="min-width: 150px; width: 25%; height: auto">
-    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_5.svg" style="min-width: 150px; width: 25%; height: auto">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_1.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_2.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_3.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_4.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="/assets/images/hex_neighbors_alt_5.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
 </div>
 
 There are loads of combinations that could produce different results, so if I were to come back to this project later I maintain some optimism that other neighbor definitions and rulesets might result in worthwhile alternatives to explore.
@@ -227,92 +312,6 @@ Overall, the hexagonal grid didn't add much flexibility to Wireworld, and has re
 Regardless, it was fun to build and makes some cool animations!
 
 <script src="/assets/js/hexagonal_wireworld_demos.js"></script>
-<style>
-    .demo-container canvas {
-        width: 100%;
-        display: block;
-        margin: 15px auto;
-        aspect-ratio: 4 / 3;
-    }
-
-    .demo-container {
-        padding: 20px 20px 10px 20px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        background-color: #fafafa;
-        max-width: 100%;
-    }
-
-    .demo-buttons {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .demo-buttons-split {
-        display: flex;
-        justify-content: space-around;
-    }
-
-    .demo-buttons-left {
-        display: flex;
-        gap: 15px;
-    }
-    .demo-buttons-right {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .demo-buttons button {
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        background-color: #f0f0f0;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .demo-buttons button:hover {
-        background-color: #e3e3e3;
-    }
-
-    .demo-buttons button.color-selector {
-        padding: 2px;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .color-swatch {
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-    }
-
-    .demo-buttons button.color-selector.selected {
-        background-color: #d0d0d0;
-        border-color: #999;
-    }
-
-    .demo-buttons button.color-selector.selected:hover {
-        background-color: #d0d0d0;
-    }
-
-    .sample-cell {
-        padding: 0;
-        width: 1.3em;
-        height: 1.3em;
-        align-items: center;
-        justify-content: center;
-        margin-right: 0.3em;
-    }
-</style>
 
 [^hexgrids]: 
 I feel obligated to share, if you're ever doing anything with hexagonal grids, do yourself a favor and bookmark [Amit's guide to hexagonal grids](https://www.redblobgames.com/grids/hexagons/). It is a fantastic overview for dealing with coordinates, drawing, and everything else you might run into.
