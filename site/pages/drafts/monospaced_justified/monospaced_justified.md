@@ -686,11 +686,11 @@ If $\frac{432m}{n}$ is non-integral, then there will be no solution. If it is an
 
 Using the above numbers, we can see which scenarios will be solvable:
 
-![Graph of working values](\assets\images\unweighted.png "what does this do again?"){: width="500"}
+![Graph of working values](unweighted.png "what does this do again?"){: width="500"}
 
 This doesn't look too bad at first; a good amount of the cases are solvable. However, we have to account for the frequency of different combinations. Since the number of extra spaces is upper-bounded by typical word length, we see most lines needing 0–5 extra spaces, and a typical line might consist of 10–20 words. I ran the plaintext copy of Alice's Adventures in Wonderland[^alice] through this algorithm and, only focusing on text which would be justified (excluding the last line of each paragraph), we can weight the above chart by frequency of occurence.
 
-![Graph of working values, weighted](\assets\images\weighted.png "what does this do again?"){: width="500"}
+![Graph of working values, weighted](weighted.png "what does this do again?"){: width="500"}
 
 Around 46.6% of the lines can be justified with these space characters. For reference 17.8% of lines were justified without any additional whitespace characters. Not terrible, but lots of room for improvement.
 
@@ -712,7 +712,7 @@ justification versions.
 
 Trying this on our Alice in Wonderland text, we're effectively able to shift the frequencies of different values on the graph to move as many as possible to solvable positions.
 
-![Graph of working values, removed words](\assets\images\word_removals.png "what does this do again?"){: width="600"}
+![Graph of working values, removed words](word_removals.png "what does this do again?"){: width="600"}
 
 This shifting of words between lines gets us to 100% justification with an allowance of 3 moved words:
 
@@ -875,7 +875,7 @@ If you want to try out any of these monospaced justification techniques on your 
     <textarea id="justified-text" readonly wrap="off"  style="font-family: 'Fira Mono', monospace;"></textarea>
 </div>
 
-<script src="/assets/js/justifier_tool.js"></script>
+<script src="justifier_tool.js"></script>
 
 <style>
 #monospace-justifier {

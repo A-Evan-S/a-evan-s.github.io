@@ -12,7 +12,7 @@ TEMPLATES_DIR = os.path.join(SRC_DIR, "templates")
 ASSETS_DIR = os.path.join(SRC_DIR, "assets")
 POSTS_DIR = os.path.join(PAGES_DIR, "posts")
 DIST_DIR = "dist"
-DRAFTS_DIR = os.path.join(POSTS_DIR, "drafts")
+DRAFTS_DIR = os.path.join(PAGES_DIR, "drafts")
 
 TITLE_ROOT = 'evan.schor'
 
@@ -85,8 +85,9 @@ def add_nav_to_template(template, posts, current_page=''):
     template = template.replace('{{navigation}}', default_nav)
     post_elements = []
     for post in posts:
+        post_url = '/posts/' + post['slug']
         short_title = shorten_title(post['title'])
-        post_elements.append(f'''<li><a href="{post["url"]}" {'class="active"' if current_page == post['title'] else ''}>{short_title}</a></li>''')
+        post_elements.append(f'''<li><a href="{post_url}" {'class="active"' if current_page == post['title'] else ''}>{short_title}</a></li>''')
     return template.replace('{{recent-posts}}', '\n'.join(post_elements))
 
 def generate_post_index(template, posts):
@@ -102,10 +103,11 @@ def make_post_entry(post):
     date_obj = post['date']
     iso_date = date_obj.isoformat()
     display_date = date_obj.strftime('%B %d, %Y')
+    post_url = '/posts/' + post['slug']
     post_entry = f'''
     <div class="posts-list-entry">
         <div class="post-header">
-            <h3 class="post-title"><a href="{post["url"]}">{post["title"]}</a></h3>
+            <h3 class="post-title"><a href="{post_url}">{post["title"]}</a></h3>
             <time class="post-date" datetime="{iso_date}">{display_date}</time>
         </div>
         <p class="post-summary">{post["summary"]}</p>
@@ -137,17 +139,20 @@ def generate_about_page(template, posts):
 
 def load_posts(directory, is_draft):
     posts = []
-    for filename in os.listdir(directory):
-        if filename.endswith(".md"):
-            md_path = os.path.join(directory, filename)
-            post = frontmatter.load(md_path)
-            post.content = re.sub(r'(?<!\\)\$\$([^\$]+)\$\$', convert_block_math, post.content)
-            post.content = re.sub(r'(?<!\\)\$([^\$]+)\$', convert_inline_math, post.content)
-            post.content = post.content.replace(r'\$', '$')
-            post['slug'] = filename_from_title(post['title'])
-            post['url'] = '/posts/' + post['slug'] + '.html'
-            post['draft'] = is_draft
-            posts.append(post)
+    for post_folder in os.listdir(directory):
+        post_path = os.path.join(directory, post_folder)
+        for filename in os.listdir(post_path):
+            if filename.endswith(".md"):
+                md_path = os.path.join(post_path, filename)
+                post = frontmatter.load(md_path)
+                post.content = re.sub(r'(?<!\\)\$\$([^\$]+)\$\$', convert_block_math, post.content)
+                post.content = re.sub(r'(?<!\\)\$([^\$]+)\$', convert_inline_math, post.content)
+                post.content = post.content.replace(r'\$', '$')
+                post['slug'] = filename_from_title(post['title'])
+                post['orig_dir'] = post_path
+                # post['url'] = '/posts/' + post['slug'] + '/index.html'
+                post['draft'] = is_draft
+                posts.append(post)
     return posts
 
 def convert_block_math(match):
@@ -157,8 +162,15 @@ def convert_inline_math(match):
     return latex2mathml.converter.convert(match.group(1))
     
 def generate_post_page(template, post, posts):
-    base = post['slug'] + ".html"
-    out_path = os.path.join(DIST_DIR, 'posts', base)
+    post_dir = os.path.join(DIST_DIR, 'posts', post['slug'])
+    os.makedirs(post_dir)
+    for filename in os.listdir(post['orig_dir']):
+        if not filename.endswith('.md'):
+            source_path = os.path.join(post['orig_dir'], filename)
+            destination_path = os.path.join(post_dir, filename)
+            shutil.copy2(source_path, destination_path)
+
+    out_path = os.path.join(post_dir, 'index.html')
     date_obj = post['date']
     iso_date = date_obj.isoformat()
     display_date = date_obj.strftime('%B %d, %Y')

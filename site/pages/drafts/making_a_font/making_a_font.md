@@ -7,31 +7,31 @@ summary: Making a font from scratch
 <style>
 @font-face {
   font-family: 'sans_sands_sans_01';
-  src: url("/assets/fonts/San's_Sands_Sans_01.woff") format('woff');
+  src: url("San's_Sands_Sans_01.woff") format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'sans_sands_sans_02';
-  src: url("/assets/fonts/San's_Sands_Sans_02.woff") format('woff');
+  src: url("San's_Sands_Sans_02.woff") format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'sans_sands_sans_03';
-  src: url("/assets/fonts/San's_Sands_Sans_03.woff") format('woff');
+  src: url("San's_Sands_Sans_03.woff") format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'sans_sands_sans_04';
-  src: url("/assets/fonts/San's_Sands_Sans_04.woff") format('woff');
+  src: url("San's_Sands_Sans_04.woff") format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'sans_sands_sans';
-  src: url("/assets/fonts/San's_Sands_Sans.woff") format('woff');
+  src: url("San's_Sands_Sans.woff") format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -74,7 +74,7 @@ As for the name, taking after outdoor recreation where I live, I decided to name
 Right off the bat we're presented with a bunch of choices, none of which I know anything about. I'm to enter values for "Ascent" and "Descent". No idea what those mean, but this image helped clear things up:
 
 <figure style="margin: 40px auto">
-  <img src="/assets/images/Typography_Line_Terms.svg" alt="A diagram showing common typography terms such as baseline, ascender height, and descender height" style="max-height: 200px; width: 80%; margin-bottom: 15px">
+  <img src="Typography_Line_Terms.svg" alt="A diagram showing common typography terms such as baseline, ascender height, and descender height" style="max-height: 200px; width: 80%; margin-bottom: 15px">
   <figcaption>
     Image credit: <a href="https://commons.wikimedia.org/wiki/File:Typography_Line_Terms.svg" target="_blank">Max Naylor, Public domain, via Wikimedia Commons</a>
   </figcaption>
@@ -85,11 +85,11 @@ Looks like how high or low each character is allowed to go, relative to the base
 With that out of the way, we're left with a blank slate of different glyphs. Specifically, the `ISO 8859-1` characters. This seems like a reasonable enough set to start with, though at this point I figured I might bail on the later characters.
 
 
-![Fontforge's default view of all the characters in the encoding](/assets/images/font_1.png){: style="max-height: 350px"}
+![Fontforge's default view of all the characters in the encoding](font_1.png){: style="max-height: 350px"}
 
 Onto making characters! I thought I had a rough Idea of what I wanted for a capital 'A': 3 stright lines drawn with a circular tip to create rounded ends but sharp intersections.
 
-![A very poor attempt to freehand draw the letter 'A'](/assets/images/font_2.png){: style="max-height: 400px"}
+![A very poor attempt to freehand draw the letter 'A'](font_2.png){: style="max-height: 400px"}
 
 Nailed it.
 
@@ -97,7 +97,7 @@ While I have done some basic vector drawing with bezier curves before, I had no 
 
 After probably an hour of playing around with the tools, I got a reasonable-ish 'A':
 
-![A corrected version of the letter 'A'](/assets/images/font_3.png){: style="max-height: 400px"}
+![A corrected version of the letter 'A'](font_3.png){: style="max-height: 400px"}
 
 Shortly after this I found the "Expand" tool to do what I had wanted without having to manually measure each width myself. I decided from here to do a test run making an incredibly rough draft of all the lowercase letters, mostly so that I would be able to see future drafts of each in at least some context while I worked. To do this, I just used the hand-draw tool to sketch some lines and expand the stroke to a uniform width.
 
@@ -137,7 +137,7 @@ I stumbled upon something maybe obvious to people who know what they're doing, b
 
 Relatedly, I found lots of things that my brain tell me should look natural and even look terrible in practice. For example, using a circle to create a lowercase 'e' ends up looking like it has a massive overbite:
 
-![The letter 'e' made from a circle (it looks bad)](/assets/images/font_4.png){: style="max-height: 400px"}
+![The letter 'e' made from a circle (it looks bad)](font_4.png){: style="max-height: 400px"}
 
 As for what I wanted to change from here, a few things stood out while working and upon reflection afterwards:
 
@@ -213,7 +213,7 @@ While the remaining edits accounted for only small changes, they took lots of tr
 
 A lot of the last changes were actually breaking the standardization I'd held to up to this point. I tried to reuse pieces of letters as much as possible, but some things looked better slightly off, like the curved top of the 'P' and 'R' being different, or the period being a bit larger than the comma.
 
-At the end of the day, while I'll likely never have a use for the end result, I think I accomplished my goals. If you want to try out San's Sands Sans, you can do so below, and if, for god knows what reason, you actually want to use it, you can [download it here](/assets/fonts/San's_Sands_Sans.ttf).
+At the end of the day, while I'll likely never have a use for the end result, I think I accomplished my goals. If you want to try out San's Sands Sans, you can do so below, and if, for god knows what reason, you actually want to use it, you can [download it here](San's_Sands_Sans.ttf).
 
 <div id="font-test-tool">
     <div id="tester-options">
