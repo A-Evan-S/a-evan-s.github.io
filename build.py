@@ -73,13 +73,13 @@ def add_nav_to_template(template, posts, current_page=''):
                             <a href="/" {'class="active"' if current_page == 'home' else ''}>Home</a>
                         </li>
                         <li>
-                            <a href="/posts.html" {'class="active"' if current_page == 'posts' else ''}>Posts</a>
+                            <a href="/posts" {'class="active"' if current_page == 'posts' else ''}>Posts</a>
                                 <ul class="sublist">
                                     {{{{recent-posts}}}}
                                 </ul>
                         </li>
                         <li>
-                            <a href="/about.html" {'class="active"' if current_page == 'about' else ''}>About</a>
+                            <a href="/about" {'class="active"' if current_page == 'about' else ''}>About</a>
                         </li>
                     </ul>'''
     template = template.replace('{{navigation}}', default_nav)
@@ -91,7 +91,7 @@ def add_nav_to_template(template, posts, current_page=''):
     return template.replace('{{recent-posts}}', '\n'.join(post_elements))
 
 def generate_post_index(template, posts):
-        out_path = os.path.join(DIST_DIR, 'posts.html')
+        out_path = os.path.join(DIST_DIR, 'posts', 'index.html')
         html_content = '\n'.join(make_post_entry(post) for post in posts)
         template = add_nav_to_template(template, posts, 'posts')
         rendered = template.replace("{{content}}", html_content)
@@ -128,7 +128,9 @@ def generate_home_page(template, posts):
 
 def generate_about_page(template, posts):
     md_path = os.path.join(PAGES_DIR, 'about.md')
-    out_path = os.path.join(DIST_DIR, 'about.html')
+    about_dir = os.path.join(DIST_DIR, 'about')
+    os.makedirs(about_dir)
+    out_path = os.path.join(about_dir, 'index.html')
     main_page = frontmatter.load(md_path)
     html_content = process_markdown(main_page.content)
     template = add_nav_to_template(template, posts, 'about')
