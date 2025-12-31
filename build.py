@@ -60,7 +60,7 @@ def shorten_title(orig_title, max_length=40):
 
 def generate_404_page():
     template_404 = os.path.join(TEMPLATES_DIR, '404.html')
-    template_404 = template_404.replace("{{title}}", TITLE_ROOT + ' | ' + '404')
+    template_404 = template_404.replace("{{title}}", '404' + ' | ' + TITLE_ROOT)
     shutil.copy(template_404, DIST_DIR)
 
 def write_html(out_path, html_content):
@@ -95,7 +95,7 @@ def generate_post_index(template, posts):
         html_content = '\n'.join(make_post_entry(post) for post in posts)
         template = add_nav_to_template(template, posts, 'posts')
         rendered = template.replace("{{content}}", html_content)
-        rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'Posts')
+        rendered = rendered.replace("{{title}}", 'Posts' + ' | ' + TITLE_ROOT)
         rendered = rendered.replace("{{description}}", 'Posts listing')
         write_html(out_path, rendered)
 
@@ -135,7 +135,7 @@ def generate_about_page(template, posts):
     html_content = process_markdown(main_page.content)
     template = add_nav_to_template(template, posts, 'about')
     rendered = template.replace("{{content}}", html_content)
-    rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + 'About')
+    rendered = rendered.replace("{{title}}", 'About' + ' | ' + TITLE_ROOT)
     rendered = rendered.replace("{{description}}", 'About Evan Schor')
     write_html(out_path, rendered)
 
@@ -186,7 +186,7 @@ def generate_post_page(template, post, posts):
     html_content = html_title + html_content
     template = add_nav_to_template(template, posts, post['title'])
     rendered = template.replace("{{content}}", html_content)
-    rendered = rendered.replace("{{title}}", TITLE_ROOT + ' | ' + post['title'])
+    rendered = rendered.replace("{{title}}", post['title'] + ' | ' + TITLE_ROOT)
     rendered = rendered.replace("{{description}}", post['summary'])
     write_html(out_path, rendered)
 
