@@ -1,7 +1,7 @@
 ---
 title: Making My Own Font
 date: 2025-12-31
-summary: Making a font from scratch
+summary: Making a font to hopefully learn something about fonts
 ---
 
 <link rel="stylesheet" href="making_a_font.css">
