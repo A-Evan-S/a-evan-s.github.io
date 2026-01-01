@@ -5,6 +5,8 @@ import markdown
 import frontmatter
 import re
 import latex2mathml.converter
+from pathlib import Path
+from PIL import Image
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
@@ -15,6 +17,8 @@ DIST_DIR = "dist"
 DRAFTS_DIR = os.path.join(PAGES_DIR, "drafts")
 
 TITLE_ROOT = 'evan.schor'
+
+IMAGE_SIZES = [400, 600, 800, 1200, 1600]
 
 def main(include_drafts=False):
     clean_dist()
@@ -119,7 +123,7 @@ def generate_home_page(template, posts):
     md_path = os.path.join(PAGES_DIR, 'index.md')
     out_path = os.path.join(DIST_DIR, 'index.html')
     main_page = frontmatter.load(md_path)
-    html_content = process_markdown(main_page.content)
+    html_content = process_markdown(main_page.content, DIST_DIR)
     template = add_nav_to_template(template, posts, 'home')
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", TITLE_ROOT)
@@ -132,7 +136,7 @@ def generate_about_page(template, posts):
     os.makedirs(about_dir)
     out_path = os.path.join(about_dir, 'index.html')
     main_page = frontmatter.load(md_path)
-    html_content = process_markdown(main_page.content)
+    html_content = process_markdown(main_page.content, about_dir)
     template = add_nav_to_template(template, posts, 'about')
     rendered = template.replace("{{content}}", html_content)
     rendered = rendered.replace("{{title}}", 'About' + ' | ' + TITLE_ROOT)
@@ -152,7 +156,6 @@ def load_posts(directory, is_draft):
                 post.content = post.content.replace(r'\$', '$')
                 post['slug'] = filename_from_title(post['title'])
                 post['orig_dir'] = post_path
-                # post['url'] = '/posts/' + post['slug'] + '/index.html'
                 post['draft'] = is_draft
                 posts.append(post)
     return posts
@@ -166,11 +169,15 @@ def convert_inline_math(match):
 def generate_post_page(template, post, posts):
     post_dir = os.path.join(DIST_DIR, 'posts', post['slug'])
     os.makedirs(post_dir)
-    for filename in os.listdir(post['orig_dir']):
-        if not (filename.endswith('.md') or filename.endswith('.py')):
-            source_path = os.path.join(post['orig_dir'], filename)
-            destination_path = os.path.join(post_dir, filename)
-            shutil.copy2(source_path, destination_path)
+    image_extensions = {'.png', '.jpg', '.jpeg', '.webp'}
+    omitted_extensions = {'.md', '.py'}
+
+    for filepath in Path(post['orig_dir']).glob('*'):
+        if filepath.suffix.lower() in image_extensions:
+            copy_images(filepath, post_dir)
+        elif filepath.suffix.lower() not in omitted_extensions:
+            destination_path = os.path.join(post_dir, filepath.name)
+            shutil.copy2(filepath, destination_path)
 
     out_path = os.path.join(post_dir, 'index.html')
     date_obj = post['date']
@@ -182,7 +189,7 @@ def generate_post_page(template, post, posts):
     <time class="post-date" datetime="{iso_date}">{display_date}</time>
     </div>
     '''
-    html_content = process_markdown(post.content)
+    html_content = process_markdown(post.content, post_dir)
     html_content = html_title + html_content
     template = add_nav_to_template(template, posts, post['title'])
     rendered = template.replace("{{content}}", html_content)
@@ -190,7 +197,28 @@ def generate_post_page(template, post, posts):
     rendered = rendered.replace("{{description}}", post['summary'])
     write_html(out_path, rendered)
 
-def process_markdown(markdown_content):
+def copy_images(orig_path, dest_dir):
+    img = Image.open(orig_path)
+    original_width = img.width
+    
+    generated = []
+    
+    for width in IMAGE_SIZES:
+        if width >= original_width:
+            break 
+
+        resized = img.copy()
+        resized.thumbnail((width, width), Image.LANCZOS)
+        output_path = Path(dest_dir) / f"{orig_path.stem}-{width}w.webp"
+        resized.save(output_path, 'WebP', quality=85)
+        generated.append((output_path.name, width))
+    
+    # Always include the original
+    destination_path = os.path.join(dest_dir, orig_path.name)
+    shutil.copy2(orig_path, destination_path)
+
+
+def process_markdown(markdown_content, output_dir):
     html_content = markdown.markdown(markdown_content, extensions=['toc', 'subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'codehilite', 'attr_list'])
     html_content = re.sub(
         r'(<table>.*?</table>)',
@@ -204,18 +232,38 @@ def process_markdown(markdown_content):
         html_content,
         flags=re.DOTALL
     )
-    html_content = link_images_to_full_size(html_content)
+    html_content = link_images_to_full_size(html_content, output_dir)
     return html_content
 
-def link_images_to_full_size(html):
+def link_images_to_full_size(html, output_dir):
     pattern = r'<img([^>]*)src="([^"]*)"([^>]*)>'
     
     def replace_img(match):
         before_src, src, after_src = match.groups()
-        img_tag = f'<img{before_src}src="{src}"{after_src}>'
+        srcset = find_srcset(src, output_dir)
+        if not srcset:
+            img_tag = f'<img{before_src}src="{src}"{after_src}>'
+        else:
+            srcset_parts = [f"{filename} {width}w" for filename, width in srcset]
+            srcset_list = ", ".join(srcset_parts)
+            m = re.search('max-width: (\d+)px', after_src)
+            if m:
+                sizes = f'(width <= {m.group(1)}px) 100vw, {m.group(1)}px'
+            else:
+                sizes = '100vw'
+            img_tag = f'<img{before_src}src="{srcset[0][0]}" srcset="{srcset_list}"{after_src} sizes="{sizes}">'
         return f'<a href="{src}">{img_tag}</a>'
     
     return re.sub(pattern, replace_img, html)
+
+def find_srcset(orig_filename, output_dir):
+    srcset = []
+    orig_filepath = Path(os.path.join(output_dir, orig_filename))
+    for filepath in Path(output_dir).glob('*'):
+        if filepath.name.startswith(orig_filepath.stem) and filepath != orig_filepath:
+            size = int(filepath.stem.split('-')[-1][:-1])
+            srcset.append([filepath.name, size])
+    return srcset
 
 def filename_from_title(title, max_length=50):
     slug = title.lower()
