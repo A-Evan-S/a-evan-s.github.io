@@ -5,7 +5,6 @@ import markdown
 import frontmatter
 import re
 import latex2mathml.converter
-from PIL import Image
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
