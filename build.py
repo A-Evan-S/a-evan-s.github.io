@@ -5,6 +5,7 @@ import markdown
 import frontmatter
 import re
 import latex2mathml.converter
+from PIL import Image
 
 SRC_DIR = "site"
 PAGES_DIR = os.path.join(SRC_DIR, "pages")
@@ -204,8 +205,18 @@ def process_markdown(markdown_content):
         html_content,
         flags=re.DOTALL
     )
+    html_content = link_images_to_full_size(html_content)
     return html_content
 
+def link_images_to_full_size(html):
+    pattern = r'<img([^>]*)src="([^"]*)"([^>]*)>'
+    
+    def replace_img(match):
+        before_src, src, after_src = match.groups()
+        img_tag = f'<img{before_src}src="{src}"{after_src}>'
+        return f'<a href="{src}">{img_tag}</a>'
+    
+    return re.sub(pattern, replace_img, html)
 
 def filename_from_title(title, max_length=50):
     slug = title.lower()
