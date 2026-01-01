@@ -75,7 +75,7 @@ Just html by itself: <button>Click me</button>
 
 and images:
 
-![An image of some mushrooms growing on a tree](mushrooms.jpg "Cool mushrooms!"){: height="500"}
+![An image of some mushrooms growing on a tree](mushrooms.jpg "Cool mushrooms!"){: style="max-width: 400px"}
 
 [^1]: maybe this one
 [^named-footnote]: less confident here
