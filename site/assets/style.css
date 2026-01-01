@@ -282,6 +282,10 @@ main a:hover {
   border-bottom-color: var(--color-accent-dark);
 }
 
+a:has(img) {
+  border-bottom: none;
+}
+
 .footnote-ref {
   border-bottom: none;
 }
