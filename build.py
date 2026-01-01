@@ -208,7 +208,7 @@ def copy_images(orig_path, dest_dir):
             break 
 
         resized = img.copy()
-        resized.thumbnail((width, width), Image.LANCZOS)
+        resized.thumbnail((width, img.height), Image.LANCZOS)
         output_path = Path(dest_dir) / f"{orig_path.stem}-{width}w.webp"
         resized.save(output_path, 'WebP', quality=85)
         generated.append((output_path.name, width))
@@ -248,9 +248,9 @@ def link_images_to_full_size(html, output_dir):
             srcset_list = ", ".join(srcset_parts)
             m = re.search('max-width: (\d+)px', after_src)
             if m:
-                sizes = f'(width <= {m.group(1)}px) 100vw, {m.group(1)}px'
+                sizes = f'(width <= {m.group(1)}px) 85vw, {m.group(1)}px'
             else:
-                sizes = '100vw'
+                sizes = '85vw'
             img_tag = f'<img{before_src}src="{srcset[0][0]}" srcset="{srcset_list}"{after_src} sizes="{sizes}">'
         return f'<a href="{src}">{img_tag}</a>'
     
@@ -261,8 +261,11 @@ def find_srcset(orig_filename, output_dir):
     orig_filepath = Path(os.path.join(output_dir, orig_filename))
     for filepath in Path(output_dir).glob('*'):
         if filepath.name.startswith(orig_filepath.stem) and filepath != orig_filepath:
-            size = int(filepath.stem.split('-')[-1][:-1])
-            srcset.append([filepath.name, size])
+            try:
+                size = int(filepath.stem.split('-')[-1][:-1])
+                srcset.append([filepath.name, size])
+            except:
+                pass
     return srcset
 
 def filename_from_title(title, max_length=50):
