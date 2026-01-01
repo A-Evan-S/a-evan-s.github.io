@@ -54,17 +54,17 @@ Right off the bat we're presented with a bunch of choices, none of which I know 
 
 This shows the handful of vertical metrics most useful for keeping characters consistent. FontForge has a tool to add and name guides to the glyph editor so you can see these heights while working. Here's an example of what my view looked like later in the project.
 
-![Example of FontForge's named guide tools](font_5.png){: style="max-height: 350px"}
+![Example of FontForge's named guide tools](font_5.webp){: style="max-height: 350px"}
 
 The ascent and descent had default values of 800 and 200, which I didn't question. I did end up changing these later, but what I actually should have been noticing is how the example word "Sphinx" omits any characters with features in the middle of the glyph like the bar in 'A' or cross in 't'. Not planning for these caused some frustrating edits later on.
 
 With that out of the way, we're left with a blank slate of different glyphs. Specifically, the `ISO 8859-1` characters. This seemed like a reasonable enough set to start with, though at this point I figured I might bail on some of the special characters.
 
-![FontForge's default view of all the characters in the encoding](font_1.png){: style="max-height: 350px"}
+![FontForge's default view of all the characters in the encoding](font_1.webp){: style="max-height: 350px"}
 
 On to making characters! I thought I had a rough Idea of what I wanted for a capital 'A': 3 straight lines drawn with a circular tip to create rounded ends but sharp intersections. I figured characters couldn't get much easier than this, so it would be a good easy one to use to figure things out.
 
-![A very poor attempt to freehand draw the letter 'A'](font_2.png){: style="max-height: 400px"}
+![A very poor attempt to freehand draw the letter 'A'](font_2.webp){: style="max-height: 400px"}
 
 Nailed it.
 
@@ -72,7 +72,7 @@ While I have done some basic vector drawing with bezier curves before, I had no 
 
 After probably an hour of playing around with the tools, I got a reasonable-ish 'A':
 
-![A corrected version of the letter 'A'](font_3.png){: style="max-height: 400px"}
+![A corrected version of the letter 'A'](font_3.webp){: style="max-height: 400px"}
 
 Shortly after this I found the "Expand" tool to do what I had wanted without having to manually measure each width myself. I decided from here to do a test run making an incredibly rough draft of all the lowercase letters, mostly so that I would be able to see future drafts of each in at least some context while I worked. To do this, I just used the hand-draw tool to sketch some lines and expand the stroke to a uniform width.
 
@@ -112,7 +112,7 @@ I stumbled upon something maybe obvious to people who know what they're doing, b
 
 Relatedly, I found lots of things that my brain tell me should look natural and even look terrible in practice. For example, using a circle to create a lowercase 'e' ends up looking like it has a massive overbite:
 
-![The letter 'e' made from a circle (it looks bad)](font_4.png){: style="max-height: 400px"}
+![The letter 'e' made from a circle (it looks bad)](font_4.webp){: style="max-height: 400px"}
 
 As for what I wanted to change from here, a few things stood out while working:
 
