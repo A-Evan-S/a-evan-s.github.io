@@ -1,6 +1,6 @@
 ---
 title: Nav Styling I Didn't Use
-date: 2025-01-09
+date: 2026-01-09
 summary: A cool styling technique for navigation that I didn't end up using
 ---
 
@@ -8,6 +8,7 @@ summary: A cool styling technique for navigation that I didn't end up using
 
 In an effort to learn a bit more about css and style this website, I put together a cool animated nav styling.
 
+<div class="nav-demo-container">
 <div class="nav-demo">
     <div class="nav-container-vert">
         <ul>
@@ -16,11 +17,13 @@ In an effort to learn a bit more about css and style this website, I put togethe
             <li><a href="#services">Services</a></li>
         </ul>
     </div>
+    </div>
 </div>
 
 
 And a horizontal version
 
+<div class="nav-demo-container">
 <div class="nav-demo">
     <div class="nav-container-horiz">
         <ul>
@@ -28,6 +31,7 @@ And a horizontal version
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         </ul>
+    </div>
     </div>
 </div>
 
