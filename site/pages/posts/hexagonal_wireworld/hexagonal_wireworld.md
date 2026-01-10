@@ -117,25 +117,25 @@ My hope at the outset was that the unique neighboring and the 6-fold symmetry (a
 For example, hexagonal grids have six immediate neighbors as opposed to a square grid's four, potentially allowing for wires to be created with more natural patterns with fewer restrictions.
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="A square cell's four immediate neighbors" src="grid_four_neighbors.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
-    <img alt="A hexagonal cell's six immediate neighbors" src="hex_six_neighbors.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
+    <img alt="A square cell's four immediate neighbors" src="grid_four_neighbors.svg" style="min-width: 200px; width: calc(var(--main-width) * 0.3); aspect-ratio: 1 / 1;">
+    <img alt="A hexagonal cell's six immediate neighbors" src="hex_six_neighbors.svg" style="min-width: 200px; width: calc(var(--main-width) * 0.3); aspect-ratio: 1 / 1;">
 </div>
 
 This is true to an extent, but misleading. A square grid does have 4 immediate neighbors, but by the rules for Wireworld, each of its eight neighbors present a valid direction for a wire. We haven't gone up from 4 neighbors, but down from 8 directions.
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="A square cell's eight directions" src="grid_eight_directions.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
-    <img alt="A hexagonal cell's six directions" src="hex_six_directions.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
+    <img alt="A square cell's eight directions" src="grid_eight_directions.svg" style="min-width: 200px; width: calc(var(--main-width) * 0.3); aspect-ratio: 1 / 1;">
+    <img alt="A hexagonal cell's six directions" src="hex_six_directions.svg" style="min-width: 200px; width: calc(var(--main-width) * 0.3); aspect-ratio: 1 / 1;">
 </div>
 
 To bring back the possibilities of the hexagonal format, I decided to mirror the original's use of diagonal neighbors by including cells not immediately adjacent in determining cell transitions. First, we can look at some or all of the cells in the ring around the six immediate neighbors. Second, we can split the neighbors into multiple groups whose state counts are measured separately. I tried a number of rulesets and neighbor configurations, including the ones depicted here.
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_1.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
-    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_2.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
-    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_3.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
-    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_4.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
-    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_5.svg" style="min-width: 150px; width: 25%; aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_1.svg" style="min-width: 120px; width: calc(var(--main-width) * 0.25); aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_2.svg" style="min-width: 120px; width: calc(var(--main-width) * 0.25); aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_3.svg" style="min-width: 120px; width: calc(var(--main-width) * 0.25); aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_4.svg" style="min-width: 120px; width: calc(var(--main-width) * 0.25); aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_5.svg" style="min-width: 120px; width: calc(var(--main-width) * 0.25); aspect-ratio: 1 / 1;">
 </div>
 
 There are loads of combinations that could produce different results, so if I were to come back to this project later I maintain some optimism that other neighbor definitions and rulesets might result in worthwhile alternatives to explore.
@@ -146,7 +146,7 @@ I ended up using a ruleset with 18 neighbors, split into two tiers: the 6 inner 
 
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-evenly; padding: 20px">
-    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_6.svg" style="min-width: 200px; width: 30%; aspect-ratio: 1 / 1;">
+    <img alt="An alternative hexagonal neighbor definition" src="hex_neighbors_alt_6.svg" style="min-width: 200px; width: calc(var(--main-width) * 0.3); aspect-ratio: 1 / 1;">
 </div>
 
  I also added an intermediate cell state between Electron Head and Electron Tail, as we need two spaces away to prevent an electron from interacting with the wire behind it. Here are the rules I ended up with:

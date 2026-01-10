@@ -252,7 +252,7 @@ def link_images_to_full_size(html, output_dir):
             else:
                 sizes = '85vw'
             img_tag = f'<img{before_src}src="{srcset[0][0]}" srcset="{srcset_list}"{after_src} sizes="{sizes}">'
-        return f'<a href="{src}">{img_tag}</a>'
+        return f'<div class="img-container"><a href="{src}">{img_tag}</a></div>'
     
     return re.sub(pattern, replace_img, html)
 

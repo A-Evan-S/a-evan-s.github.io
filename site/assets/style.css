@@ -42,7 +42,8 @@ main {
   max-width: 805px;
   overflow-x: auto;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
+  --main-width: min(805px, calc(100vw - 56px));
 }
 
 @media (max-width: 1075px) {
@@ -120,11 +121,20 @@ header {
   color: var(--color-text);
 }
 
-main img {
+main .img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.img-container svg {
   display: block;
+}
+
+main .img-container a {
+  border-bottom: none;
   width: 100%;
-  height: auto;
-  margin: auto;
+  display: flex;
+  justify-content: center;
 }
 
 blockquote {
@@ -280,10 +290,6 @@ main a {
 main a:hover {
   color: var(--color-text);
   border-bottom-color: var(--color-accent-dark);
-}
-
-a:has(img) {
-  border-bottom: none;
 }
 
 .footnote-ref {
