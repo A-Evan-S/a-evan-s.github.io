@@ -6,7 +6,7 @@ summary: A cool animated style for showing selected nav elements that I didn't e
 
 <link rel="stylesheet" href="nav_styling.css">
 
-In an effort to learn a bit more about css and try some different approaches to styling this website, I put together the below animated nave styling. My goal was to clearly indicate the selected page and what page is being selected with minimal visual change and without any changes to the text itself.
+In an effort to learn a bit more about css and try some different approaches to styling this website, I put together the below animated nav styling. My goal was to clearly indicate the selected page and what page is being selected with minimal visual change and without any changes to the text itself.
 
 I didn't end up using this, but figured I'd post it to feel less like I wasted my time.
 
