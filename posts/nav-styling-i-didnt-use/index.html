@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A cool animated style for showing selected nav elements that I didn't end up using">
+        <title>Nav Styling I Didn't Use | evan.schor</title>
+        <link rel="preload" href="/assets/fonts/FiraMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/syntax.css">
+    </head>
+    <body>
+        <div id="container">
+            <header>
+                <a id="site-title" href="/">evan.schor</a>
+            </header>
+            <div id="nav-main-container">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/" >Home</a>
+                        </li>
+                        <li>
+                            <a href="/posts/" >Posts</a>
+                                <ul class="sublist">
+                                    <li><a href="/posts/nav-styling-i-didnt-use" class="active">Nav Styling I Didn't Use</a></li>
+<li><a href="/posts/making-my-own-font" >Making My Own Font</a></li>
+<li><a href="/posts/hexagonal-wireworld" >Hexagonal Wireworld</a></li>
+<li><a href="/posts/a-very-long-test-post-both-in-title-and-in-content" > A very long test post, both in...</a></li>
+<li><a href="/posts/test-post-for-formatting" >Test Post for Formatting</a></li>
+<li><a href="/posts/test-post-short" >Test Post (short)</a></li>
+                                </ul>
+                        </li>
+                        <li>
+                            <a href="/about/" >About</a>
+                        </li>
+                    </ul>
+                </nav>
+                <main>
+                    
+    <div class="post-header">
+    <h1 class="post-title">Nav Styling I Didn't Use</h1>
+    <time class="post-date" datetime="2026-01-10">January 10, 2026</time>
+    </div>
+    <p><link rel="stylesheet" href="nav_styling.css"></p>
+<p>In an effort to learn a bit more about css and try some different approaches to styling this website, I put together the below animated nave styling. My goal was to clearly indicate the selected page and what page is being selected with minimal visual change and without any changes to the text itself.</p>
+<p>I didn't end up using this, but figured I'd post it to feel less like I wasted my time.</p>
+<div class="nav-demo-container">
+    <div class="nav-demo">
+        <div class="nav-container-vert">
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#posts">Posts</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<p>I also put together a horizontal version.</p>
+<div class="nav-demo-container">
+    <div class="nav-demo">
+        <div class="nav-container-horiz">
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#posts">Posts</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<p>I really like the look and feel, and I think it does a good job showing both the current page and the page the cursor is hovering over with minimal clutter. It doesn't require any javascript, and is relatively drop-in compatible with other styling.</p>
+<p>As for why I didn't actually end up using it, there were two main problems:</p>
+<ol>
+<li>Without javascript, it was necessary to hardcode the relative positions of the triangle. This isn't immediately an issue, as those could be calculated during the build process. It is annoying, however, and also gets further complicated if the elements aren't the same size (as is the case with the sub items under the "Posts" link).</li>
+<li>No obvious way to handle not having an active selection. If viewing a page not present in the nav list, there's not an obvious solution of how the triangle should behave. For example, if using the horizontal layout and viewing an individual post, should the "Posts" item be selected? If it were, it would break the pattern that clicking the currently selected element shouldn't have any effect. There are potential solutions here like having the triangle animate in from the side or just appear on hover, but that didn't match my original goals.</li>
+</ol>
+<p>Overall, I was glad to have learned more about animating motion with css, and do think it would make a neat visual for a site that only has a few fixed pages.</p>
+<p>You can take a look at the styling used below:</p>
+<div class="codehilite"><pre><span></span><span class="nt">nav</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="w"> </span><span class="nt">a</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span>
+<span class="w">    </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">    </span><span class="k">line-height</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="w"> </span><span class="nt">ul</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">list-style</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="w"> </span><span class="nt">li</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
+<span class="w">    </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--color-text</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-top</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-left</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--color-text</span><span class="p">);</span>
+<span class="w">    </span><span class="k">transition</span><span class="p">:</span><span class="w"> </span><span class="kc">top</span><span class="w"> </span><span class="mf">0.15</span><span class="kt">s</span><span class="w"> </span><span class="nb">cubic-bezier</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">1</span><span class="o">)</span><span class="p">:</span><span class="nd">hover</span><span class="o">)</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span><span class="p">:</span><span class="nd">hover</span><span class="o">)</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">3</span><span class="o">)</span><span class="p">:</span><span class="nd">hover</span><span class="o">)</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">92</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">1</span><span class="o">)</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">hover</span><span class="o">))</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">hover</span><span class="o">))</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">3</span><span class="o">)</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">hover</span><span class="o">))</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">92</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>And for the horizontal version:</p>
+<div class="codehilite"><pre><span></span><span class="nt">nav</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="n">fit-content</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="w"> </span><span class="nt">a</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span>
+<span class="w">    </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">    </span><span class="k">line-height</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="w"> </span><span class="nt">ul</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
+<span class="w">    </span><span class="k">list-style</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="k">flex-direction</span><span class="p">:</span><span class="w"> </span><span class="kc">row</span><span class="p">;</span>
+<span class="w">    </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w">    </span><span class="k">padding-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="w"> </span><span class="nt">li</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
+<span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--color-text</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">    </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-left</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-right</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--color-text</span><span class="p">);</span>
+<span class="w">    </span><span class="k">transition</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="w"> </span><span class="mf">0.15</span><span class="kt">s</span><span class="w"> </span><span class="nb">cubic-bezier</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">1</span><span class="o">)</span><span class="p">:</span><span class="nd">hover</span><span class="o">)</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span><span class="p">:</span><span class="nd">hover</span><span class="o">)</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">142</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">3</span><span class="o">)</span><span class="p">:</span><span class="nd">hover</span><span class="o">)</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">242</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">1</span><span class="o">)</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">hover</span><span class="o">))</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">hover</span><span class="o">))</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">142</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">3</span><span class="o">)</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">has</span><span class="o">(</span><span class="nt">li</span><span class="p">:</span><span class="nd">hover</span><span class="o">))</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">242</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

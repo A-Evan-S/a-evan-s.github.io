@@ -1,0 +1,172 @@
+/* Removing inherited styling */
+.nav-demo-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+
+    a {
+        text-decoration: none;
+        color: var(--color-text);
+        border-bottom: none;
+        font-size: 1.1rem;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        display: block;
+        margin: 0;
+    }
+}
+
+.nav-demo {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 25px;
+}
+
+/* Vertical Demo */
+.nav-container-vert {
+  position: relative;
+
+  a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    line-height: 40px;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 30px;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.nav-container-vert::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-text);
+}
+
+.nav-container-vert::after {
+  content: '';
+  position: absolute;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid var(--color-text);
+  transition: top 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-container-vert:has(li:nth-child(1):hover)::after {
+  top: 12px;
+}
+
+.nav-container-vert:has(li:nth-child(2):hover)::after {
+  top: 52px;
+}
+
+.nav-container-vert:has(li:nth-child(3):hover)::after {
+  top: 92px;
+}
+
+.nav-container-vert:has(li:nth-child(1) a.active):not(:has(li:hover))::after {
+  top: 12px;
+}
+
+.nav-container-vert:has(li:nth-child(2) a.active):not(:has(li:hover))::after {
+  top: 52px;
+}
+
+.nav-container-vert:has(li:nth-child(3) a.active):not(:has(li:hover))::after {
+  top: 92px;
+}
+
+/* Horizontal Demo */
+.nav-container-horiz {
+  position: relative;
+  width: fit-content;
+
+  a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    line-height: 40px;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  li {
+    display: flex;
+    text-align: center;
+    width: 100px;
+  }
+}
+
+.nav-container-horiz::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-text);
+}
+
+.nav-container-horiz::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid var(--color-text);
+  transition: left 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-container-horiz:has(li:nth-child(1):hover)::after {
+  top: auto;
+  left: 42px;
+}
+
+.nav-container-horiz:has(li:nth-child(2):hover)::after {
+  top: auto;
+  left: 142px;
+}
+
+.nav-container-horiz:has(li:nth-child(3):hover)::after {
+  top: auto;
+  left: 242px;
+}
+
+.nav-container-horiz:has(li:nth-child(1) a.active):not(:has(li:hover))::after {
+  top: auto;
+  left: 42px;
+}
+
+.nav-container-horiz:has(li:nth-child(2) a.active):not(:has(li:hover))::after {
+  top: auto;
+  left: 142px;
+}
+
+.nav-container-horiz:has(li:nth-child(3) a.active):not(:has(li:hover))::after {
+  top: auto;
+  left: 242px;
+}
