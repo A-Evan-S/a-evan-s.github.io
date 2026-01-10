@@ -1,3 +1,4 @@
+/* Removing inherited styling */
 .nav-demo-container {
     display: flex;
     justify-content: center;
@@ -28,6 +29,7 @@
     padding: 25px;
 }
 
+/* Vertical Demo */
 .nav-container-vert {
   position: relative;
 
@@ -92,7 +94,7 @@
   top: 92px;
 }
 
-
+/* Horizontal Demo */
 .nav-container-horiz {
   position: relative;
   width: fit-content;
@@ -119,33 +121,26 @@
   }
 }
 
-/* Horizontal line */
 .nav-container-horiz::before {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  top: auto;
   height: 2px;
-  width: auto;
   background: var(--color-text);
 }
 
-/* Triangle marker - default to active item (3rd item in this case) */
 .nav-container-horiz::after {
   content: '';
   position: absolute;
   bottom: 0;
-  top: auto;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-bottom: 10px solid var(--color-text);
-  border-top: none;
   transition: left 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Move marker on hover - each li hover moves marker to that position */
 .nav-container-horiz:has(li:nth-child(1):hover)::after {
   top: auto;
   left: 42px;
@@ -161,7 +156,6 @@
   left: 242px;
 }
 
-/* Position marker at active item when not hovering */
 .nav-container-horiz:has(li:nth-child(1) a.active):not(:has(li:hover))::after {
   top: auto;
   left: 42px;
