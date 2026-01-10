@@ -49,7 +49,6 @@
   }
 }
 
-/* Vertical line */
 .nav-container-vert::before {
   content: '';
   position: absolute;
@@ -60,20 +59,15 @@
   background: var(--color-text);
 }
 
-/* Triangle marker - default to active item (3rd item in this case) */
 .nav-container-vert::after {
   content: '';
   position: absolute;
-  left: 0;
-  width: 0;
-  height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 10px solid var(--color-text);
   transition: top 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Move marker on hover - each li hover moves marker to that position */
 .nav-container-vert:has(li:nth-child(1):hover)::after {
   top: 12px;
 }
