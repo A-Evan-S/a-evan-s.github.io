@@ -126,15 +126,12 @@ main .img-container {
   justify-content: center;
 }
 
-.img-container svg {
+main .img-container svg {
   display: block;
 }
 
 main .img-container a {
   border-bottom: none;
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 blockquote {
