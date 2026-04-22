@@ -1,6 +1,5 @@
-markdown
+markdown>=3.3.4
 python-frontmatter
 latex2mathml
-MarkdownSubscript
-MarkdownSuperscript
+pymdown-extensions
 Pillow

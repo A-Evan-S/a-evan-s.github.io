@@ -219,7 +219,7 @@ def copy_images(orig_path, dest_dir):
 
 
 def process_markdown(markdown_content, output_dir):
-    html_content = markdown.markdown(markdown_content, extensions=['toc', 'subscript', 'superscript', 'footnotes', 'tables', 'fenced_code', 'codehilite', 'attr_list'])
+    html_content = markdown.markdown(markdown_content, extensions=['toc', 'pymdownx.tilde', 'pymdownx.caret', 'footnotes', 'tables', 'fenced_code', 'codehilite', 'attr_list'])
     html_content = re.sub(
         r'(<table>.*?</table>)',
         r'<div class="table-wrapper">\1</div>',
@@ -246,7 +246,7 @@ def link_images_to_full_size(html, output_dir):
         else:
             srcset_parts = [f"{filename} {width}w" for filename, width in srcset]
             srcset_list = ", ".join(srcset_parts)
-            m = re.search('max-width: (\d+)px', after_src)
+            m = re.search(r'max-width: (\d+)px', after_src)
             if m:
                 sizes = f'(width <= {m.group(1)}px) 85vw, {m.group(1)}px'
             else:
