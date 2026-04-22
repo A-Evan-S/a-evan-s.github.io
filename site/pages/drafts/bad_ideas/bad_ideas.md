@@ -1,6 +1,6 @@
 ---
 title: No Bad Ideas
-date: 2026-3-4
+date: 2026-03-04
 summary: Some people say there are no bad ideas. I attempt to prove them wrong.
 ---
 
