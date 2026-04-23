@@ -170,6 +170,7 @@ pre {
   margin: 10px 25px;
   overflow: auto;
   font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Courier New", monospace;
+  font-size: 0.95em;
 }
 
 code {
@@ -181,19 +182,12 @@ code {
   white-space: nowrap;
 }
 
-.codehilite {
-  font-size: 0.95em;
-  border-radius: 3px;
-  padding: 1px 3px;
-  font-family: "Fira Mono", "Jetbrains Mono NL", Monaco, "Courier New", monospace;
-  white-space: nowrap;
-}
-
-pre .codehilite {
-  border: None;
-  padding: 0px;
+pre code {
+  border: none;
+  padding: 0;
   background-color: transparent;
   white-space: pre;
+  font-size: inherit;
 }
 
 math[display="block"] {

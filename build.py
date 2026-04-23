@@ -219,7 +219,19 @@ def copy_images(orig_path, dest_dir):
 
 
 def process_markdown(markdown_content, output_dir):
-    html_content = markdown.markdown(markdown_content, extensions=['toc', 'pymdownx.tilde', 'pymdownx.caret', 'footnotes', 'tables', 'fenced_code', 'codehilite', 'attr_list'])
+    html_content = markdown.markdown(
+        markdown_content,
+        extensions=[
+            'toc',
+            'pymdownx.tilde',
+            'pymdownx.caret',
+            'footnotes',
+            'tables',
+            'pymdownx.highlight',
+            'pymdownx.superfences',
+            'attr_list',
+        ]
+    )
     html_content = re.sub(
         r'(<table>.*?</table>)',
         r'<div class="table-wrapper">\1</div>',

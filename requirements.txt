@@ -3,3 +3,4 @@ python-frontmatter
 latex2mathml
 pymdown-extensions
 Pillow
+pygments
