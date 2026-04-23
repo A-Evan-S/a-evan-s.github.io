@@ -42,11 +42,9 @@
     </div>
     <p>This is a post (also) With some text in it.</p>
 <p>Which tests what <code>markdown</code> does with codeblocks:</p>
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
-</pre></div>
-
-
+</code></pre></div>
 <p>and with math <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>2</mn><mo>&#x000B7;</mo><mi>x</mi></mrow></math> inline and</p>
 <div class="math-wrapper"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><munderover><mo>&#x02211;</mo><mrow><mi>n</mi><mo>&#x0003D;</mo><mn>0</mn></mrow><mo>&#x0221E;</mo></munderover><mfrac><mrow><msup><mi>f</mi><mrow><mo stretchy="false">&#x00028;</mo><mi>n</mi><mo stretchy="false">&#x00029;</mo></mrow></msup><mo stretchy="false">&#x00028;</mo><mi>a</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>n</mi><mo>&#x00021;</mo></mrow></mfrac><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x02212;</mo><mi>a</mi><msup><mo stretchy="false">&#x00029;</mo><mi>n</mi></msup></mrow></math></div>
 
@@ -110,19 +108,19 @@
 
 <p>horiziontal lines</p>
 <p>How about H<sub>2</sub>O or 12<sup>th</sup></p>
-<p>Regular numbered footnotes<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>, as well as fancy named ones.<sup id="fnref:named-footnote"><a class="footnote-ref" href="#fn:named-footnote" rel="footnote">2</a></sup></p>
+<p>Regular numbered footnotes<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, as well as fancy named ones.<sup id="fnref:named-footnote"><a class="footnote-ref" href="#fn:named-footnote">2</a></sup></p>
 <hr />
 <p>Just html by itself: <button>Click me</button></p>
 <p>and images:</p>
-<p><div class="img-container"><a href="mushrooms.jpg"><img alt="An image of some mushrooms growing on a tree" src="mushrooms-400w.webp" srcset="mushrooms-400w.webp 400w, mushrooms-600w.webp 600w" style="max-width: 400px" title="Cool mushrooms!" / sizes="(width <= 400px) 85vw, 400px"></a></div></p>
+<p><div class="img-container"><a href="mushrooms.jpg"><img alt="An image of some mushrooms growing on a tree" src="mushrooms-600w.webp" srcset="mushrooms-600w.webp 600w, mushrooms-400w.webp 400w" style="max-width: 400px" title="Cool mushrooms!" / sizes="(width <= 400px) 85vw, 400px"></a></div></p>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>maybe this one&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>maybe this one&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:named-footnote">
-<p>less confident here&#160;<a class="footnote-backref" href="#fnref:named-footnote" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>less confident here&#160;<a class="footnote-backref" href="#fnref:named-footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
