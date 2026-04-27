@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Sharing my customized keyboard layout">
+        <title>My Custom Keyboard Layout | evan.schor</title>
+        <link rel="preload" href="/assets/fonts/FiraMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/syntax.css">
+    </head>
+    <body>
+        <div id="container">
+            <header>
+                <a id="site-title" href="/">evan.schor</a>
+            </header>
+            <div id="nav-main-container">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/" >Home</a>
+                        </li>
+                        <li>
+                            <a href="/posts/" >Posts</a>
+                                <ul class="sublist">
+                                    <li><a href="/posts/my-custom-keyboard-layout" class="active">My Custom Keyboard Layout</a></li>
+<li><a href="/posts/nav-styling-i-didnt-use" >Nav Styling I Didn't Use</a></li>
+<li><a href="/posts/making-my-own-font" >Making My Own Font</a></li>
+<li><a href="/posts/hexagonal-wireworld" >Hexagonal Wireworld</a></li>
+<li><a href="/posts/test-post-for-formatting" >Test Post for Formatting</a></li>
+                                </ul>
+                        </li>
+                        <li>
+                            <a href="/about/" >About</a>
+                        </li>
+                    </ul>
+                </nav>
+                <main>
+                    
+    <div class="post-header">
+    <h1 class="post-title">My Custom Keyboard Layout</h1>
+    <time class="post-date" datetime="2026-04-26">April 26, 2026</time>
+    </div>
+    <p><div class="img-container"><a href="keyboard_transparent_test.png"><img alt="A photograph of a black keyboard with white key labels" src="keyboard_transparent_test-1600w.webp" srcset="keyboard_transparent_test-1600w.webp 1600w, keyboard_transparent_test-1200w.webp 1200w, keyboard_transparent_test-600w.webp 600w, keyboard_transparent_test-400w.webp 400w, keyboard_transparent_test-800w.webp 800w" style="max-width: 800px" title="I'm not a photographer" / sizes="(width <= 800px) 85vw, 800px"></a></div></p>
+<p>After switching to <a href="https://github.com/niri-wm/niri">niri</a> a few months back, I found myself wanting a better keyboard layout that made access to <code>Ctrl</code> (for app-level shortcuts) and <code>Super</code> (for OS commands) highly accessible. My old keyboard (a Das Keyboard Model S that I got off craigslist) was perfectly adequate, but I wanted to explore the options for a more customized configuration.</p>
+<p>This led me down a bit of a rabbit hole, but I was pleased with the result, so I thought I'd share.</p>
+<h1 id="goals">Goals</h1>
+<p>Before choosing a keyboard or layout, I had a number of different goals I was aiming towards:</p>
+<ul>
+<li><strong>Fewer unused keys</strong>: <code>Scroll Lock</code> and <code>Pause Break</code> aren't necessary for me</li>
+<li><strong>Comfortable access to modifiers</strong>: <code>Ctrl</code> and <code>Super</code> being the priorities</li>
+<li><strong>vim keybind support</strong>: I don't use vim itself that often, but I set other editors to use vim keybindings, so need <code>Esc</code> to be easily accessed</li>
+<li><strong>niri navigation tools</strong>: the default bindings for manipulating windows and workspaces are fine, but easier access would be better</li>
+<li><strong>Better data entry numpad</strong>: numerical entry is much easier with a numpad, but the numpad lacks any other data entry keys</li>
+<li><strong>Useful F-row shortcuts</strong>: media/hardware controls configured to what I use most frequently</li>
+<li><strong>Close to standard layouts</strong>: this is partially for anyone else who might need to use my keyboard, but also because I use other keyboards and don't want to have wildly different muscle memory</li>
+</ul>
+<h1 id="hardware-and-software">Hardware and Software</h1>
+<p>I ended up purchasing a System76 Launch Heavy. I was also considering the Keychron Q13 Pro, but I don't like using a wrist rest, and it looked too tall to use without one.</p>
+<p>The keycaps were from Yuzu, planned with their custom design tool.</p>
+<p>The software configuration was primarily achieved through a custom QMK keymap and my niri <code>config.kdl</code> file, though I use <code>keyd</code> for running a few custom scripts to handle some of the F-key shortcuts.</p>
+<h1 id="key-configuration">Key Configuration</h1>
+<h2 id="replacing-caps-lock">Replacing Caps-Lock</h2>
+<p><div class="img-container"><a href="keyboard_caps_ctrl.png"><img alt="A keyboard layout with the caps/ctrl key highlighted" src="keyboard_caps_ctrl-800w.webp" srcset="keyboard_caps_ctrl-800w.webp 800w, keyboard_caps_ctrl-600w.webp 600w, keyboard_caps_ctrl-1200w.webp 1200w, keyboard_caps_ctrl-400w.webp 400w, keyboard_caps_ctrl-1600w.webp 1600w" style="max-width: 800px" / sizes="(width <= 800px) 85vw, 800px"></a></div></p>
+<p>I do actually use <code>Caps Lock</code> with moderate frequency. Mostly for data input or similar where all-caps is expected, less so for yelling on the internet. Still, the idea of reserving the prime real-estate of its typical position for these obscure use-cases is absurd. I chose to replace this with a <a href="https://docs.qmk.fm/mod_tap">Mod-Tap</a> <code>Ctrl</code>/<code>Esc</code> button. <code>Ctrl</code> for easy keyboard shortcuts (much more comfortable than reaching down with the pinky to either of the typical <code>Ctrl</code> locations) and <code>Esc</code> for vim-style input and for controlling focus.</p>
+<p>While vim-style editing was my initial reasoning for adding the <code>Esc</code> key here, it's remarkably useful beyond that. I've found numerous instances of interfaces where exiting a certain focus requires either using the mouse or pressing <code>Esc</code> (for example, using <code>Ctrl-f</code> on chrome brings up a search with the keyboard, but <code>Esc</code> is required to exit search).</p>
+<p>I did keep <code>Caps Lock</code> readily available as <code>Shift+Shift</code>. Hard to do accidentally, but easy to remember when needed.</p>
+<h2 id="function-key-row">Function Key Row</h2>
+<p><div class="img-container"><a href="keyboard_function_row.png"><img alt="A keyboard layout with the function row keys highlighted" src="keyboard_function_row-1600w.webp" srcset="keyboard_function_row-1600w.webp 1600w, keyboard_function_row-1200w.webp 1200w, keyboard_function_row-600w.webp 600w, keyboard_function_row-800w.webp 800w, keyboard_function_row-400w.webp 400w" style="max-width: 800px" / sizes="(width <= 800px) 85vw, 800px"></a></div></p>
+<p>I opted to dedicate the top row to common shortcuts and controls, moving the F-keys to a secondary layer. I always liked the idea of having easy access to controls, but my experience has always been similar to when TV remotes have dedicated buttons to specific smart-applications or services: cool if you use those a lot, but wasted if they're not tuned exactly to your needs.</p>
+<p>Customizing these helped focus on what I actually use most frequently, but I also tried to keep them generic enough to not be specific to my hardware or software. Hopefully the icons are self-explanatory for most, but here's the list:</p>
+<ul>
+<li>Screen Lock</li>
+<li>Mute</li>
+<li>Volume down</li>
+<li>Volume up</li>
+<li>Swap audio output (headphones/speakers)</li>
+<li>Mute/Unmute microphone</li>
+<li>Hide/Unhide camera</li>
+<li>Media back</li>
+<li>Media play/pause</li>
+<li>Media forward</li>
+<li>Backlight toggle</li>
+<li>Full screen toggle</li>
+<li>Print-screen</li>
+</ul>
+<h2 id="extra-symbols">Extra Symbols</h2>
+<p><div class="img-container"><a href="keyboard_symbols.png"><img alt="A keyboard layout with the special symbol keys highlighted" src="keyboard_symbols-1600w.webp" srcset="keyboard_symbols-1600w.webp 1600w, keyboard_symbols-800w.webp 800w, keyboard_symbols-1200w.webp 1200w, keyboard_symbols-600w.webp 600w, keyboard_symbols-400w.webp 400w" style="max-width: 800px" / sizes="(width <= 800px) 85vw, 800px"></a></div></p>
+<p>There are a handful of symbols that I appreciate having quick access to beyond those typically present on a keyboard. I've used the degree symbol (°) enough that I don't have to look up that it's <code>U+00B0</code> (or <code>Alt+0176</code> on windows). Having direct access to that and a few other common symbols without having to look them up is a nice perk that doesn't really cost anything except some slightly more cluttered keycaps. I probably only needed a few of these, but opted to add:</p>
+<ul>
+<li>center dot: <code>·</code></li>
+<li>ellipsis: <code>…</code></li>
+<li>superscript 2 and 3: <code>²</code> and <code>³</code></li>
+<li>arrows: <code>← → ↑ ↓</code></li>
+<li>degree symbol: <code>°</code></li>
+<li>en and em dashes: <code>–</code> <code>—</code></li>
+<li>open and closing double and single quotes: <code>“ ”</code> and <code>‘ ’</code></li>
+</ul>
+<h2 id="split-space-bar">Split Space Bar</h2>
+<p><div class="img-container"><a href="keyboard_spacebar.png"><img alt="A keyboard layout with the split spacebar highlighted" src="keyboard_spacebar-400w.webp" srcset="keyboard_spacebar-400w.webp 400w, keyboard_spacebar-1600w.webp 1600w, keyboard_spacebar-1200w.webp 1200w, keyboard_spacebar-600w.webp 600w, keyboard_spacebar-800w.webp 800w" style="max-width: 800px" / sizes="(width <= 800px) 85vw, 800px"></a></div></p>
+<p>This was one of the key features I was looking for when trying to find a keyboard. I type spaces almost exclusively with my right thumb, and wanted to enable using my left thumb for a common modifier. Since I already had <code>Ctrl</code> in the typical <code>Caps Lock</code> location, I opted to let my left thumb act as a <code>Super</code> modifier. I have all my window/workspace navigation keybinds using <code>Super</code>, along with a few other shortcuts for things like <a href="https://albertlauncher.github.io/">albert</a>.</p>
+<p>I tried this for a bit, and very much liked it, but opted to change the left key to a Mod-Tap <code>Super</code>/<code>Space</code> as I found myself still wanting to type a space with my left thumb on occasion, usually if my right hand was using the mouse.</p>
+<h2 id="bottom-row">Bottom Row</h2>
+<p><div class="img-container"><a href="keyboard_bottom_row.png"><img alt="A keyboard layout with the bottom row modifier keys highlighted" src="keyboard_bottom_row-400w.webp" srcset="keyboard_bottom_row-400w.webp 400w, keyboard_bottom_row-600w.webp 600w, keyboard_bottom_row-800w.webp 800w, keyboard_bottom_row-1200w.webp 1200w, keyboard_bottom_row-1600w.webp 1600w" style="max-width: 800px" / sizes="(width <= 800px) 85vw, 800px"></a></div></p>
+<p>I actually kept most of the bottom row fairly standard. I don't use the bottom right mod keys very often, so left them to a fairly standard set of <code>Super</code>, <code>Alt</code>, and <code>Ctrl</code>. I left the left <code>Alt</code> key the same for <code>Alt-Tab</code> navigation, but the other three keys are a bit more interesting.</p>
+<h3 id="layer">Layer</h3>
+<p>This is mostly for toggling the F-key row between their media/shortcut uses and standard F-keys, but I opted not to call it <code>Fn</code> since I also use that layer to have access to some less common keys like <code>Insert</code>, or <code>Scroll Lock</code> (in the rare case an application has a need for those specifically).</p>
+<h3 id="compose">Compose</h3>
+<p>While I'm unfortunately monolingual, I have actually found myself getting a ton of use out of the compose key. I appreciate being able to easily spell names with their proper diacritics, and, as I've recently been learning a bit about Old English, having quick access to þ, ð, or æ has saved a lot of annoying copy-and-pasting when looking up words or phrases.</p>
+<h3 id="magic">Magic</h3>
+<p>This one's just a bit of fun, and I might swap this out for something else later, but it currently launches <a href="https://github.com/ThatOtherAndrew/Hexecute">Hexecute</a>. I also have it set as Mod-Tap for use as an extra <code>Ctrl</code> key. This is mostly so anyone else (or myself) using the keyboard will find their copy/paste muscle memory working.</p>
+<h2 id="numpad">Numpad</h2>
+<p><div class="img-container"><a href="keyboard_numpad.png"><img alt="A keyboard layout with the numpad highlighted" src="keyboard_numpad-600w.webp" srcset="keyboard_numpad-600w.webp 600w, keyboard_numpad-800w.webp 800w, keyboard_numpad-1600w.webp 1600w, keyboard_numpad-1200w.webp 1200w, keyboard_numpad-400w.webp 400w" style="max-width: 800px" / sizes="(width <= 800px) 85vw, 800px"></a></div></p>
+<p>Like a standard numpad, it has two modes controlled by a <code>Num Lock</code> key: one for data entry and another for window navigation. (the key actually toggles a custom layer, not actually sending numlock, but the labelling made sense)</p>
+<h3 id="number-mode">Number Mode</h3>
+<p>Three noteworthy tweaks here, all related to navigation when performing data entry (or other calculations):</p>
+<ul>
+<li><code>Tab</code>: using the <code>Enter</code> key for submitting a typed number can cause problems with accidental form submission or navigating downwards in a spreadsheet instead of horizontally. Easy access to the <code>Tab</code> key allows for one-handed spreadsheet entry in both dimensions.</li>
+<li><code>Esc</code>: when modifying a spreadsheet cell, if I want to undo a current edit, <code>Esc</code> will both undo any incomplete changes and stay focused on the current cell.</li>
+<li><code>Backspace</code>: the main <code>Backspace</code> key isn't far from the number pad, but having it in the corner makes it easy to jump to while typing.</li>
+</ul>
+<h3 id="window-navigation">Window Navigation</h3>
+<p>I do most window/workspace navigation using gestures on a touchpad, but I appreciate having a dedicated, single-handed option for all window movement and resizing options.</p>
+<p>In this mode I have the <code>0</code> key set as a <code>Ctrl</code> modifier, which allows for an impressively large array of operations:</p>
+<ul>
+<li>Selecting windows (left, right, up, down)</li>
+<li>Moving windows (left, right, up, down)</li>
+<li>Merging/unmerging windows (left, right)</li>
+<li>Switching Workspaces (up, down)</li>
+<li>Moving windows to a different workspace (up, down)</li>
+<li>Cycling between default window sizes</li>
+<li>Growing/Shrinking windows (vertically, horizontally)</li>
+<li>Toggling tiling vs floating for a window</li>
+<li>Toggling tabbing for merged windows</li>
+<li>Closing a window</li>
+</ul>
+<p>This is just about the full range of niri window commands, all usable one-handed!</p>
+<h1 id="impressions">Impressions</h1>
+<p>I've very much enjoyed feeling in control of the design decisions for a device I use so often. Uniformity for something as pervasive as keyboards is still valuable, but it's a wonder to me that certain standards (like the <code>Caps Lock</code> location or the inclusion of <code>Pause Break</code>) have persisted.</p>
+<p>I did make one minor revision already: I originally had the 'close window' key not require any modifier, and exited applications accidentally a few times. Thankfully, that was just a software fix to fix.</p>
+<p>I also did purchase a few additional keycaps in case I want to adjust in the future:</p>
+<ul>
+<li>4 "Macro" keys if I opt to remove the <code>Home</code>, <code>Page Up</code>, <code>Page Down</code>, and <code>End</code> keys</li>
+<li>Dedicated keys for <code>Power</code> and <code>Menu</code></li>
+<li>Different sizes for <code>Delete</code>, <code>Lock</code>, <code>Escape</code> and some modifier keys to allow reorganizing</li>
+</ul>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>
