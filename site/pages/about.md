@@ -8,4 +8,4 @@ My name is Evan. I like puzzles, hiking, music, and computers. I work in compute
 
 ## Contacting Me
 
-Feel free to reach out to me at <span class="email"><span>evan</span><span>.spam</span><span>@schor.net</span></span> if you want to want to connect.
+Feel free to reach out to me at <span class="email"><span>evan</span><span>.spam</span><span>@schor.net</span></span> if you have questions to ask or thoughts to share.
