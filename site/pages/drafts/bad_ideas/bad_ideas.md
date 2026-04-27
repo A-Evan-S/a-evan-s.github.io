@@ -10,4 +10,4 @@ Instead of switching by an hour twice a year, switch by ~20 seconds every day.
 
 ## Bears in Britain
 
-Reintroduce brown bears to Britain. Those limey bastards have gotten a little too comfortable benefiting from the hunting of their predecessors. I don't want them to die or anything, but just to remind them they're not so hot.
+Reintroduce brown bears to Britain. Not for any environmental reason or anything, I just think brits have gotten a little too comfortable.
