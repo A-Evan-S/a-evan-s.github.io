@@ -366,3 +366,7 @@ figcaption {
   text-align: center;
   font-size: 0.9em;
 }
+
+span.email > span:nth-child(2) {
+	display: none;
+}

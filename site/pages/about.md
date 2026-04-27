@@ -5,3 +5,7 @@ It seems like this whole "internet" thing might just stick around, so I figured 
 ## Myself
 
 My name is Evan. I like puzzles, hiking, music, and computers. I work in computer science education where you may know me as Andrew.
+
+## Contacting Me
+
+Feel free to reach out to me at <span class="email"><span>evan</span><span>.spam</span><span>@schor.net</span></span> if you want to want to connect.
