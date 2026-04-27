@@ -1,6 +1,6 @@
 ---
 title: My Custom Keyboard Layout
-date: 2026-04-19
+date: 2026-04-26
 summary: Sharing my customized keyboard layout
 ---
 
@@ -24,7 +24,7 @@ Before choosing a keyboard or layout, I had a number of different goals I was ai
 
 # Hardware and Software
 
-I ended up purchasing a System76 Launch Heavy. I was also considering the Keychron Q13 Pro, but I don't like using a wristrest, and it looked too tall to use without one.
+I ended up purchasing a System76 Launch Heavy. I was also considering the Keychron Q13 Pro, but I don't like using a wrist rest, and it looked too tall to use without one.
 
 The keycaps were from Yuzu, planned with their custom design tool.
 
@@ -37,7 +37,7 @@ The software configuration was primarily achieved through a custom QMK keymap an
 
 ![A keyboard layout with the caps/ctrl key highlighted](keyboard_caps_ctrl.png){: style="max-width: 800px"}
 
-I do actually use `Caps Lock` with moderate frequency. Mostly for data input or similar where all-caps is expected, less so for yelling on the internet. Still, the idea of reserving the prime real-estate of its typical position for these obscure use-cases is absurd. I chose to replace this with a [Mod-Tap](https://docs.qmk.fm/mod_tap) `Ctrl`/`Esc` button. `Ctrl` for easy keyboard shortcuts (much more comfortable than reaching down with the pinkey to either of the typcial `Ctrl` locations) and `Esc` for vim-style input and for controlling focus.
+I do actually use `Caps Lock` with moderate frequency. Mostly for data input or similar where all-caps is expected, less so for yelling on the internet. Still, the idea of reserving the prime real-estate of its typical position for these obscure use-cases is absurd. I chose to replace this with a [Mod-Tap](https://docs.qmk.fm/mod_tap) `Ctrl`/`Esc` button. `Ctrl` for easy keyboard shortcuts (much more comfortable than reaching down with the pinky to either of the typical `Ctrl` locations) and `Esc` for vim-style input and for controlling focus.
 
 While vim-style editing was my initial reasoning for adding the `Esc` key here, it's remarkably useful beyond that. I've found numerous instances of interfaces where exiting a certain focus requires either using the mouse or pressing `Esc` (for example, using `Ctrl-f` on chrome brings up a search with the keyboard, but `Esc` is required to exit search).
 
@@ -71,12 +71,12 @@ Customizing these helped focus on what I actually use most frequently, but I als
 
 There are a handful of symbols that I appreciate having quick access to beyond those typically present on a keyboard. I've used the degree symbol (°) enough that I don't have to look up that it's `U+00B0` (or `Alt+0176` on windows). Having direct access to that and a few other common symbols without having to look them up is a nice perk that doesn't really cost anything except some slightly more cluttered keycaps. I probably only needed a few of these, but opted to add:
 
-* center dot `·`
-* ellipsis `…`
-* superscript 2 and 3 `²` and `³`
-* arrows `← → ↑ ↓`
-* degree symbol `°`
-* en and em dashes `–` `—`
+* center dot: `·`
+* ellipsis: `…`
+* superscript 2 and 3: `²` and `³`
+* arrows: `← → ↑ ↓`
+* degree symbol: `°`
+* en and em dashes: `–` `—`
 * open and closing double and single quotes: `“ ”` and `‘ ’`
 
 ## Split Space Bar
@@ -109,7 +109,7 @@ This one's just a bit of fun, and I might swap this out for something else later
 
 ![A keyboard layout with the numpad highlighted](keyboard_numpad.png){: style="max-width: 800px"}
 
-Like a standard numpad, it has two modes controlled by a `Numlock` key: one for data entry and another for window navigation. (the key is actually toggling a custom layer, not actually sending numlock, but the labelling made sense)
+Like a standard numpad, it has two modes controlled by a `Num Lock` key: one for data entry and another for window navigation. (the key actually toggles a custom layer, not actually sending numlock, but the labelling made sense)
 
 ### Number Mode
 
@@ -123,7 +123,7 @@ Three noteworthy tweaks here, all related to navigation when performing data ent
 
 I do most window/workspace navigation using gestures on a touchpad, but I appreciate having a dedicated, single-handed option for all window movement and resizing options.
 
-In this mode, I have the `0` key set as a `Ctrl` modifier, allowing a wide array of operations:
+In this mode I have the `0` key set as a `Ctrl` modifier, which allows for an impressively large array of operations:
 
 * Selecting windows (left, right, up, down)
 * Moving windows (left, right, up, down)
@@ -136,3 +136,16 @@ In this mode, I have the `0` key set as a `Ctrl` modifier, allowing a wide array
 * Toggling tabbing for merged windows
 * Closing a window
 
+This is just about the full range of niri window commands, all usable one-handed!
+
+# Impressions
+
+I've very much enjoyed feeling in control of the design decisions for a device I use so often. Uniformity for something as pervasive as keyboards is still valuable, but it's a wonder to me that certain standards (like the `Caps Lock` location or the inclusion of `Pause Break`) have persisted.
+
+I did make one minor revision already: I originally had the 'close window' key not require any modifier, and exited applications accidentally a few times. Thankfully, that was just a software fix to fix.
+
+I also did purchase a few additional keycaps in case I want to adjust in the future:
+
+* 4 "Macro" keys if I opt to remove the `Home`, `Page Up`, `Page Down`, and `End` keys
+* Dedicated keys for `Power` and `Menu`
+* Different sizes for `Delete`, `Lock`, `Escape` and some modifier keys to allow reorganizing
