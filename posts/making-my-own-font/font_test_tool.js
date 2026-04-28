@@ -22,5 +22,5 @@ sampleText2.addEventListener('click', function() {
 });
 
 sampleText3.addEventListener('click', function() { // TODO: make more fun sample text
-    testingText.value = "\"The project, costing $1,250,000.75 (USD), requires 50+ team members; its deadline (Dec. 31st, 2025) is critical! Use @ to tag users, #hashtags for topics, & symbols like < > for ranges (e.g., ages 18–25).\"";
+    testingText.value = "\"The project, costing $1,250,000.75 (USD), requires 50+ team members; its deadline (Dec. 31st, 2025) is critical! Use @ to tag users, #hashtags for topics, & symbols like < > for ranges (e.g., ages 18-25).\"";
 });
