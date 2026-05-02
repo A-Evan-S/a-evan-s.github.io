@@ -4,7 +4,7 @@ date: 2026-04-26
 summary: Sharing my customized keyboard layout
 ---
 
-![A photograph of a black keyboard with white key labels](keyboard_transparent_test.png "This was the least dusty I could get it."){: style="max-width: 800px"}
+![A photograph of a black keyboard with white key labels](keyboard_transparent_test.png "I'm not a photographer"){: style="max-width: 800px"}
 
 After switching to [niri](https://github.com/niri-wm/niri) a few months back, I found myself wanting a better keyboard layout that made access to `Ctrl` (for app-level shortcuts) and `Super` (for OS commands) highly accessible. My old keyboard (a Das Keyboard Model S that I got off craigslist) was perfectly adequate, but I wanted to explore the options for a more customized configuration.
 
