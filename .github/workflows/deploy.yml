@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-deploy:
@@ -16,9 +16,11 @@ jobs:
       - name: Build site
         run: python build.py
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          publish_branch: gh-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+      - name: Deploy to VPS
+        run: |
+          eval $(ssh-agent -s)
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" | ssh-add -
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./dist/ \
+            evan@46.225.29.152:/var/www/personal_site/
