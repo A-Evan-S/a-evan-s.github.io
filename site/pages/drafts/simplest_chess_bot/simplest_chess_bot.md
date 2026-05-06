@@ -71,18 +71,63 @@ r1b2rk1/pp1n1ppp/1p2p3/3pP1q1/1P1P4/P3P1P1/2P4P/R1BQKB1R w KQ - 1 13
 2026-05-06 13:51:48 [INFO]   move_list | rank=13 move=d8g5 cp=-113 p=0.1064 [passing,selected]
 2026-05-06 13:51:48 [INFO]   move_list | rank=14 move=g7g6 cp=-113 p=0.0130
 2026-05-06 13:51:48 [INFO]   move_list | rank=15 move=g8h8 cp=-131 p=0.0043
+
 ```
 
-    [Pretty diagram of steps]
-    [image of board state]
-    [list of possible moves]
-    [filter by Maia probability (represented by size)]
-    [use epsilon to eliminate low-probability moves]
-    [assign quality to each move and sort (represented by color)]
-    [choose by distribution over the move options]
+
+First, we run stockfish in multipv mode to identify and rank the top 15 moves.
+Then we calculate the maia probability of each of these moves
+We remove any that don't meet the current epsilon threshold
+Then we use softmax to select one of the moves, skewing towards worse moves
+
+For example, take the following board:
+
+![A chessboard mid-game](lichess-fen.gif){: style="max-width: 600px"}
+
+Its moves would be calculated as:
+
+| move | cp | p |
+|------|-----|-------|
+| f7f6 | 64 | 0.2783 |
+| b6b5 | -56 | 0.0326 |
+| d8e8 | -58 | 0.0060 |
+| d8e7 | -60 | 0.0380 |
+| d8c7 | -61 | 0.0513 |
+| a7a6 | -62 | 0.1592 |
+| a7a5 | -64 | 0.1360 |
+| h7h6 | -90 | 0.0271 |
+| a8b8 | -102 | 0.0063 |
+| d7b8 | -103 | 0.0294 |
+| f7f5 | -111 | 0.0681 |
+| f8e8 | -112 | 0.0224 |
+| d8g5 | -113 | 0.1064 |
+| g7g6 | -113 | 0.0130 |
+| g8h8 | -131 | 0.0043 |
+
+With an epsilon value of 0.05, the only allowed moves would be: f7f6, d8c7, a7a6, a7a5, f7f5, and d8g5. We then use each of their resulting cp values to calculate their probability of being selected as a move, weighting towards worse moves but not deterministically selecting the worst every time.
+
+$$\text{Weight} = e^{T * \frac{-cp}{100}}$$
+
+where $T$ is an adjustable temperature constant. Producing the following weights and probabilities:
+
+| move | cp | p | weight | prob |
+|------|-----|-------|---|---|
+| f7f6 | 64 | 0.2783 | 0.527 | 4.3 |
+| d8c7 | -61 | 0.0513 | 1.840 | 15.0 |
+| a7a6 | -62 | 0.1592 | 1.859 | 15.2 |
+| a7a5 | -64 | 0.1360 | 1.896 | 15.5 |
+| f7f5 | -111 | 0.0681 | 3.034 | 24.8 |
+| d8g5 | -113 | 0.1064 | 3.096 | 25.2 |
+
+Note that the the optimal move will still be played on occasion, and the bot will never play a move so bad that it would be unlikely for a decent player to make that mistake. Instead, it just consistantly flubs opportunities and leaves itself in a somewhat worse state.
+
 
 Tweaks & Details
 
-    - Adjusts the epsilon on the fly based on the opponent's play (if they're not noticing, start making larger mistakes)
-    - Limits the stockfish depth to save time (we don't need to be super accurate, as we're capped at 1500 level play anyways)
-    - Fine tunes the epsilon and distrubution for eary game and endgame play: it's easy to spot intentional errors here, so play more guarded
+    A few more details about the engine's precise functionality that aren't covered by the general approach:
+
+    - The engine only even considers the top 15 stockfish rated moves. This doesn't have much of an impact, as it's very unlikely for a move below that to pass the maia threshold, but it saves some computation time. Similarly, it limits the stockfish search to a depth of 10, which should be plenty for the level of play expected.
+    - The epsilon value is dynamic. As the play progresses, it uses the cached search to measure the quality of the opponent's response. If they're responding well, epsilon is raised and the bot will play closer to raw Maia 1500. If the opponent isn't taking advantage of the bot's mistakes, it lowers epsilon and makes more obvious errors.
+    - After some testing, it was clear that mistakes in early and late game play are more obvious to the player, so both of these have adjustments from the core algorithm:
+        - At the start of the game, the epsilon value is set quite high, and drops to a normal value over the first ~10 moves, avoiding obvious errors where a typical mid-level player would likely be playing on book.
+        - If we're near the end of a game (measured as <14 pieces on the board and one player with a substantial advantage), it switches the move selection to favor better, more Maia likely moves. This avoids obvious errors like avoiding checkmating the opponent or trying to throw a game its already lost.
