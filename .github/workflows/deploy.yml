@@ -16,8 +16,11 @@ jobs:
       - name: Build site
         run: python build.py
 
+      - name: Stash build output
+        run: mv dist dist_main
+
       - name: Build site with drafts
-        run: python build.py --draft --output dist_drafts
+        run: python build.py --draft
 
       - name: Deploy to VPS
         run: |
@@ -25,9 +28,9 @@ jobs:
           echo "${{ secrets.DEPLOY_SSH_KEY }}" | ssh-add -
           rsync -avz --delete \
             -e "ssh -o StrictHostKeyChecking=no" \
-            ./dist/ \
+            ./dist_main/ \
             evan@46.225.29.152:/var/www/personal_site/
           rsync -avz --delete \
             -e "ssh -o StrictHostKeyChecking=no" \
-            ./dist_drafts/ \
+            ./dist/ \
             evan@46.225.29.152:/var/www/personal_site_drafts/
