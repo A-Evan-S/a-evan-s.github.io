@@ -20,7 +20,7 @@ jobs:
         run: mv dist dist_main
 
       - name: Build site with drafts
-        run: python build.py --draft
+        run: python build.py --drafts
 
       - name: Deploy to VPS
         run: |
