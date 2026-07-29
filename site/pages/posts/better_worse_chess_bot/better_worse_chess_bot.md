@@ -1,6 +1,6 @@
 ---
 title: Writing a Chess Bot
-date: 2026-07-21
+date: 2026-07-28
 summary: My attempt to create a chess bot that intentionally throws games so I can feel better about myself.
 ---
 
@@ -32,7 +32,7 @@ Heuristics applied to a snapshot of the board are a fundamental piece of the puz
 
 To model this, we can use a Game Tree. Here, each node of the tree represents a state of the game, where the descending branches represent the possible moves that can be taken and their corresponding future states.
 
-![A sample game tree for a mini chess game](game_tree.svg){: style="max-width: 400px"}
+![A sample game tree for a mini chess game](game_tree.svg)
 
 Instead of assessing a single move's result, we look at what the resulting state will be after the opponent takes their next turn (and when we take our next turn, and the opponent theirs, and so on). Since we don't know what our opponent will do on their turn, we plan for the worst and assume they will play whatever puts us in the least favorable position. This is the core idea behind the [minimax](https://en.wikipedia.org/wiki/Minimax) approach.
 
