@@ -1,10 +1,10 @@
 ---
-title: Writing a Chess Bot to Throw Games
-date: 2026-05-06
+title: Writing a Chess Bot
+date: 2026-07-21
 summary: My attempt to create a chess bot that intentionally throws games so I can feel better about myself.
 ---
 
-If you want to try playing the bot before reading about how it works, [you can do so here](https://chess.schor.net).
+If you want to try playing the bot before reading about how it works, [you can do so here](https://lichess.org/@/ConfidenceBuilder).
 
 # Background
 
@@ -12,13 +12,13 @@ I should point out before anything else that I am not a good chess player. I don
 
 However, like text justification or cellular automata, I think most everyone with an interest in computer science gets pulled towards it eventually, and this is the result of that experience for me.
 
-A few weeks back I downloaded the [lichess](lichess site) app and made an account. I figured it was as good or better than the other puzzle games I have on my phone, and certainly with a lot more depth. However, while I could beat the computer mode on the easiest setting, it felt like its mistakes were obvious, and deflated any sense of accomplishment from winning. Unfortunately, even bumping it up a couple of levels left me out of my depth and unable to win more than an occasionally lucky game.
+A while back I downloaded the [lichess](https://lichess.org/) app and made an account. I figured it was as good or better than the other puzzle games I have on my phone, and certainly with a lot more depth. However, while I could beat the computer mode on the easiest setting, it felt like its mistakes were obvious, and deflated any sense of accomplishment from winning. Unfortunately, even bumping it up a couple of levels left me out of my depth and unable to win more than an occasionally lucky game.
 
 Thus, my goal in short: why get better at beating the computer when I can make the computer better at losing to me?
 
 # Chess Engines
 
-Writing a program to play chess is a wonderful problem as the premise is about as clean of a starting point as you could imagine, but the implementation goes as deep as you want to take it. 
+Writing a program to play chess is a wonderful problem as the premise is about as clean of a starting point as you could imagine, but the implementation goes as deep as you want to take it.
 
 Chess only requires players to make one move at a time. This means the goal of a chess-playing program is simple: take the current state of the game, look at the legal moves available, and select the best move. Encoding the state of the game is simple enough (though there are many optimizations that exist) and identifying legal moves is just following some basic logic rules, so the crux of the challenge comes down to the third step of identifying what makes a move good or bad.
 
@@ -32,9 +32,9 @@ Heuristics applied to a snapshot of the board are a fundamental piece of the puz
 
 To model this, we can use a Game Tree. Here, each node of the tree represents a state of the game, where the descending branches represent the possible moves that can be taken and their corresponding future states.
 
-[TREE]
+![A sample game tree for a mini chess game](game_tree.svg){: style="max-width: 400px"}
 
-Instead of assessing a single move's result, we look at what the resulting state will be after the opponent takes their next turn (and when we take our next turn, and the opponent theirs, and so on). Since we don't know what our opponent will do on their turn, we plan for the worst and assume they will play whatever puts us in the least favorable position. This is the core idea behind the [minimax] approach.
+Instead of assessing a single move's result, we look at what the resulting state will be after the opponent takes their next turn (and when we take our next turn, and the opponent theirs, and so on). Since we don't know what our opponent will do on their turn, we plan for the worst and assume they will play whatever puts us in the least favorable position. This is the core idea behind the [minimax](https://en.wikipedia.org/wiki/Minimax) approach.
 
 Since chess games can be easily be dozens of turns long, it's infeasible to search all the possible moves in the tree. Instead we take advantage of things like:
 
@@ -44,7 +44,7 @@ Since chess games can be easily be dozens of turns long, it's infeasible to sear
 
 ## Current Engines
 
-Modern chess engines follow roughly the approach described above. They're icnredibly efficient, running on reasonably common hardware, and are good enough to beat the best human chess players.
+Modern chess engines follow roughly the approach described above. They're incredibly efficient, running on reasonably common hardware, and are good enough to beat the best human chess players.
 
 I am not among the best human chess players. I probably wouldn't even qualify as a bad chess player, as that implies that you have enough experience to assess your performance. This makes creating a chess-playing program suitable for myself a much more interesting challenge: how do you make it suck *just* the right amount?
 
@@ -52,9 +52,9 @@ I am not among the best human chess players. I probably wouldn't even qualify as
 
 Before trying my hand at creating a bot to play against, I learned a bit about what the common approaches to weakening computer play consist of. I found three main approaches that different engines used to adjust their level of performance for different human opponents:
 
-1) **Use the same approach as a good engine, but limit it.** A good engine searches deeply through the game tree and applies an accurate heuristic once it reaches its defined depth. To weaken this, we can do things like limit the max depth it's allowed to search, limit the total amount of time/processing power available, or use a sub-optimal heuristic.
-2) **Use the same approach as a good engine, but make a bad decision.** If a good engine identifies the relative quality of each move, it's trivial to then just *not* make the best move. There are different deterministic or stochastic approaches, but the idea is the same: some portion of the time, pick moves you know to be not in your best interest.
-3) **Make it more human.** Incorporate into your algorithm the specific types of approaches that humans take to playing. Things like over-eagerly taking your opponent's pieces, or missing moves from far across the board.
+1. **Use the same approach as a good engine, but limit it.** A good engine searches deeply through the game tree and applies an accurate heuristic once it reaches its defined depth. To weaken this, we can do things like limit the max depth it's allowed to search, limit the total amount of time/processing power available, or use a sub-optimal heuristic.
+2. **Use the same approach as a good engine, but make a bad decision.** If a good engine identifies the relative quality of each move, it's trivial to then just *not* make the best move. There are different deterministic or stochastic approaches, but the idea is the same: some portion of the time, pick moves you know to be not in your best interest.
+3. **Make it more human.** Incorporate into your algorithm the specific types of approaches that humans take to playing. Things like over-eagerly taking your opponent's pieces, or missing moves from far across the board.
 
 This third approach is particularly interesting to me, as it implies something about the nature or quality to the play, as opposed to just the quantitative value. The approach I ended up taking encorporated a bit of this, but was mostly focused on a unique implementation of the second idea.
 
@@ -75,7 +75,7 @@ While my implementation ended up a fair bit different to the Tutoring Search as 
 While I love the idea of including an opponent model's assessment in the search, actually implementing that presented two problems I wasn't able to overcome:
 
 1) I don't know how to create a model that has the same flawed assessment of game state as myself. Note, not a similarly poor assessment, but the *same* poor assessment.
-2) Even if I had one of these models, it would mean building the game tree search algorithm from scratch, since existing programs aren't built for combining multiple models.[lazy]
+2) Even if I had one of these models, it would mean building the game tree search algorithm from scratch, since existing programs aren't built for combining multiple models.[^lazy]
 
 Instead, I took inspiration from the idea but modified the implementation. My version does still use two models:
 
@@ -118,9 +118,9 @@ These moves are then assessed by Maia to identify the probability that a human p
 
 As the table shows, the best choice is to move the pawn at f7 to f6. This is also what Maia predicts a human to select the plurality of the time.
 
-The next step is to filter out any moves that would be highly unlikely for a human to play. To do this we set a threshold value, ε, and discard any moves that are predicted for a human to play with less than that probability. With an ε value of $0.05$, the only allowed moves would be: f7f6, d8c7, a7a6, a7a5, f7f5, and d8g5.
+The next step is to filter out any moves that would be highly unlikely for a human to play. To do this we set a threshold value, $ε$, and discard any moves that are predicted for a human to play with less than that probability. With an $ε$ value of $0.05$, the only allowed moves would be: f7f6, d8c7, a7a6, a7a5, f7f5, and d8g5.
 
-To actually select the move, we use each of their predicted `cp` values to calculate their probability of being chosen by the bot, weighting towards worse moves but not deterministically selecting the worst every time.
+To actually select the move, we use each of their predicted `cp` values to calculate their probability of being chosen by the bot, weighting towards worse moves but not deterministically selecting the worst option every time.
 
 $$\text{Weight} = e^{-T \cdot \frac{\text{cp}}{100}}$$
 
@@ -139,33 +139,6 @@ Note that it does still have a ~5% chance to play the optimal move, but the prob
 
 What we wind up with is a bot which plays intentionally poorly by taking plausible mistakes and turning them into likely mistakes. Anecdotely, this has a wonderful effect as a player of never noticing any particular mistakes that the bot is making, but conveniently winding up in favorable positions.
 
-
-<!--
-r1b2rk1/pp1n1ppp/1p2p3/3pP1q1/1P1P4/P3P1P1/2P4P/R1BQKB1R w KQ - 1 13
-
-1. d4 d5 2. Nc3 {11s} Nf6 3. e3 {8.1s} e6 4. Nf3 {12s} Bb4 5. a3 {1.9s} Ba5
-6. b4 {50s} Bb6 7. Na4 {29s} O-O 8. Nxb6 {14s} cxb6 9. Ne5 {15s} Nbd7
-10. f4 {119s} Nxe5 11. fxe5 {8.3s} Nd7 12. g3 {35s} Qg5 *
-
-2026-05-06 13:51:48 [INFO] move | mode=candidate selected=d8g5 cp=-113 optimal=f7f6 optimal_cp=64 delta=177 epsilon=0.05
-2026-05-06 13:51:48 [INFO]   move_list | rank=1 move=f7f6 cp=64 p=0.2783 [optimal]
-2026-05-06 13:51:48 [INFO]   move_list | rank=2 move=b6b5 cp=-56 p=0.0326
-2026-05-06 13:51:48 [INFO]   move_list | rank=3 move=d8e8 cp=-58 p=0.0060
-2026-05-06 13:51:48 [INFO]   move_list | rank=4 move=d8e7 cp=-60 p=0.0380
-2026-05-06 13:51:48 [INFO]   move_list | rank=5 move=d8c7 cp=-61 p=0.0513 [passing]
-2026-05-06 13:51:48 [INFO]   move_list | rank=6 move=a7a6 cp=-62 p=0.1592 [passing]
-2026-05-06 13:51:48 [INFO]   move_list | rank=7 move=a7a5 cp=-64 p=0.1360 [passing]
-2026-05-06 13:51:48 [INFO]   move_list | rank=8 move=h7h6 cp=-90 p=0.0271
-2026-05-06 13:51:48 [INFO]   move_list | rank=9 move=a8b8 cp=-102 p=0.0063
-2026-05-06 13:51:48 [INFO]   move_list | rank=10 move=d7b8 cp=-103 p=0.0294
-2026-05-06 13:51:48 [INFO]   move_list | rank=11 move=f7f5 cp=-111 p=0.0681 [passing]
-2026-05-06 13:51:48 [INFO]   move_list | rank=12 move=f8e8 cp=-112 p=0.0224
-2026-05-06 13:51:48 [INFO]   move_list | rank=13 move=d8g5 cp=-113 p=0.1064 [passing,selected]
-2026-05-06 13:51:48 [INFO]   move_list | rank=14 move=g7g6 cp=-113 p=0.0130
-2026-05-06 13:51:48 [INFO]   move_list | rank=15 move=g8h8 cp=-131 p=0.0043
-
--->
-
 # Tweaks & Details
 
 While the above outlines the core of how the bot determines its moves, here are a few more details for the curious:
@@ -173,7 +146,7 @@ While the above outlines the core of how the bot determines its moves, here are 
 - The ε value is dynamic. As the play progresses, it uses the cached search to measure the quality of the opponent's response. If they're responding well, ε is raised and the bot will play closer to the raw Maia predictions. If the opponent isn't taking advantage of the bot's mistakes, it lowers ε and makes more obvious errors.
 - After some testing, it was clear that mistakes in early and late game play are more obvious to the opponent, so both of these have adjustments from the core algorithm:
     - At the start of the game, the epsilon value is set quite high, and drops to a normal value over the first ~10 moves, avoiding obvious errors where a typical mid-level player would likely be playing common openings.
-    - If we're near the end of a game (measured as less than a threshold number pieces on the board and one player with a substantial advantage), it switches the move selection to favor better, more Maia likely moves. This avoids obvious errors like avoiding checkmating the opponent or trying to throw a game its already lost.
+    - If we're near the end of a game (measured as less than a threshold number pieces on the board and one player with a substantial advantage), it switches the move selection to favor better, more Maia likely moves. This avoids obvious errors like avoiding checkmating the opponent or trying to throw a game it's already lost.
 - When no moves exceed the ε threshold, the bot just selects the most likely move as measured by Maia. This isn't a frequent enough occurence to affect its play dramatically, and avoids taking uncommon moves which might appear unusual.
 - Maia has a number of models avaiable which provide predicted move probabilities for different levels of human players. As of writing, the bot is set to use Maia's 1500 ELO model, but this can be adjusted to better suit the opponent.
 
@@ -184,4 +157,7 @@ I wasn't kidding when I said I'm not good at chess. This has limited my ability 
 - Rather than just adjusting the ε threshold, it's possible to swap to a different Maia model mid-game as well. This would allow the bot to better adapt to a wider variety of opponents.
 - While the fixes to early and late game play helped, there's still a bit of an obvious shift as the bot transitions to/from these modes.
 
-If you've read this far, please do [give the bot a try](https://chess.schor.net) and [let me know what you think](contact page).
+If you've read this far, please do [give the bot a try](https://lichess.org/@/ConfidenceBuilder) and [let me know what you think](https://evan.schor.net/about/).
+
+
+[^lazy]: This was mostly me just being lazy
