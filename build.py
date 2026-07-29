@@ -169,7 +169,7 @@ def convert_inline_math(match):
 def generate_post_page(template, post, posts):
     post_dir = os.path.join(DIST_DIR, 'posts', post['slug'])
     os.makedirs(post_dir)
-    image_extensions = {'.png', '.jpg', '.jpeg', '.webp'}
+    image_extensions = {'.png', '.jpg', '.jpeg', '.webp', '.gif'}
     omitted_extensions = {'.md', '.py'}
 
     for filepath in Path(post['orig_dir']).glob('*'):
